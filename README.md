@@ -51,7 +51,7 @@ Logon failure events, those events with Ids of 4625 and 4771, can be found using
 The `Get-PrintDocumentEvent` function will show you all of the successful print jobs that the system has processed.
 
 ```powershell
-Get-PrintDocumentEvent -ComputerName printsvc -MaxEvents 1 -Oldest
+C:\PowerShell\Get-PrintDocumentEvent -ComputerName printsvc -MaxEvents 1 -Oldest
 
 ComputerName      : PRINTSVR
 TimeCreated       : 10/5/2017 8:12:05 AM
@@ -75,7 +75,7 @@ Use `Get-RemoteLogonEvent` to show all remote desktop connections.
 The `Get-ServiceEvent` function will query the specified system for all service control manager events for service operations, stop, and start events. You can then filter on a particular service name or service displayname.
 
 ```powershell
-(Get-ServiceEvent).Where({$_.ServiceDisplayName -match "print"}) | Select-Object -Property TimeCreated,EventType,ServiceName,ServiceDisplayName,Message
+PS C:\PowerShell\Temp> (Get-ServiceEvent).Where({$_.ServiceDisplayName -match "print"}) | Select-Object -Property TimeCreated,EventType,ServiceName,ServiceDisplayName,Message
 
 TimeCreated        : 9/12/2017 9:41:27 PM
 EventType          : ServiceOperations
