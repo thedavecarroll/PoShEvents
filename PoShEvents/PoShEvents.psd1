@@ -12,7 +12,7 @@
 RootModule = 'PoShEvents.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.0'
+ModuleVersion = '0.1.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -134,9 +134,15 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = @'
+## 0.1.1
+
+* Added external help
+
 ## 0.1.0
 
 * Initial release
+
+For full Release Notes, see https://github.com/thedavecarroll/PoShEvents/blob/master/ReleaseNotes.md
 '@
 
         # External dependent modules of this module
