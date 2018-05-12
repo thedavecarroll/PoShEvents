@@ -9,3 +9,7 @@ My general TODO list for this module.
 ## Maybe Things that Need to be Done
 
 * Get-RemoteLogonEvent - refactor to use Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational
+
+### Testing
+
+Testing brand new GPG key
