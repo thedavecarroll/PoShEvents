@@ -1,13 +1,11 @@
 TOPIC
-    PoShGroupPolicy
+    PoShEvents
 
 SHORT DESCRIPTION
-    PoShEventsis a PowerShell module for working with Event Logs.
+    PoShEvents is a PowerShell module for working with Event Logs.
 
 LONG DESCRIPTION
-    The functions in this module will assist in troubleshooting or data mining.
-
-    This module helps the by parsing the group policy and returing key pieces of data for several GP extension types.
+    The functions in this module will assist in troubleshooting and data mining.
 
 SEE ALSO
     Get-AccountManagementEvent

@@ -987,11 +987,11 @@ vmwkstn45.contoso.com 4/10/2018 10:34:00 PM       True Grace Period       Window
       <command:verb>Get</command:verb>
       <command:noun>KMSHostLicenseCheckEvent</command:noun>
       <maml:description>
-        <maml:para>{{Fill in the Synopsis}}</maml:para>
+        <maml:para>This function will search the provider Microsoft-Windows-Security-SPP for KMS Host license checks with Microsoft.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>This function will search the provider Microsoft-Windows-Security-SPP for KMS Host license checks with Microsoft.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1373,9 +1373,18 @@ vmwkstn45.contoso.com 4/10/2018 10:34:00 PM       True Grace Period       Window
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-LogonFailureEvent -ComputerName dc07 -MaxEvents 10 -Credential (Get-Credential) | Format-Table -Property ComputerName,TimeCreated,TargetUserName,IPAddress,IpPort,LogonMethod,Reason</dev:code>
+        <dev:code>PS C:\&gt; Get-LogonFailureEvent -ComputerName dc07 -MaxEvents 10 -Credential (Get-Credential) | Format-Table -Property ComputerName,TimeCreated,TargetUserName,IPAddress,IpPort,LogonMethod,Reason
+
+ComputerName    TimeCreated          TargetUserName IpAddress    LogonMethod               Reason
+------------    -----------          -------------- ---------    -----------               ------
+DC1.contoso.com 5/11/2018 8:39:29 PM rtorn          192.168.1.22 Undetermined logon method 0x18
+DC1.contoso.com 5/11/2018 8:39:27 PM tljones        192.168.1.18 Undetermined logon method 0x18
+DC1.contoso.com 5/11/2018 8:39:27 PM ftpug          192.168.1.66 Undetermined logon method 0x18
+DC1.contoso.com 5/11/2018 8:39:24 PM ftpug          192.168.1.66 Undetermined logon method 0x18
+DC1.contoso.com 5/11/2018 8:38:51 PM WKSTN99$       192.168.1.9  Network                   Account currently disabled.
+DC1.contoso.com 5/11/2018 8:37:41 PM jknoxville     192.168.1.67 Undetermined logon method 0x18</dev:code>
         <dev:remarks>
-          <maml:para>ComputerName    TimeCreated          TargetUserName IpAddress    LogonMethod               Reason ------------    -----------          -------------- ---------    -----------               ------ DC1.contoso.com 5/11/2018 8:39:29 PM rtorn          192.168.1.22 Undetermined logon method 0x18 DC1.contoso.com 5/11/2018 8:39:27 PM tljones        192.168.1.18 Undetermined logon method 0x18 DC1.contoso.com 5/11/2018 8:39:27 PM ftpug          192.168.1.66 Undetermined logon method 0x18 DC1.contoso.com 5/11/2018 8:39:24 PM ftpug          192.168.1.66 Undetermined logon method 0x18 DC1.contoso.com 5/11/2018 8:38:51 PM WKSTN99$       192.168.1.9  Network                   Account currently disabled. DC1.contoso.com 5/11/2018 8:37:41 PM jknoxville     192.168.1.67 Undetermined logon method 0x18</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1917,7 +1926,7 @@ LogonID      :
 Reason       : Unknown user name or bad password.
 LogonMethod  : Interactive (local system)</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -2121,9 +2130,7 @@ TimeCreated        : 9/12/2017 9:41:27 PM
 EventType          : ServiceOperations
 ServiceName        :
 ServiceDisplayName : Printer Extensions and Notifications
-Message            : The Printer Extensions and Notifications service is marked as an interactive service.  However,
-                     the system is configured to not allow interactive services.  This service may not function
-                     properly.
+Message            : The Printer Extensions and Notifications service is marked as an interactive service.  However, the system is configured to not allow interactive services.  This service may not function properly.
 
 TimeCreated        : 10/3/2017 10:42:18 PM
 EventType          : ServiceOperations
