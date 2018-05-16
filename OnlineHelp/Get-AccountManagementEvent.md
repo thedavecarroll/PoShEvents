@@ -1,7 +1,7 @@
 ---
 external help file: PoShEvents-help.xml
-Module Name:
-online version:
+Module Name: PoShEvents
+online version: https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-AccountManagementEvent.md
 schema: 2.0.0
 ---
 
@@ -13,16 +13,16 @@ Each audit group corresponds a selection of event Ids.
 
 ## SYNTAX
 
-### UNNAMED_PARAMETER_SET_1
+### AuditGroup
 ```
-Get-AccountManagementEvent [-ComputerName <String[]>] [-Credential <PSCredential>] [-EndTime <DateTime>]
- [-EventID <Int32[]>] [-MaxEvents <Int64>] [-Oldest] [-StartTime <DateTime>] [<CommonParameters>]
+Get-AccountManagementEvent [-ComputerName <String[]>] [-Credential <PSCredential>] [-StartTime <DateTime>]
+ [-EndTime <DateTime>] [-MaxEvents <Int64>] [-Oldest] [-Type <String>] [<CommonParameters>]
 ```
 
-### UNNAMED_PARAMETER_SET_2
+### EventID
 ```
-Get-AccountManagementEvent [-ComputerName <String[]>] [-Credential <PSCredential>] [-EndTime <DateTime>]
- [-MaxEvents <Int64>] [-Oldest] [-StartTime <DateTime>] [-Type <String>] [<CommonParameters>]
+Get-AccountManagementEvent [-ComputerName <String[]>] [-Credential <PSCredential>] [-StartTime <DateTime>]
+ [-EndTime <DateTime>] [-MaxEvents <Int64>] [-Oldest] [-EventID <Int32[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -121,7 +121,7 @@ Specify the Event ID with which to query the security log
 
 ```yaml
 Type: Int32[]
-Parameter Sets: UNNAMED_PARAMETER_SET_1
+Parameter Sets: EventID
 Aliases:
 
 Required: False
@@ -184,7 +184,7 @@ Accept wildcard characters: False
 
 ```yaml
 Type: String
-Parameter Sets: UNNAMED_PARAMETER_SET_2
+Parameter Sets: AuditGroup
 Aliases:
 Accepted values: UserAccount, SecurityEnabledGroup, DistributionGroup, ComputerAccount, ApplicationGroup, DSObject, AccountLockout
 
@@ -210,14 +210,3 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## NOTES
 
 ## RELATED LINKS
-Online Version: https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-AccountManagementEvent.md
-Get-GPOProcessingEvent
-Get-KMSClientEvent
-Get-KMSHostEvent
-Get-KMSHostLicenseCheckEvent
-Get-LogonFailureEvent
-Get-OSVersionFromEvent
-Get-PrintDocumentEvent
-Get-RemoteLogonEvent
-Get-ServiceEvent
-Get-SystemRestartEvent

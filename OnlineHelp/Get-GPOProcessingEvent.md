@@ -1,7 +1,7 @@
 ---
 external help file: PoShEvents-help.xml
-Module Name:
-online version:
+Module Name: PoShEvents
+online version: https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-GPOProcessingEvent.md
 schema: 2.0.0
 ---
 
@@ -148,14 +148,3 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## NOTES
 
 ## RELATED LINKS
-Online Version: https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-GPOProcessingEvent.md
-Get-AccountManagementEvent
-Get-KMSClientEvent
-Get-KMSHostEvent
-Get-KMSHostLicenseCheckEvent
-Get-LogonFailureEvent
-Get-OSVersionFromEvent
-Get-PrintDocumentEvent
-Get-RemoteLogonEvent
-Get-ServiceEvent
-Get-SystemRestartEvent
