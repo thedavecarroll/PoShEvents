@@ -159,7 +159,7 @@ For full Release Notes, see https://github.com/thedavecarroll/PoShEvents/blob/ma
 } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
-HelpInfoURI = 'https://github.com/thedavecarroll/PoShEvents/tree/master/UpdatableHelp'
+HelpInfoURI = 'https://github.com/thedavecarroll/PoShEvents/blob/fac7fd7ac4f68127fba351c0cf5a1792ce24c47c/UpdatableHelp/'
 
 # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
 # DefaultCommandPrefix = ''
