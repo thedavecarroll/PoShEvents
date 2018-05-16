@@ -134,6 +134,12 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = @'
+## 0.1.2
+
+* Added online help
+* Corrected external help by adding online
+* First attempt at updatable help
+
 ## 0.1.1
 
 * Added external help
@@ -153,7 +159,7 @@ For full Release Notes, see https://github.com/thedavecarroll/PoShEvents/blob/ma
 } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
-HelpInfoURI = 'https://github.com/thedavecarroll/PoShEvents/tree/master/OnlineHelp'
+HelpInfoURI = 'https://github.com/thedavecarroll/PoShEvents/tree/master/UpdatableHelp'
 
 # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
 # DefaultCommandPrefix = ''
