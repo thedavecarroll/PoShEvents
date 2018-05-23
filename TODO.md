@@ -10,6 +10,7 @@ My general TODO list for this module.
 ## Bugs
 
 * Help me find typos or bugs.
+* Get-ServiceEvent - MaxEvents will return MaxEvents x 3, as there are three sets of event Ids.
 
 ## Maybe Things that Need to be Done
 
