@@ -4,7 +4,8 @@
 
 * Added online help
 * Corrected external help by adding online
-* First attempt at updatable help
+* Get-MyEvent - switched to parameterset for filter and simplified error handling
+* All public functions - removed try/catch for Get-MyEvent
 
 ## 0.1.1
 

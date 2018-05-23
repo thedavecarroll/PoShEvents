@@ -138,7 +138,8 @@ PrivateData = @{
 
 * Added online help
 * Corrected external help by adding online
-* First attempt at updatable help
+* Get-MyEvent - switched to parameterset for filter and simplified error handling
+* All public functions - removed try/catch for Get-MyEvent
 
 ## 0.1.1
 
@@ -159,7 +160,7 @@ For full Release Notes, see https://github.com/thedavecarroll/PoShEvents/blob/ma
 } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
-HelpInfoURI = 'https://github.com/thedavecarroll/PoShEvents/blob/fac7fd7ac4f68127fba351c0cf5a1792ce24c47c/UpdatableHelp/'
+HelpInfoURI = ''
 
 # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
 # DefaultCommandPrefix = ''
