@@ -46,25 +46,9 @@ function Get-ServiceEvent {
 
     process {
 
-        $Events = foreach ($FilterHashtable in $FilterSet) {
-            try {
-                Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashtable -ErrorAction Continue @ParameterSplat
-            }
-            catch {
-                Write-Error -Message "$Computer : $($_.CategoryInfo.Reason + " : " + $_.Exception.Message)"
-            }
+        $Events = foreach ($FilterHashtable in $FilterSet) {            
+            Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashtable @ParameterSplat
         }
-
-        if ($Oldest) {
-            $Events = $Events | Sort-Object -Property TimeCreated -Descending
-        } else {
-            $Events = $Events | Sort-Object -Property TimeCreated
-        }
-
-        if ($MaxEvents) {
-            $Events = $Events | Select-Object -First $MaxEvents
-        }
-
 
         $EventCount = 0
         foreach ($Event in $Events) {
