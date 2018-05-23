@@ -11,6 +11,7 @@ My general TODO list for this module.
 
 * Help me find typos or bugs.
 * Get-ServiceEvent - MaxEvents will return MaxEvents x 3, as there are three sets of event Ids.
+* Get-GPOProcessingEvent - This has external module dependencies.
 
 ## Maybe Things that Need to be Done
 
