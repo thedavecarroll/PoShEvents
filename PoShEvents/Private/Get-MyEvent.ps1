@@ -4,8 +4,10 @@ function Get-MyEvent {
         [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]
         [Alias('IPAddress','__Server','CN')]    
         [string[]]$ComputerName='localhost',
+        [Parameter(ParameterSetName='FilterHashTable')]
         [ValidateNotNull()]
         [hashtable]$FilterHashTable,
+        [Parameter(ParameterSetName='FilterXml')]
         [ValidateNotNull()]
         [xml]$FilterXml,
         [ValidateNotNull()]
@@ -16,14 +18,6 @@ function Get-MyEvent {
     )
 
     begin {
-
-        if (-Not $FilterHashTable -and -Not $FilterXml) {
-            Write-Error -Message "You must supply a FilterHashTable or a FilterXml"
-            break
-        } elseif ($FilterHashTable -and $FilterXml) {
-            Write-Error -Message "You must supply either a FilterHashTable or a FilterXml, but not both"
-            break
-        }
 
         $ParameterSplat = @{}
         if ($Credential) {
@@ -54,27 +48,21 @@ function Get-MyEvent {
                 if ($Computer -isnot [ipaddress]) {
                     [void][System.Net.Dns]::GetHostByName($Computer)
                 }
-
-                try {        
-                    if ($FilterHashTable) {
-                        Get-WinEvent -ComputerName $Computer -FilterHashtable $FilterHashtable -ErrorAction Stop  @ParameterSplat
-                    } else {
-                        Get-WinEvent -ComputerName $Computer -FilterXml $FilterXml -ErrorAction Stop  @ParameterSplat
-                    }                        
+                switch ($PsCmdlet.ParameterSetName) { 
+                    'FilterHashTable' {
+                        Get-WinEvent -ComputerName $Computer -FilterHashtable $FilterHashtable -ErrorAction Stop @ParameterSplat
+                    }
+                    'FilterXml' {
+                        Get-WinEvent -ComputerName $Computer -FilterXml $FilterXml -ErrorAction Stop @ParameterSplat
+                    }
                 }
-                catch {
-                    Write-Verbose -Message "$Computer : $($_.CategoryInfo.Reason + " : " + $_.Exception.Message)"
-                }
-                
-            }
-            catch [System.Net.Sockets.SocketException] {
-                Write-Warning -Message "$Computer : Name resolution failed"
-            }
-            catch [System.UnauthorizedAccessException] {
-                Write-Warning -Message "$Computer : Attempted to perform an unauthorized operation"
             }
             catch {
-                Write-Warning -Message "$Computer : $($_.CategoryInfo.Reason + " : " + $_.Exception.Message)"
+                if ($_.Exception.InnerException) {
+                    Write-Warning -Message ("$Computer : " + $_.Exception.InnerException.Message)
+                } else {
+                    Write-Warning -Message ("$Computer : " + $_.Exception.Message)
+                }
             }
         }
     }
