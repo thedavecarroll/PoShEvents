@@ -60,6 +60,8 @@ function Get-MyEvent {
             catch {
                 if ($_.Exception.InnerException) {
                     Write-Warning -Message ("$Computer : " + $_.Exception.InnerException.Message)
+                } elseif ($_.CategoryInfo.Category -eq 'ObjectNotFound') {
+                    Write-Warning -Message ("$Computer : Insufficient privileges or no events were found that match the specified selection criteria")
                 } else {
                     Write-Warning -Message ("$Computer : " + $_.Exception.Message)
                 }
