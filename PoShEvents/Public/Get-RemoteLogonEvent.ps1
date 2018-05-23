@@ -37,12 +37,7 @@
 
     Process {
 
-        try {
-            $Events = Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashtable -ErrorAction Continue @ParameterSplat
-        }
-        catch {
-            Write-Error -Message "$Computer : $($_.CategoryInfo.Reason + " : " + $_.Exception.Message)"
-        }
+        $Events = Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashtable @ParameterSplat
 
         $EventCount = 0
         foreach ($Event in $Events) {

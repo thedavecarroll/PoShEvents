@@ -46,15 +46,10 @@ function Get-KMSHostEvent {
         }
 
         if ($Service.Status -ne 'Running') {
-            Write-Warning -Message 'The KMS service (sppsvc) is not currently running. Please check the service and try again.'
+            Write-Warning -Message 'The KMS service (sppsvc) is not currently running.'
         }
         
-        try {
-            $Events = Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashTable -ErrorAction Continue @ParameterSplat
-        }
-        catch {
-            Write-Error -Message "$Computer : $($_.CategoryInfo.Reason + " : " + $_.Exception.Message)"
-        }
+        $Events = Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashTable @ParameterSplat
 
         $EventCount = 0
         foreach ($Event in $Events) {

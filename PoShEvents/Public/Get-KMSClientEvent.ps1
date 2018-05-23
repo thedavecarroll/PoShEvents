@@ -50,12 +50,7 @@ function Get-KMSClientEvent {
 
     process {
 
-        try {
-            $Events = Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml -ErrorAction Continue @ParameterSplat
-        }
-        catch {
-            Write-Error -Message "$Computer : $($_.CategoryInfo.Reason + " : " + $_.Exception.Message)"
-        }
+        $Events = Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat
 
         $EventCount = 0
         foreach ($Event in $Events) {
