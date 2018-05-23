@@ -25,18 +25,12 @@ function Get-OSVersionFromEvent {
 
     Process {
 
-        try {
-            $Event = Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashtable -MaxEvents 1 -ErrorAction Continue
-        }
-        catch {
-            Write-Error -Message "$Computer : $($_.CategoryInfo.Reason + " : " + $_.Exception.Message)"
-        }
-                  
-        $EventLogRecord = ConvertFrom-EventLogRecord -EventLogRecord $Event | Select-Object -Property ComputerName,OperatingSystemVersion        
+        $Event = Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashtable -MaxEvents 1                
+        ConvertFrom-EventLogRecord -EventLogRecord $Event | Select-Object -Property ComputerName,OperatingSystemVersion
 
     }
 
     end {
-        return $EventLogRecord
+        
     }
 }
