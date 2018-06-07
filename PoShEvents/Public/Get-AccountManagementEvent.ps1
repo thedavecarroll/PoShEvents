@@ -50,9 +50,11 @@
                 }
 
                 $FilterHashTable.Add("Id",$EventIDs.$Type)
+                $EventRecordType = "AM$Type"
             } 
             "EventID"  {
                 $FilterHashTable.Add("Id",$EventID)
+                $EventRecordType = 'AMEventID'
             } 
         } 
 
