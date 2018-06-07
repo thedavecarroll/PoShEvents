@@ -2,7 +2,7 @@ function Get-PrintDocumentEvent {
     [CmdLetBinding()]
     param(
         [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]
-        [Alias('IPAddress','__Server','CN')]      
+        [Alias('IPAddress','__Server','CN')]
         [string]$ComputerName='localhost',
         [ValidateNotNull()]
         [System.Management.Automation.PSCredential]
@@ -10,17 +10,76 @@ function Get-PrintDocumentEvent {
         [datetime]$StartTime,
         [datetime]$EndTime,
         [int64]$MaxEvents,
-        [switch]$Oldest    
+        [switch]$Oldest,
+        [string]$UserName,
+        [string]$ClientMachineName,
+        [string]$PrinterName,
+        [string]$PrinterPort
     )
 
     begin {
 
-        $FilterHashTable = @{
-            LogName = "Microsoft-Windows-PrintService/Operational"
-            Id = 307
+        if ($StartTime -and $EndTime) {
+            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))' and @SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
+        } elseif ($StartTime) {
+            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))'])"
+        } elseif ($EndTime) {
+            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
+        } else {
+            $TimeCreatedFilter = $null
         }
-        if ($StartTime) { $FilterHashTable.Add("StartTime",$StartTime) }
-        if ($EndTime) { $FilterHashTable.Add("EndTime",$EndTime) }
+
+        $DocumentPrintedFilterCount = 0
+        if ($UserName) { $DocumentPrintedFilterCount++ }
+        if ($ClientMachineName) { $DocumentPrintedFilterCount++ }
+        if ($PrinterName) { $DocumentPrintedFilterCount++ }
+        if ($PrinterPort) { $DocumentPrintedFilterCount++ }
+
+        if ($DocumentPrintedFilterCount -gt 0) {
+            $DocumentPrintedFilter = " and *[UserData[DocumentPrinted["
+
+            if ($UserName) {
+                $DocumentPrintedFilter += " (Param3='" + $UserName + "') "
+            }
+            if ($ClientMachineName) {
+                if ($DocumentPrintedFilterCount -eq 1) {
+                    $DocumentPrintedFilter += " (Param4='" + $ClientMachineName + "') "
+                } else {
+                    $DocumentPrintedFilter += " and (Param4='" + $ClientMachineName + "') "
+                }
+            }
+            if ($PrinterName) {
+                if ($DocumentPrintedFilterCount -eq 1) {
+                    $DocumentPrintedFilter += " (Param5='" + $PrinterName + "') "
+                } else {
+                    $DocumentPrintedFilter += " and (Param5='" + $PrinterName + "') "
+                }
+            }
+            if ($PrinterPort) {
+                if ($DocumentPrintedFilterCount -eq 1) {
+                    $DocumentPrintedFilter += " (Param6='" + $PrinterPort + "') "
+                } else {
+                    $DocumentPrintedFilter += " and (Param6='" + $PrinterPort + "') "
+                }
+            }
+
+            $DocumentPrintedFilter += "]]] "
+
+        } else {
+            $DocumentPrintedFilter = $null
+        }
+
+        $FilterXmlText = '<QueryList>'
+        $FilterXmlText += '<Query Id="0" Path="Microsoft-Windows-PrintService/Operational">'
+        $FilterXmlText += '<Select Path="Microsoft-Windows-PrintService/Operational">'
+        $FilterXmlText += '*[System[(EventID=307)]]'
+        $FilterXmlText += $TimeCreatedFilter
+        $FilterXmlText += $DocumentPrintedFilter
+        $FilterXmlText += '</Select>'
+        $FilterXmlText += '</Query>'
+        $FilterXmlText += '</QueryList>'
+
+        [xml]$FilterXml = $FilterXmlText
 
         $ParameterSplat = @{}
         if ($Credential) {
@@ -36,30 +95,7 @@ function Get-PrintDocumentEvent {
 
     process {
 
-        $Events = Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashTable @ParameterSplat
-        
-        $EventCount = 0
-        foreach ($Event in $Events) {
-            if ($EventCount -gt 0) {
-                Write-Progress -Id 1 -Activity "Formatting events..." -PercentComplete (($EventCount / $Events.count) * 100)
-            }
-            $EventCount++
-            $EventLogRecord = ConvertFrom-EventLogRecord -EventLogRecord $Event
-
-            [PsCustomObject]@{
-                ComputerName = $EventLogRecord.ComputerName
-                TimeCreated = $EventLogRecord.TimeCreated
-                PrintJobId = $EventLogRecord.PrintJobId
-                DocumentName = $EventLogRecord.DocumentName
-                UserName = $EventLogRecord.UserName
-                ClientMachineName = $EventLogRecord.ClientMachineName
-                PrinterName = $EventLogRecord.PrinterName
-                PrinterPort = $EventLogRecord.PrinterPort
-                DocumentSizeBytes = $EventLogRecord.DocumentSizeBytes
-                DocumentPageCount = $EventLogRecord.DocumentPageCount
-            }
-
-        }
+        Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'PrintDocument'
 
     }
 
