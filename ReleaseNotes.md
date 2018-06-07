@@ -1,5 +1,10 @@
 # Release Notes
 
+## 0.2.0
+
+* ConvertFrom-EventLogRecord - switch to new pipeline execution method
+* Add TypeData and FormatData for functions
+
 ## 0.1.2
 
 * Added online help
