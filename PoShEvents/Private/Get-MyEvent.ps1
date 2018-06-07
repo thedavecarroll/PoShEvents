@@ -1,8 +1,8 @@
 function Get-MyEvent {
     [CmdLetBinding()]
-    param(  
+    param(
         [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]
-        [Alias('IPAddress','__Server','CN')]    
+        [Alias('IPAddress','__Server','CN')]
         [string[]]$ComputerName='localhost',
         [Parameter(ParameterSetName='FilterHashTable')]
         [ValidateNotNull()]
@@ -31,7 +31,7 @@ function Get-MyEvent {
         }
 
         $ComputerCounter = 0
-        
+
     }
 
     process {
@@ -48,7 +48,7 @@ function Get-MyEvent {
                 if ($Computer -isnot [ipaddress]) {
                     [void][System.Net.Dns]::GetHostByName($Computer)
                 }
-                switch ($PsCmdlet.ParameterSetName) { 
+                switch ($PsCmdlet.ParameterSetName) {
                     'FilterHashTable' {
                         Get-WinEvent -ComputerName $Computer -FilterHashtable $FilterHashtable -ErrorAction Stop @ParameterSplat
                     }
@@ -57,19 +57,20 @@ function Get-MyEvent {
                     }
                 }
             }
+
             catch {
-                if ($_.Exception.InnerException) {
-                    Write-Warning -Message ("$Computer : " + $_.Exception.InnerException.Message)
-                } elseif ($_.CategoryInfo.Category -eq 'ObjectNotFound') {
-                    Write-Warning -Message ("$Computer : Insufficient privileges or no events were found that match the specified selection criteria")
+                if ($_.CategoryInfo.Category -eq 'ObjectNotFound') {
+                    Write-Verbose -Message "$Computer : No events were found that match the specified selection criteria"
+                #} elseif ($_.Exception.InnerException) {
                 } else {
-                    Write-Warning -Message ("$Computer : " + $_.Exception.Message)
+                    $PSCmdlet.ThrowTerminatingError($PSItem)
                 }
             }
+
         }
     }
 
-    end { 
+    end {
 
     }
 }
