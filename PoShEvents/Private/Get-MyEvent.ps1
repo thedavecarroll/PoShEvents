@@ -61,7 +61,6 @@ function Get-MyEvent {
             catch {
                 if ($_.CategoryInfo.Category -eq 'ObjectNotFound') {
                     Write-Verbose -Message "$Computer : No events were found that match the specified selection criteria"
-                #} elseif ($_.Exception.InnerException) {
                 } else {
                     $PSCmdlet.ThrowTerminatingError($PSItem)
                 }
