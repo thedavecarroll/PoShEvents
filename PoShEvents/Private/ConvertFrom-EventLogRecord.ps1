@@ -140,11 +140,13 @@ function ConvertFrom-EventLogRecord {
         }
 
         $TextInfo = (Get-Culture).TextInfo
+
     }
 
     process {
 
         foreach ($EventLogRecord in $Events) {
+            Write-Progress -Id 1 -Activity "Formatting events..." -Status $EventLogRecord.MachineName
 
             $EventRecordXml = [xml]$EventLogRecord.ToXml()
 
