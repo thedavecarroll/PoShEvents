@@ -1,8 +1,8 @@
 function Get-KMSClientEvent {
-    [CmdletBinding()]    
+    [CmdletBinding()]
     param(
         [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]
-        [Alias('IPAddress','__Server','CN')]      
+        [Alias('IPAddress','__Server','CN')]
         [string[]]$ComputerName='localhost',
         [ValidateNotNull()]
         [System.Management.Automation.PSCredential]
@@ -14,26 +14,28 @@ function Get-KMSClientEvent {
     )
 
     begin {
-                
+
         if ($StartTime -and $EndTime) {
-            $SystemTime = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))' and @SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
+            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))' and @SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
         } elseif ($StartTime) {
-            $SystemTime = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))'])"
+            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))'])"
         } elseif ($EndTime) {
-            $SystemTime = "and (System/TimeCreated[@SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
+            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
         } else {
-            $SystemTime = $null
+            $TimeCreatedFilter = $null
         }
 
-        $FilterXml = @"
-            <QueryList><Query Id="0" Path="Application">
-            <Select Path="Application">*[System
-                    [Provider[@Name='Microsoft-Windows-Security-SPP'] and 
-                    (EventID=12288 or EventID=12289 or EventID=12308)] 
-                    $SystemTime
-            ]</Select>
-            </Query></QueryList>
-"@
+        $FilterXmlText = '<QueryList>'
+        $FilterXmlText += '<Query Id="0" Path="Application">'
+        $FilterXmlText += '<Select Path="Application">'
+        $FilterXmlText += '*[System[Provider[@Name=''Microsoft-Windows-Security-SPP''] and '
+        $FilterXmlText += '(EventID=12288 or EventID=12289 or EventID=12308)]'
+        $FilterXmlText += $TimeCreatedFilter
+        $FilterXmlText += '</Select>'
+        $FilterXmlText += '</Query>'
+        $FilterXmlText += '</QueryList>'
+
+        [xml]$FilterXml = $FilterXmlText
 
         $ParameterSplat = @{}
         if ($Credential) {
@@ -45,45 +47,13 @@ function Get-KMSClientEvent {
         if ($Oldest) {
             $ParameterSplat['Oldest'] = $true
         }
-  
+
     }
 
     process {
 
-        $Events = Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat
+        Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'KMSClientEvent'
 
-        $EventCount = 0
-        foreach ($Event in $Events) {
-            if ($EventCount -gt 0) {
-                Write-Progress -Id 1 -Activity "Formatting events..." -PercentComplete (($EventCount / $Events.count) * 100)
-            }
-            $EventCount++
-
-            $EventLogRecord = ConvertFrom-EventLogRecord -EventLogRecord $Event
-
-            [PsCustomObject]@{
-                ComputerName                = $EventLogRecord.ComputerName
-                TimeCreated                 = $EventLogRecord.TimeCreated
-                Id                          = $EventLogRecord.Id
-                Level                       = $EventLogRecord.Level
-                KMSHost                     = $EventLogRecord.KMSHost
-                KMSHostPort                 = $EventLogRecord.KMSHostPort
-                ClientMachineID             = $EventLogRecord.ClientMachineID
-                ClientTimestamp             = $EventLogRecord.ClientTimestamp
-                ActivationStatus            = $EventLogRecord.ActivationStatus
-                ADActivationObjectName      = $EventLogRecord.ADActivationObjectName
-                ADActivationObject          = $EventLogRecord.ADActivationObject
-                CurrentActivationCount      = $EventLogRecord.CurrentActivationCount
-                NextActivationAttempt       = $EventLogRecord.NextActivationAttempt
-                LicenseStateExpiration      = $EventLogRecord.LicenseStateExpiration
-                LicenseStateExpirationMin   = $EventLogRecord.LicenseStateExpirationMin                    
-                ProductSkuId                = $EventLogRecord.ProductSkuId
-                ProductSkuName              = $EventLogRecord.ProductSkuName
-                MinActivateCount            = $EventLogRecord.MinActivateCount
-                KmsErrorCode                = $EventLogRecord.KmsErrorCode
-                KmsErrorMessage             = $EventLogRecord.KmsErrorMessage
-            }
-        }
     }
 
     end {
