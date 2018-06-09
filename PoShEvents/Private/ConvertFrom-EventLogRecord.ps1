@@ -15,7 +15,6 @@ function ConvertFrom-EventLogRecord {
     begin {
         function ConvertFrom-UserSID {
             param([string]$UserSID)
-
             try {
                 $SecurityIdentifier = New-Object System.Security.Principal.SecurityIdentifier($UserSID)
                 $SecurityIdentifier.Translate([System.Security.Principal.NTAccount]).Value
@@ -270,6 +269,17 @@ function ConvertFrom-EventLogRecord {
                 }
                 'RemoteLogonEvent' {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.RemoteLogonEvent'
+                    Add-Member @BaseParams -Name LogonMethod -Value (Get-LogonMethod -LogonMethod $Event.LogonType)
+                    Add-Member @BaseParams -Name Reason -Value (Get-LogonFailureReason -EventRecord $Event)
+                    switch ($Event.Id) {
+                        4624 { $EventType = "Logon" }
+                        4634 { $EventType = "Logoff" }
+                        4778 { $EventType = "Session Reconnect" }
+                        4779 { $EventType = "Session Disconnect" }
+                        4625 { $EventType = "Logon Failure" }
+                        default { $EventType = $null }
+                    }
+                    Add-Member @BaseParams -Name EventType -Value $EventType
                 }
                 'ServiceEvent' {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.ServiceEvent'

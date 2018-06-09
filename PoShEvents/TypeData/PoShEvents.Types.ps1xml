@@ -109,7 +109,7 @@
             </MemberSet>
         </Members>
     </Type>
-<Type>
+    <Type>
         <Name>MyEvent.EventRecordType.OSVersionFromEvent</Name>
         <Members>
             <MemberSet>
@@ -127,6 +127,52 @@
             </MemberSet>
         </Members>
     </Type>
+    <Type>
+        <Name>MyEvent.EventRecordType.RemoteLogonEvent</Name>
+        <Members>
+            <ScriptProperty>
+                <Name>AccountName</Name>
+                    <GetScriptBlock>
+                        if ($this.TargetDomainName -and $this.TargetUserName) {
+                            ($this.TargetDomainName + '\' + $this.TargetUserName)
+                        } elseif ($this.TargetUserName) {
+                            $this.TargetUserName
+                        }
+                    </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptProperty>
+                <Name>LogonId</Name>
+                    <GetScriptBlock>
+                        $this.TargetLogonId
+                    </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptProperty>
+                <Name>SourceIPAddress</Name>
+                    <GetScriptBlock>
+                        $this.IpAddress
+                    </GetScriptBlock>
+            </ScriptProperty>
+            <MemberSet>
+                <Name>PSStandardMembers</Name>
+                <Members>
+                    <PropertySet>
+                    <Name>DefaultDisplayPropertySet</Name>
+                        <ReferencedProperties>
+                            <Name>ComputerName</Name>
+                            <Name>TimeCreated</Name>
+                            <Name>Id</Name>
+                            <Name>Level</Name>
+                            <Name>EventType</Name>
+                            <Name>AccountName</Name>
+                            <Name>WorkstationName</Name>
+                            <Name>SourceIPAddress</Name>
+                            <Name>LogonMethod</Name>
+                            <Name>LogonId</Name>
+                            <Name>Reason</Name>
+                        </ReferencedProperties>
+                    </PropertySet>
+                </Members>
+            </MemberSet>
+        </Members>
+    </Type>
 </Types>
-
-
