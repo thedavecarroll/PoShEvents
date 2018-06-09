@@ -2,7 +2,7 @@
     [CmdLetBinding()]
     param(
         [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]
-        [Alias('IPAddress','__Server','CN')]      
+        [Alias('IPAddress','__Server','CN')]
         [string[]]$ComputerName='localhost',
         [ValidateNotNull()]
         [System.Management.Automation.PSCredential]
@@ -10,7 +10,7 @@
         [datetime]$StartTime,
         [datetime]$EndTime,
         [int64]$MaxEvents,
-        [switch]$Oldest       
+        [switch]$Oldest
     )
 
     Begin {
@@ -37,20 +37,7 @@
 
     Process {
 
-        $Events = Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashtable @ParameterSplat
-
-        $EventCount = 0
-        foreach ($Event in $Events) {
-            if ($EventCount -gt 0) {
-                Write-Progress -Id 1 -Activity "Formatting events..." -PercentComplete (($EventCount / $Events.count) * 100)
-            }
-            $EventCount++
-                  
-            $EventLogRecord = ConvertFrom-EventLogRecord -EventLogRecord $Event
-            
-            $EventLogRecord | Select-Object * -ExcludeProperty Message,EventData,UserData
-
-        }
+        Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashtable @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'LogonFailureEvent'
 
     }
 

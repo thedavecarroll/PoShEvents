@@ -2,7 +2,7 @@ function Get-OSVersionFromEvent {
     [CmdLetBinding()]
     param(
         [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]
-        [Alias('IPAddress','__Server','CN')]      
+        [Alias('IPAddress','__Server','CN')]
         [string[]]$ComputerName='localhost',
         [ValidateNotNull()]
         [System.Management.Automation.PSCredential]
@@ -25,12 +25,11 @@ function Get-OSVersionFromEvent {
 
     Process {
 
-        $Event = Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashtable -MaxEvents 1                
-        ConvertFrom-EventLogRecord -EventLogRecord $Event | Select-Object -Property ComputerName,OperatingSystemVersion
+        Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashtable | ConvertFrom-EventLogRecord -EventRecordType 'OSVersionFromEvent'
 
     }
 
     end {
-        
+
     }
 }
