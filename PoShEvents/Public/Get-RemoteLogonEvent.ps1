@@ -2,7 +2,7 @@
     [CmdLetBinding()]
     param(
         [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]
-        [Alias('IPAddress','__Server','CN')]      
+        [Alias('IPAddress','__Server','CN')]
         [string[]]$ComputerName='localhost',
         [ValidateNotNull()]
         [System.Management.Automation.PSCredential]
@@ -10,17 +10,35 @@
         [datetime]$StartTime,
         [datetime]$EndTime,
         [int64]$MaxEvents,
-        [switch]$Oldest       
+        [switch]$Oldest,
+        [switch]$Raw
     )
 
     Begin {
 
-        $FilterHashTable = @{
-            LogName = "Security"
-            Id = @(4624,4625,4634,4778,4779)
+
+        if ($StartTime -and $EndTime) {
+            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))' and @SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
+        } elseif ($StartTime) {
+            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))'])"
+        } elseif ($EndTime) {
+            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
+        } else {
+            $TimeCreatedFilter = $null
         }
-        if ($StartTime) { $FilterHashTable.Add("StartTime",$StartTime) }
-        if ($EndTime) { $FilterHashTable.Add("EndTime",$EndTime) }
+
+        $FilterXmlText = '<QueryList>'
+        $FilterXmlText += '<Query Id="0" Path="Security">'
+        $FilterXmlText += '<Select Path="Security">'
+        $FilterXmlText += '*[System[Provider[@Name=''Microsoft-Windows-Security-Auditing''] and '
+        $FilterXmlText += '(EventID=4624 or EventID=4625 or EventID=4634 or EventID=4778 or EventID=4779)]]'
+        $FilterXmlText += ' and *[EventData[Data[@Name=''LogonType''] and (Data=''3'' or Data=''8'' or Data=''10'')]]'
+        $FilterXmlText += $TimeCreatedFilter
+        $FilterXmlText += '</Select>'
+        $FilterXmlText += '</Query>'
+        $FilterXmlText += '</QueryList>'
+
+        [xml]$FilterXml = $FilterXmlText
 
         $ParameterSplat = @{}
         if ($Credential) {
@@ -36,50 +54,10 @@
     }
 
     Process {
-
-        $Events = Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashtable @ParameterSplat
-
-        $EventCount = 0
-        foreach ($Event in $Events) {
-            if ($EventCount -gt 0) {
-                Write-Progress -Id 1 -Activity "Formatting events..." -PercentComplete (($EventCount / $Events.count) * 100)
-            }
-            $EventCount++
-                
-            $EventLogRecord = ConvertFrom-EventLogRecord -EventLogRecord $Event
-            if ( $EventLogRecord.LogonType -eq 10 -Or $EventLogRecord.Id -in @('4778','4779','4625') ) {
-                switch ($EventLogRecord.Id ) {
-                    4624 { $EventType = "Logon" }
-                    4634 { $EventType = "Logoff" }
-                    4778 { $EventType = "Session Reconnect" }
-                    4779 { $EventType = "Session Disconnect" }
-                    4625 { $EventType = "Logon Failure" }
-                }
-            }
-            
-            if ($EventLogRecord.TargetDomainName -ne $null -And $EventLogRecord.TargetUserName -ne $null) { 
-                $UserName = $EventLogRecord.TargetDomainName + "\" + $EventLogRecord.TargetUserName.ToUpper() 
-            }
-            
-            if ($EventLogRecord.IpAddress -eq "-" -Or $EventLogRecord.IpAddress -eq $null) { 
-                $IpAddress = $null 
-            } else { 
-                $IPAddress = $EventLogRecord.IpAddress 
-            }
-        
-            [PsCustomObject]@{
-                ComputerName    = $EventLogRecord.ComputerName
-                TimeCreated     = Get-Date (Get-Date $EventLogRecord.TimeCreated -Format G)
-                Id              = $EventLogRecord.Id
-                Level           = $EventLogRecord.Level               
-                EventType       = $EventType
-                UserName        = $UserName
-                IpAddress       = $IPAddress
-                LogonID         = $EventLogRecord.LogonID
-                Reason          = $EventLogRecord.Reason
-                LogonMethod     = $EventLogRecord.LogonMethod
-            }
-
+        if ($Raw) {
+            Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat
+        } else {
+            Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'RemoteLogonEvent'
         }
     }
 
