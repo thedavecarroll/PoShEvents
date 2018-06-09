@@ -4,6 +4,8 @@
 
 * ConvertFrom-EventLogRecord - switch to new pipeline execution method
 * Add TypeData and FormatData for functions
+* Add -Raw swich to present the raw event log records without converting them
+* Updated help
 
 ## 0.1.2
 
