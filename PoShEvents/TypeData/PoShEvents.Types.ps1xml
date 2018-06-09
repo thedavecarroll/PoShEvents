@@ -37,8 +37,8 @@
                             <Name>ComputerName</Name>
                             <Name>TimeCreated</Name>
                             <Name>Id</Name>
-                            <Name>ProviderName</Name>
                             <Name>Level</Name>
+                            <Name>ProviderName</Name>
                             <Name>Status</Name>
                             <Name>UserName</Name>
                             <Name>Reason</Name>
@@ -50,4 +50,83 @@
             </MemberSet>
         </Members>
     </Type>
+    <Type>
+        <Name>MyEvent.EventRecordType.LogonFailureEvent</Name>
+        <Members>
+            <ScriptProperty>
+                <Name>Subject</Name>
+                    <GetScriptBlock>
+                        if ($this.SubjectUserName) {
+                            ($this.SubjectDomainName + '\' + $this.SubjectUserName)
+                        }
+                    </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptProperty>
+                <Name>Target</Name>
+                    <GetScriptBlock>
+                        if ($this.TargetUserName) {
+                            ($this.TargetDomainName + '\' + $this.TargetUserName)
+                        }
+                    </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptProperty>
+                <Name>SourceIPAddress</Name>
+                    <GetScriptBlock>
+                        $this.IpAddress
+                    </GetScriptBlock>
+            </ScriptProperty>
+            <ScriptProperty>
+                <Name>SourceIPPort</Name>
+                    <GetScriptBlock>
+                        $this.IpPort
+                    </GetScriptBlock>
+            </ScriptProperty>
+            <MemberSet>
+                <Name>PSStandardMembers</Name>
+                <Members>
+                    <PropertySet>
+                    <Name>DefaultDisplayPropertySet</Name>
+                        <ReferencedProperties>
+                            <Name>ComputerName</Name>
+                            <Name>TimeCreated</Name>
+                            <Name>Id</Name>
+                            <Name>Level</Name>
+                            <Name>ProviderName</Name>
+                            <Name>Subject</Name>
+                            <Name>SubjectLogonId</Name>
+                            <Name>WorkstationName</Name>
+                            <Name>SourceIPAddress</Name>
+                            <Name>SourceIPPort</Name>
+                            <Name>LogonMethod</Name>
+                            <Name>Target</Name>
+                            <Name>Reason</Name>
+                            <Name>LogonProcessName</Name>
+                            <Name>ProcessName</Name>
+                            <Name>AuthenticationPackageName</Name>
+                        </ReferencedProperties>
+                    </PropertySet>
+                </Members>
+            </MemberSet>
+        </Members>
+    </Type>
+<Type>
+        <Name>MyEvent.EventRecordType.OSVersionFromEvent</Name>
+        <Members>
+            <MemberSet>
+                <Name>PSStandardMembers</Name>
+                <Members>
+                    <PropertySet>
+                    <Name>DefaultDisplayPropertySet</Name>
+                        <ReferencedProperties>
+                            <Name>ComputerName</Name>
+                            <Name>TimeCreated</Name>
+                            <Name>OperatingSystemVersion</Name>
+                        </ReferencedProperties>
+                    </PropertySet>
+                </Members>
+            </MemberSet>
+        </Members>
+    </Type>
 </Types>
+
+
