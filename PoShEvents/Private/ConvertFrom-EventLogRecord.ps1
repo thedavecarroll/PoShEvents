@@ -3,8 +3,12 @@ function ConvertFrom-EventLogRecord {
         [Parameter(Mandatory=$true,ValueFromPipeline=$true)]
         [System.Diagnostics.Eventing.Reader.EventLogRecord[]]
         $Events,
-        #[Parameter(Mandatory=$true)]
-        #[ValidateSet()]
+        [ValidateSet(
+            'PrintDocument','SystemRestartEvent','LogonFailureEvent',
+            'OSVersionFromEvent','RemoteLogonEvent','ServiceEvent',
+            'GPOProcessingEvent','AccountManagementEvent','KMSClientEvent',
+            'KMSHostEvent','KMSHostLicenseCheckEvent')]
+        [AllowNull()]
         [string]$EventRecordType
     )
 
