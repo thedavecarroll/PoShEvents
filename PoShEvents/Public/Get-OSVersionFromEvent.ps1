@@ -6,7 +6,8 @@ function Get-OSVersionFromEvent {
         [string[]]$ComputerName='localhost',
         [ValidateNotNull()]
         [System.Management.Automation.PSCredential]
-        [System.Management.Automation.Credential()]$Credential = [System.Management.Automation.PSCredential]::Empty
+        [System.Management.Automation.Credential()]$Credential = [System.Management.Automation.PSCredential]::Empty,
+        [switch]$Raw
     )
 
     Begin {
@@ -24,9 +25,11 @@ function Get-OSVersionFromEvent {
     }
 
     Process {
-
-        Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashtable | ConvertFrom-EventLogRecord -EventRecordType 'OSVersionFromEvent'
-
+        if ($Raw) {
+            Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashTable @ParameterSplat
+        } else {
+            Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashTable @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'OSVersionFromEvent'
+        }
     }
 
     end {

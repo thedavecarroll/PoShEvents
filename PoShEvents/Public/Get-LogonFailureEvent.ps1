@@ -10,7 +10,8 @@
         [datetime]$StartTime,
         [datetime]$EndTime,
         [int64]$MaxEvents,
-        [switch]$Oldest
+        [switch]$Oldest,
+        [switch]$Raw
     )
 
     Begin {
@@ -36,9 +37,11 @@
     }
 
     Process {
-
-        Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashtable @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'LogonFailureEvent'
-
+        if ($Raw) {
+            Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashTable @ParameterSplat
+        } else {
+            Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashTable @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'LogonFailureEvent'
+        }
     }
 
     end {

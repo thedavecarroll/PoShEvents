@@ -10,7 +10,8 @@
         [datetime]$StartTime,
         [datetime]$EndTime,
         [int64]$MaxEvents,
-        [switch]$Oldest
+        [switch]$Oldest,
+        [switch]$Raw
     )
 
     begin {
@@ -36,8 +37,11 @@
     }
 
     process {
-
-        Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashTable @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'SystemRestartEvent'
+        if ($Raw) {
+            Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashTable @ParameterSplat
+        } else {
+            Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashTable @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'SystemRestartEvent'
+        }
     }
 
     end {

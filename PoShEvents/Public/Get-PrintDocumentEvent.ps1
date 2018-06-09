@@ -11,6 +11,7 @@ function Get-PrintDocumentEvent {
         [datetime]$EndTime,
         [int64]$MaxEvents,
         [switch]$Oldest,
+        [switch]$Raw,
         [string]$UserName,
         [string]$ClientMachineName,
         [string]$PrinterName,
@@ -94,9 +95,11 @@ function Get-PrintDocumentEvent {
     }
 
     process {
-
-        Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'PrintDocument'
-
+        if ($Raw) {
+            Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat
+        } else {
+            Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'PrintDocument'
+        }
     }
 
     end {
