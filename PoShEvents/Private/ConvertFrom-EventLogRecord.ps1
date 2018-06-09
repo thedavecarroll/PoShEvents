@@ -288,6 +288,10 @@ function ConvertFrom-EventLogRecord {
                 'AccountManagementEvent' {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.AccountManagementEvent'
                 }
+                default {
+                    Add-Member @BaseParams -Name EventData -Value $EventData
+                    Add-Member @BaseParams -Name UserData -Value $UserData
+                }
             }
 
             $Event
