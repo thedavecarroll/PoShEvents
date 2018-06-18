@@ -9,7 +9,8 @@ function ConvertFrom-EventLogRecord {
             'GPOProcessingEvent','AccountManagementEvent','KMSClientEvent',
             'KMSHostEvent','KMSHostLicenseCheckEvent')]
         [AllowNull()]
-        [string]$EventRecordType
+        [string]$EventRecordType,
+        [object[]]$GroupPolicy
     )
 
     begin {
@@ -139,6 +140,23 @@ function ConvertFrom-EventLogRecord {
                     }
                 }
                 $Reason
+            }
+        }
+
+        function Get-GPEventType($EventId) {
+            switch ($EventId) {
+                {$_ -ge 4000 -and $_ -le 4007} { 'GP Start' }
+                {$_ -ge 4016 -and $_ -le 4299} { 'Component Start' }
+                {$_ -ge 5000 -and $_ -le 5299} { 'Component Success' }
+                {$_ -ge 5300 -and $_ -le 5999} { 'Informative' }
+                {$_ -ge 6000 -and $_ -le 6007} { 'GP Warning '}
+                {$_ -ge 6017 -and $_ -le 6299} { 'Component Warning' }
+                {$_ -ge 6300 -and $_ -le 6999} { 'Informative Warning' }
+                {$_ -ge 7000 -and $_ -le 7007} { 'GP Error' }
+                {$_ -ge 7017 -and $_ -le 7299} { 'Component Error' }
+                {$_ -ge 7300 -and $_ -le 7999} { 'Informative Start' }
+                {$_ -ge 8000 -and $_ -le 8007} { 'GP Success' }
+                default { 'Unknown' }
             }
         }
 
@@ -272,18 +290,16 @@ function ConvertFrom-EventLogRecord {
                     Add-Member @BaseParams -Name LogonMethod -Value (Get-LogonMethod -LogonMethod $Event.LogonType)
                     Add-Member @BaseParams -Name Reason -Value (Get-LogonFailureReason -EventRecord $Event)
                     switch ($Event.Id) {
-                        4624 { $EventType = "Logon" }
-                        4634 { $EventType = "Logoff" }
-                        4778 { $EventType = "Session Reconnect" }
-                        4779 { $EventType = "Session Disconnect" }
-                        4625 { $EventType = "Logon Failure" }
+                        4624 { $EventType  = "Logon" }
+                        4634 { $EventType  = "Logoff" }
+                        4778 { $EventType  = "Session Reconnect" }
+                        4779 { $EventType  = "Session Disconnect" }
+                        4625 { $EventType  = "Logon Failure" }
                         default { $EventType = $null }
                     }
                     Add-Member @BaseParams -Name EventType -Value $EventType
                 }
                 'ServiceEvent' {
-
-
                     #https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc756379(v%3dws.10)
                     if ($Event.Id -in @(7009,7011,7016,7021,7030,7035,7036,7037,7040)) {
                         $EventType = "ServiceOperations"
@@ -317,10 +333,59 @@ function ConvertFrom-EventLogRecord {
                             Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.ServiceEvent'
                         }
                     }
-
                 }
                 'GPOProcessingEvent' {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.GPOProcessingEvent'
+
+                    if ($Event.Message -like "*\Policies\*") {
+                        $GPguid= $Event.Message.Split("{")[1].Split("}")[0]
+                        if ($GroupPolicy) {
+                            $GPName = $GroupPolicy | Where-Object { $_.Id -eq $GPguid} | Select-Object -ExpandProperty DisplayName
+                        } else {
+                            $GPName = $GPguid
+                        }
+                    } else {
+                        $GPName = $null
+                    }
+                    Add-Member @BaseParams -Name GroupPolicy -Value $GPName
+
+                    if ($Event.ErrorCode -ne 0) {
+                        $Status = ([System.ComponentModel.Win32Exception] [int]$Event.ErrorCode).Message
+                    } else {
+                        $Status = $null
+                    }
+                    Add-Member @BaseParams -Name Status -Value $Status
+
+                    $EventMessageFirstLine = $Event.Message.Split("`n")
+                    if ($EventMessageFirstLine[0].Trim() -match '.+?details:$' ) {
+                        $Details = $Event.Message -Split ("`n",2)
+                        $DetailLines = $Details[1].Split("`n")
+                        $Action = [PsCustomObject]::new()
+                        foreach ($Line in $DetailLines) {
+                            Add-Member -InputObject $Action -MemberType NoteProperty -Name $Line.Split(':')[0].Trim().Replace(' ','') -Value $Line.Split(':')[1].Trim()
+                        }
+                    } elseif ($EventMessageFirstLine[0].Trim() -match '.+?:$' ) {
+                        $Action = $EventMessageFirstLine[0].Replace(':','').Trim()
+                    } else {
+                        $Action = $EventMessageFirstLine[0].Trim()
+                    }
+                    Add-Member @BaseParams -Name Action -Value $Action
+
+                    Add-Member @BaseParams -Name EventType -Value (Get-GPEventType $Event.Id)
+
+                    $GPOApplied = $GPOList = $null
+                    switch ($Event.Id) {
+                        5312 {
+                            $GPOApplied = $true
+                            $GPOList = $Event.DescriptionString.trim()
+                        }
+                        5313 {
+                            $GPOApplied = $false
+                            $GPOList = $Event.DescriptionString.trim()
+                        }
+                    }
+                    Add-Member @BaseParams -Name GPOApplied -Value $GPOApplied
+                    Add-Member @BaseParams -Name GPOList -Value $GPOList
                 }
                 'KMSClientEvent' {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.KMSClientEvent'
@@ -335,6 +400,7 @@ function ConvertFrom-EventLogRecord {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.AccountManagementEvent'
                 }
                 default {
+                    Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.Default'
                     Add-Member @BaseParams -Name EventData -Value $EventData
                     Add-Member @BaseParams -Name UserData -Value $UserData
                 }

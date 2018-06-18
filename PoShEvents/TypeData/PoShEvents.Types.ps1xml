@@ -223,4 +223,29 @@
             </MemberSet>
         </Members>
     </Type>
+    <Type>
+        <Name>MyEvent.EventRecordType.GPOProcessingEvent</Name>
+        <Members>
+            <MemberSet>
+                <Name>PSStandardMembers</Name>
+                <Members>
+                    <PropertySet>
+                    <Name>DefaultDisplayPropertySet</Name>
+                        <ReferencedProperties>
+                            <Name>ComputerName</Name>
+                            <Name>TimeCreated</Name>
+                            <Name>Id</Name>
+                            <Name>Level</Name>
+                            <Name>EventType</Name>
+                            <Name>Action</Name>
+                            <Name>Status</Name>
+                            <Name>GPOApplied</Name>
+                            <Name>GPOList</Name>
+                            <Name>GroupPolicy</Name>
+                        </ReferencedProperties>
+                    </PropertySet>
+                </Members>
+            </MemberSet>
+        </Members>
+    </Type>
 </Types>
