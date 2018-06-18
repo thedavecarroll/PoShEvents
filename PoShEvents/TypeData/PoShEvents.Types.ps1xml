@@ -175,4 +175,52 @@
             </MemberSet>
         </Members>
     </Type>
+    <Type>
+        <Name>MyEvent.EventRecordType.ServiceEvent</Name>
+        <Members>
+            <MemberSet>
+                <Name>PSStandardMembers</Name>
+                <Members>
+                    <PropertySet>
+                    <Name>DefaultDisplayPropertySet</Name>
+                        <ReferencedProperties>
+                            <Name>ComputerName</Name>
+                            <Name>TimeCreated</Name>
+                            <Name>Id</Name>
+                            <Name>Level</Name>
+                            <Name>EventType</Name>
+                            <Name>ServiceName</Name>
+                            <Name>ServiceMessage</Name>
+                        </ReferencedProperties>
+                    </PropertySet>
+                </Members>
+            </MemberSet>
+        </Members>
+    </Type>
+    <Type>
+        <Name>MyEvent.EventRecordType.ServiceEvent.Install</Name>
+        <Members>
+            <MemberSet>
+                <Name>PSStandardMembers</Name>
+                <Members>
+                    <PropertySet>
+                    <Name>DefaultDisplayPropertySet</Name>
+                        <ReferencedProperties>
+                            <Name>ComputerName</Name>
+                            <Name>TimeCreated</Name>
+                            <Name>Id</Name>
+                            <Name>Level</Name>
+                            <Name>EventType</Name>
+                            <Name>ServiceName</Name>
+                            <Name>ServiceMessage</Name>
+                            <Name>ImagePath</Name>
+                            <Name>ServiceType</Name>
+                            <Name>StartType</Name>
+                            <Name>AccountName</Name>
+                        </ReferencedProperties>
+                    </PropertySet>
+                </Members>
+            </MemberSet>
+        </Members>
+    </Type>
 </Types>

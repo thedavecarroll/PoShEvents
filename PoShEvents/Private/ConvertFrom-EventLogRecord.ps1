@@ -282,7 +282,42 @@ function ConvertFrom-EventLogRecord {
                     Add-Member @BaseParams -Name EventType -Value $EventType
                 }
                 'ServiceEvent' {
-                    Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.ServiceEvent'
+
+
+                    #https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc756379(v%3dws.10)
+                    if ($Event.Id -in @(7009,7011,7016,7021,7030,7035,7036,7037,7040)) {
+                        $EventType = "ServiceOperations"
+                    } elseif ($Event.Id -in @(7000,7001,7002,7003,7017,7019,7020,7022,7038,7039,7041)) {
+                        $EventType = "ServiceStart"
+                    } elseif ($Event.Id -in @(7023,7024,7031,7032,7034,7042,7043)) {
+                        $EventType = "ServiceStop"
+                    } elseif ($Event.Id -in @(7005,7006,7007,7008,7010,7012,7015,7018,7025,7026,7027,7028,7033)) {
+                        $EventType = "ServiceControlManagerOperations"
+                    } elseif ($Event.Id -eq 7045 ) {
+                        $EventType = "ServiceInstall"
+                    }
+                    Add-Member @BaseParams -Name EventType -Value $EventType
+
+                    if ($Event.param1) {
+                        Add-Member @BaseParams -Name ServiceName -Value $Event.param1.trim()
+                    }
+                    Add-Member @BaseParams -Name ServiceMessage -Value $Event.Message
+
+                    switch ($Event.Id) {
+                        7009 {
+                            Add-Member @BaseParams -Name ServiceName -Value $Event.param2.trim() -Force
+                            Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.ServiceEvent'
+                        }
+                        7045 {
+                            Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.ServiceEvent.Install'
+                            $ServiceMessage = $Event.Message.Split("`n")[0].Trim()
+                            Add-Member @BaseParams -Name ServiceMessage -Value $ServiceMessage -Force
+                        }
+                        default {
+                            Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.ServiceEvent'
+                        }
+                    }
+
                 }
                 'GPOProcessingEvent' {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.GPOProcessingEvent'
