@@ -191,6 +191,10 @@
                             <Name>EventType</Name>
                             <Name>ServiceName</Name>
                             <Name>ServiceMessage</Name>
+                            <Name>ImagePath</Name>
+                            <Name>ServiceType</Name>
+                            <Name>StartType</Name>
+                            <Name>AccountName</Name>
                         </ReferencedProperties>
                     </PropertySet>
                 </Members>

@@ -450,6 +450,10 @@
             <ViewSelectedBy>
                 <TypeName>MyEvent.EventRecordType.ServiceEvent</TypeName>
             </ViewSelectedBy>
+            <GroupBy>
+                <PropertyName>EventType</PropertyName>
+                <Label>EventType</Label>
+            </GroupBy>
             <TableControl>
                 <TableHeaders>
                     <TableColumnHeader/>
@@ -459,6 +463,10 @@
                     <TableColumnHeader/>
                     <TableColumnHeader/>
                 </TableHeaders>
+            <GroupBy>
+                <PropertyName>EventType</PropertyName>
+                <Label>EventType</Label>
+            </GroupBy>
                 <TableRowEntries>
                     <TableRowEntry>
                         <TableColumnItems>
@@ -479,6 +487,15 @@
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>ServiceMessage</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>StartType</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>AccountName</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>ImagePath</PropertyName>
                             </TableColumnItem>
                         </TableColumnItems>
                     </TableRowEntry>

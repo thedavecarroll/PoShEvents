@@ -300,6 +300,8 @@ function ConvertFrom-EventLogRecord {
                     Add-Member @BaseParams -Name EventType -Value $EventType
                 }
                 'ServiceEvent' {
+                    Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.ServiceEvent'
+
                     #https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc756379(v%3dws.10)
                     if ($Event.Id -in @(7009,7011,7016,7021,7030,7035,7036,7037,7040)) {
                         $EventType = "ServiceOperations"
@@ -322,18 +324,13 @@ function ConvertFrom-EventLogRecord {
                     switch ($Event.Id) {
                         7009 {
                             Add-Member @BaseParams -Name ServiceName -Value $Event.param2.trim() -Force
-                            Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.ServiceEvent'
                         }
                         7045 {
-                            Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.ServiceEvent.Install'
                             $ServiceMessage = $Event.Message.Split("`n")[0].Trim()
                             Add-Member @BaseParams -Name ServiceMessage -Value $ServiceMessage -Force
                         }
-                        default {
-                            Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.ServiceEvent'
                         }
                     }
-                }
                 'GPOProcessingEvent' {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.GPOProcessingEvent'
 
