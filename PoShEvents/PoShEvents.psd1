@@ -60,19 +60,19 @@ PowerShellVersion = '5.0'
 # ScriptsToProcess = @()
 
 # Type files (.ps1xml) to be loaded when importing this module
-# TypesToProcess = @()
+TypesToProcess = 'TypeData\PoShEvents.Types.ps1xml'
 
 # Format files (.ps1xml) to be loaded when importing this module
-# FormatsToProcess = @()
+FormatsToProcess = 'TypeData\PoShEvents.Format.ps1xml'
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Get-AccountManagementEvent', 'Get-GPOProcessingEvent', 
-               'Get-KMSClientEvent', 'Get-KMSHostEvent', 
-               'Get-KMSHostLicenseCheckEvent', 'Get-LogonFailureEvent', 
-               'Get-OSVersionFromEvent', 'Get-PrintDocumentEvent', 
+FunctionsToExport = 'Get-AccountManagementEvent', 'Get-GPOProcessingEvent',
+               'Get-KMSClientEvent', 'Get-KMSHostEvent',
+               'Get-KMSHostLicenseCheckEvent', 'Get-LogonFailureEvent',
+               'Get-OSVersionFromEvent', 'Get-PrintDocumentEvent',
                'Get-RemoteLogonEvent', 'Get-ServiceEvent', 'Get-SystemRestartEvent'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -91,19 +91,19 @@ AliasesToExport = @()
 # ModuleList = @()
 
 # List of all files packaged with this module
-FileList = 'en-US\about_PoShEvents.help.txt', 'PoShEvents.psd1', 
-               'PoShEvents.psm1', 'Private\ConvertFrom-EventLogRecord.ps1', 
-               'Private\Get-MyEvent.ps1', 'Private\KmsFunctions.ps1', 
-               'Public\Get-AccountManagementEvent.ps1', 
-               'Public\Get-GPOProcessingEvent.ps1', 
-               'Public\Get-KMSClientEvent.ps1', 'Public\Get-KMSHostEvent.ps1', 
-               'Public\Get-KMSHostLicenseCheckEvent.ps1', 
-               'Public\Get-LogonFailureEvent.ps1', 
-               'Public\Get-OSVersionFromEvent.ps1', 
-               'Public\Get-PrintDocumentEvent.ps1', 
-               'Public\Get-RemoteLogonEvent.ps1', 'Public\Get-ServiceEvent.ps1', 
-               'Public\Get-SystemRestartEvent.ps1', 
-               'TypeData\PoShEvents.Format.ps1xml', 
+FileList = 'en-US\about_PoShEvents.help.txt', 'PoShEvents.psd1',
+               'PoShEvents.psm1', 'Private\ConvertFrom-EventLogRecord.ps1',
+               'Private\Get-MyEvent.ps1', 'Private\KmsFunctions.ps1',
+               'Public\Get-AccountManagementEvent.ps1',
+               'Public\Get-GPOProcessingEvent.ps1',
+               'Public\Get-KMSClientEvent.ps1', 'Public\Get-KMSHostEvent.ps1',
+               'Public\Get-KMSHostLicenseCheckEvent.ps1',
+               'Public\Get-LogonFailureEvent.ps1',
+               'Public\Get-OSVersionFromEvent.ps1',
+               'Public\Get-PrintDocumentEvent.ps1',
+               'Public\Get-RemoteLogonEvent.ps1', 'Public\Get-ServiceEvent.ps1',
+               'Public\Get-SystemRestartEvent.ps1',
+               'TypeData\PoShEvents.Format.ps1xml',
                'TypeData\PoShEvents.Types.ps1xml'
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
