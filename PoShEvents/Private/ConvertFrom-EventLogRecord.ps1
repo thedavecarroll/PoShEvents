@@ -211,7 +211,11 @@ function ConvertFrom-EventLogRecord {
                         Add-Member @BaseParams -Name $EventData.Data.Name -Value $EventData.Data.'#text'
                     }
                 }
+
+            } else {
+                $EventData = $null
             }
+            Add-Member @BaseParams -Name EventData -Value $EventData
 
             if ($UserData) {
                 if ($UserData.Data.Count) {
@@ -230,7 +234,10 @@ function ConvertFrom-EventLogRecord {
                         Add-Member @BaseParams -Name $UserData.Data.Name -Value $UserData.Data.'#text'
                     }
                 }
+            } else {
+                $UserData = $null
             }
+            Add-Member @BaseParams -Name UserData -Value $UserData
 
             switch ($EventRecordType) {
                 'PrintDocument' {
@@ -329,8 +336,8 @@ function ConvertFrom-EventLogRecord {
                             $ServiceMessage = $Event.Message.Split("`n")[0].Trim()
                             Add-Member @BaseParams -Name ServiceMessage -Value $ServiceMessage -Force
                         }
-                        }
                     }
+                }
                 'GPOProcessingEvent' {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.GPOProcessingEvent'
 
@@ -386,20 +393,102 @@ function ConvertFrom-EventLogRecord {
                 }
                 'KMSClientEvent' {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.KMSClientEvent'
+
+                    $KMSHost = $KMSHostPort = $ClientMachineID = $ClientTimestamp = $null
+                    $CurrentActivationState = $LicenseStateExpirationMin = $LicenseStateExpiration = $null
+                    $ProductSkuId = $ProductSkuName = $MinActivateCount = $KmsErrorCode = $KmsErrorMessage = $null
+                    $CurrentActivationCount = $NextActivationAttempt = $null
+                    $ActivationStatus = $ADActivationObjectName = $ADActivationObject = $null
+
+                    $KmsEventData = ($EventData.Data).Split(',')
+                    switch ($Event.Id) {
+                        12288 {
+                            $KMSHost = $KmsEventData[2].Trim().Split(':')[0]
+                            $KMSHostPort = $KmsEventData[2].Trim().Split(':')[1]
+                            $ClientMachineID = $KmsEventData[3].Trim()
+                            $ClientTimestamp = (Get-Date $KmsEventData[4].Trim())
+                            $CurrentActivationState = (Get-KmsLicenseState -LicenseState $KmsEventData[6].Trim())
+                            $LicenseStateExpirationMin = $KmsEventData[7].Trim()
+                            $LicenseStateExpiration = (Get-Date $KmsEventData[4].Trim()).AddMinutes($KmsEventData[7].Trim())
+                            $ProductSkuId = $KmsEventData[8].Trim()
+                            $ProductSkuName = (Get-KmsProductSku -ProductSku $KmsEventData[8].Trim())
+                            $MinActivateCount = $KmsEventData[9].Trim()
+                            $KmsErrorCode = $KmsEventData[0].Trim()
+                            $KmsErrorMessage = (Get-KmsErrorCode -ErrorCode $KmsEventData[0].Trim())
+                        }
+                        12289 {
+                            if ($KmsEventData[2] -eq 1) {
+                                $ActivationStatus = 'Successful'
+                            } else {
+                                $ActivationStatus = 'Failure'
+                            }
+                            $ClientTimestamp = (Get-Date $KmsEventData[7].Trim())
+                            $CurrentActivationCount = $KmsEventData[4].Trim()
+                            $NextActivationAttempt = (Get-Date $KmsEventData[7].Trim()).AddMinutes($KmsEventData[6].Trim())
+                            $KmsErrorCode = $KmsEventData[0].Trim()
+                            $KmsErrorMessage = (Get-KmsErrorCode -ErrorCode $KmsEventData[0].Trim())
+                        }
+                        12308 {
+                            $ProductSkuId = $EventData.Data[0]
+                            $ProductSkuName = (Get-KmsProductSku -ProductSku $EventData.Data[0])
+                            $ActivationStatus = 'Active Directory Activation has succeeded.'
+                            $ADActivationObjectName = $EventData.Data[1]
+                            $ADActivationObject = $EventData.Data[2]
+                        }
+                    }
+
+                    Add-Member @BaseParams -Name KMSHost -Value $KMSHost
+                    Add-Member @BaseParams -Name KMSHostPort -Value $KMSHostPort
+                    Add-Member @BaseParams -Name ClientMachineID -Value $ClientMachineID
+                    Add-Member @BaseParams -Name ClientTimestamp -Value $ClientTimestamp
+                    Add-Member @BaseParams -Name CurrentActivationState -Value $CurrentActivationState
+                    Add-Member @BaseParams -Name CurrentActivationCount -Value $CurrentActivationCount
+                    Add-Member @BaseParams -Name LicenseStateExpirationMin -Value $LicenseStateExpirationMin
+                    Add-Member @BaseParams -Name LicenseStateExpiration -Value $LicenseStateExpiration
+                    Add-Member @BaseParams -Name NextActivationAttempt -Value $NextActivationAttempt
+                    Add-Member @BaseParams -Name ActivationStatus -Value $ActivationStatus
+                    Add-Member @BaseParams -Name ADActivationObjectName -Value $ADActivationObjectName
+                    Add-Member @BaseParams -Name ADActivationObject -Value $ADActivationObject
+                    Add-Member @BaseParams -Name ProductSkuId -Value $ProductSkuId
+                    Add-Member @BaseParams -Name ProductSkuName -Value $ProductSkuName
+                    Add-Member @BaseParams -Name MinActivateCount -Value $MinActivateCount
+                    Add-Member @BaseParams -Name KmsErrorCode -Value $KmsErrorCode
+                    Add-Member @BaseParams -Name KmsErrorMessage -Value $KmsErrorMessage
                 }
                 'KMSHostEvent' {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.KMSHostEvent'
+
+                    if ($EventData.Data[6] -eq 0) {
+                        $IsClientVM = $false
+                    } else {
+                        $IsClientVM = $true
+                    }
+                    Add-Member @BaseParams -Name MinActivateCount -Value $EventData.Data[2]
+                    Add-Member @BaseParams -Name ClientFqdn -Value $EventData.Data[3]
+                    Add-Member @BaseParams -Name ClientMachineID -Value $EventData.Data[4]
+                    Add-Member @BaseParams -Name ClientTimestamp -Value (Get-Date $EventData.Data[5])
+                    Add-Member @BaseParams -Name IsClientVM -Value $IsClientVM
+                    Add-Member @BaseParams -Name LicenseState -Value (Get-KmsLicenseState -LicenseState $EventData.Data[7])
+                    Add-Member @BaseParams -Name LicenseStateExpirationMin -Value $EventData.Data[8]
+                    Add-Member @BaseParams -Name LicenseStateExpiration -Value (Get-Date $EventData.Data[5]).AddMinutes($EventData.Data[8])
+                    Add-Member @BaseParams -Name ProductSkuId -Value $EventData.Data[9]
+                    Add-Member @BaseParams -Name ProductSkuName -Value (Get-KmsProductSku -ProductSku $EventData.Data[9])
+                    Add-Member @BaseParams -Name KmsErrorCode -Value $EventData.Data[1]
+                    Add-Member @BaseParams -Name KmsErrorMessage -Value (Get-KmsErrorCode -ErrorCode $EventData.Data[1])
                 }
                 'KMSHostLicenseCheckEvent' {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.KMSHostLicenseCheckEvent'
+
+                    $ActivationId = $EventData.Data[1].Split(':')[1].Split(',')[0].Trim()
+                    Add-Member @BaseParams -Name ActivationId -Value $ActivationId
+                    Add-Member @BaseParams -Name ApplicationName -Value (Get-KmsProductSku -ProductSku $ActivationId)
+                    Add-Member @BaseParams -Name LicensingStatusMessage -Value $EventData.Data[1].Trim()
                 }
                 'AccountManagementEvent' {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.AccountManagementEvent'
                 }
                 default {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.Default'
-                    Add-Member @BaseParams -Name EventData -Value $EventData
-                    Add-Member @BaseParams -Name UserData -Value $UserData
                 }
             }
 
