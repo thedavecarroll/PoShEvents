@@ -315,4 +315,27 @@
             </MemberSet>
         </Members>
     </Type>
+        <Type>
+        <Name>MyEvent.EventRecordType.Default</Name>
+        <Members>
+            <MemberSet>
+                <Name>PSStandardMembers</Name>
+                <Members>
+                    <PropertySet>
+                    <Name>DefaultDisplayPropertySet</Name>
+                        <ReferencedProperties>
+                            <Name>ComputerName</Name>
+                            <Name>TimeCreated</Name>
+                            <Name>Id</Name>
+                            <Name>Level</Name>
+                            <Name>ProviderName</Name>
+                            <Name>Message</Name>
+                            <Name>EventData</Name>
+                            <Name>UserData</Name>
+                        </ReferencedProperties>
+                    </PropertySet>
+                </Members>
+            </MemberSet>
+        </Members>
+    </Type>
 </Types>
