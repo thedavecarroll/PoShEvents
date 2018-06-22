@@ -360,18 +360,18 @@ function ConvertFrom-EventLogRecord {
                     }
                     Add-Member @BaseParams -Name Status -Value $Status
 
-                    $EventMessageFirstLine = $Event.Message.Split("`n")
-                    if ($EventMessageFirstLine[0].Trim() -match '.+?details:$' ) {
+                    $EventMessageLines = $Event.Message.Split("`n")
+                    if ($EventMessageLines[0].Trim() -match '.+?details:$' ) {
                         $Details = $Event.Message -Split ("`n",2)
                         $DetailLines = $Details[1].Split("`n")
                         $Action = [PsCustomObject]::new()
                         foreach ($Line in $DetailLines) {
                             Add-Member -InputObject $Action -MemberType NoteProperty -Name $Line.Split(':')[0].Trim().Replace(' ','') -Value $Line.Split(':')[1].Trim()
                         }
-                    } elseif ($EventMessageFirstLine[0].Trim() -match '.+?:$' ) {
-                        $Action = $EventMessageFirstLine[0].Replace(':','').Trim()
+                    } elseif ($EventMessageLines[0].Trim() -match '.+?:$' ) {
+                        $Action = $EventMessageLines[0].Replace(':','').Trim()
                     } else {
-                        $Action = $EventMessageFirstLine[0].Trim()
+                        $Action = $EventMessageLines[0].Trim()
                     }
                     Add-Member @BaseParams -Name Action -Value $Action
 
@@ -486,6 +486,8 @@ function ConvertFrom-EventLogRecord {
                 }
                 'AccountManagementEvent' {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.AccountManagementEvent'
+
+                    Add-Member @BaseParams -Name EventMessage -Value $Event.Message.Split("`n")[0]
                 }
                 default {
                     Add-Member -InputObject $Event -TypeName 'MyEvent.EventRecordType.Default'
