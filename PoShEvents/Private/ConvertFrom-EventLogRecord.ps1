@@ -176,17 +176,18 @@ function ConvertFrom-EventLogRecord {
             $UserData = $EventRecordXml.Event.UserData
 
             $Event = [PSCustomObject]@{
-                ComputerName = $EventLogRecord.MachineName
-                TimeCreated  = $EventLogRecord.TimeCreated
-                Id           = $EventLogRecord.Id
-                Level        = $EventLogRecord.LevelDisplayName
-                ActivityId   = $EventLogRecord.ActivityId
-                RecordId     = $EventLogRecord.RecordId
-                LogName      = $EventLogRecord.LogName
-                ProviderName = $EventLogRecord.ProviderName
-                UserId       = $EventLogRecord.UserId
-                UserName     = ConvertFrom-UserSID -UserSID $EventLogRecord.UserId
-                Message      = $EventLogRecord.Message
+                ComputerName    = $EventLogRecord.MachineName
+                TimeCreated     = $EventLogRecord.TimeCreated
+                Id              = $EventLogRecord.Id
+                Level           = $EventLogRecord.LevelDisplayName
+                ActivityId      = $EventLogRecord.ActivityId
+                RecordId        = $EventLogRecord.RecordId
+                LogName         = $EventLogRecord.LogName
+                ProviderName    = $EventLogRecord.ProviderName
+                UserId          = $EventLogRecord.UserId
+                UserName        = ConvertFrom-UserSID -UserSID $EventLogRecord.UserId
+                Message         = $EventLogRecord.Message
+                EventRecordXml  = $EventRecordXml
             }
 
             $BaseParams = @{
