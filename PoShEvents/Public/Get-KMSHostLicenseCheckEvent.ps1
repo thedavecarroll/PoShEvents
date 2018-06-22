@@ -1,8 +1,8 @@
 function Get-KMSHostLicenseCheckEvent {
-    [CmdletBinding()]    
+    [CmdletBinding()]
     param(
         [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]
-        [Alias('IPAddress','__Server','CN')]      
+        [Alias('IPAddress','__Server','CN')]
         [string]$ComputerName='localhost',
         [ValidateNotNull()]
         [System.Management.Automation.PSCredential]
@@ -10,30 +10,33 @@ function Get-KMSHostLicenseCheckEvent {
         [datetime]$StartTime,
         [datetime]$EndTime,
         [int64]$MaxEvents,
-        [switch]$Oldest
+        [switch]$Oldest,
+        [switch]$Raw
     )
 
     begin {
-                
+
         if ($StartTime -and $EndTime) {
-            $SystemTime = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))' and @SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
+            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))' and @SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
         } elseif ($StartTime) {
-            $SystemTime = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))'])"
+            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))'])"
         } elseif ($EndTime) {
-            $SystemTime = "and (System/TimeCreated[@SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
+            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
         } else {
-            $SystemTime = $null
+            $TimeCreatedFilter = ']'
         }
 
-        $FilterXml = @"
-            <QueryList><Query Id="0" Path="Application">
-            <Select Path="Application">*[System
-                    [Provider[@Name='Microsoft-Windows-Security-SPP'] and 
-                    (EventID=1003)] 
-                    $SystemTime
-            ]</Select>
-            </Query></QueryList>
-"@
+        $FilterXmlText = '<QueryList>'
+        $FilterXmlText += '<Query Id="0" Path="Application">'
+        $FilterXmlText += '<Select Path="Application">'
+        $FilterXmlText += '*[System[Provider[@Name=''Microsoft-Windows-Security-SPP''] and '
+        $FilterXmlText += '(EventID=1003)]'
+        $FilterXmlText += $TimeCreatedFilter
+        $FilterXmlText += '</Select>'
+        $FilterXmlText += '</Query>'
+        $FilterXmlText += '</QueryList>'
+
+        [xml]$FilterXml = $FilterXmlText
 
         $ParameterSplat = @{}
         if ($Credential) {
@@ -45,31 +48,14 @@ function Get-KMSHostLicenseCheckEvent {
         if ($Oldest) {
             $ParameterSplat['Oldest'] = $true
         }
-  
+
     }
 
     process {
-
-        $Events = Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat
-
-        $EventCount = 0
-        foreach ($Event in $Events) {
-            if ($EventCount -gt 0) {
-                Write-Progress -Id 1 -Activity "Formatting events..." -PercentComplete (($EventCount / $Events.count) * 100)
-            }
-            $EventCount++
-
-            $EventLogRecord = ConvertFrom-EventLogRecord -EventLogRecord $Event
-
-            [PsCustomObject]@{
-                ComputerName                = $EventLogRecord.ComputerName
-                TimeCreated                 = $EventLogRecord.TimeCreated
-                Id                          = $EventLogRecord.Id
-                Level                       = $EventLogRecord.Level
-                ActivationId                = $EventLogRecord.ActivationId
-                ApplicationName             = $EventLogRecord.ApplicationName
-                LicensingStatusMessage      = $EventLogRecord.LicensingStatusMessage
-            }
+        if ($Raw) {
+            Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat
+        } else {
+            Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'KMSHostLicenseCheckEvent'
         }
     }
 

@@ -10,7 +10,8 @@ function Get-KMSClientEvent {
         [datetime]$StartTime,
         [datetime]$EndTime,
         [int64]$MaxEvents,
-        [switch]$Oldest
+        [switch]$Oldest,
+        [switch]$Raw
     )
 
     begin {
@@ -22,7 +23,7 @@ function Get-KMSClientEvent {
         } elseif ($EndTime) {
             $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
         } else {
-            $TimeCreatedFilter = $null
+            $TimeCreatedFilter = ']'
         }
 
         $FilterXmlText = '<QueryList>'
@@ -51,9 +52,11 @@ function Get-KMSClientEvent {
     }
 
     process {
-
-        Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'KMSClientEvent'
-
+        if ($Raw) {
+            Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat
+        } else {
+            Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'KMSClientEvent'
+        }
     }
 
     end {
