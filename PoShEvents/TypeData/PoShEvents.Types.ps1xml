@@ -202,32 +202,6 @@
         </Members>
     </Type>
     <Type>
-        <Name>MyEvent.EventRecordType.ServiceEvent.Install</Name>
-        <Members>
-            <MemberSet>
-                <Name>PSStandardMembers</Name>
-                <Members>
-                    <PropertySet>
-                    <Name>DefaultDisplayPropertySet</Name>
-                        <ReferencedProperties>
-                            <Name>ComputerName</Name>
-                            <Name>TimeCreated</Name>
-                            <Name>Id</Name>
-                            <Name>Level</Name>
-                            <Name>EventType</Name>
-                            <Name>ServiceName</Name>
-                            <Name>ServiceMessage</Name>
-                            <Name>ImagePath</Name>
-                            <Name>ServiceType</Name>
-                            <Name>StartType</Name>
-                            <Name>AccountName</Name>
-                        </ReferencedProperties>
-                    </PropertySet>
-                </Members>
-            </MemberSet>
-        </Members>
-    </Type>
-    <Type>
         <Name>MyEvent.EventRecordType.GPOProcessingEvent</Name>
         <Members>
             <MemberSet>
@@ -246,6 +220,95 @@
                             <Name>GPOApplied</Name>
                             <Name>GPOList</Name>
                             <Name>GroupPolicy</Name>
+                        </ReferencedProperties>
+                    </PropertySet>
+                </Members>
+            </MemberSet>
+        </Members>
+    </Type>
+    <Type>
+        <Name>MyEvent.EventRecordType.KMSClientEvent</Name>
+        <Members>
+            <MemberSet>
+                <Name>PSStandardMembers</Name>
+                <Members>
+                    <PropertySet>
+                    <Name>DefaultDisplayPropertySet</Name>
+                        <ReferencedProperties>
+                            <Name>ComputerName</Name>
+                            <Name>TimeCreated</Name>
+                            <Name>Id</Name>
+                            <Name>Level</Name>
+                            <Name>KMSHost</Name>
+                            <Name>KMSHostPort</Name>
+                            <Name>ClientMachineID</Name>
+                            <Name>ClientTimestamp</Name>
+                            <Name>CurrentActivationState</Name>
+                            <Name>CurrentActivationCount</Name>
+                            <Name>LicenseStateExpirationMin</Name>
+                            <Name>LicenseStateExpiration</Name>
+                            <Name>NextActivationAttempt</Name>
+                            <Name>ActivationStatus</Name>
+                            <Name>ADActivationObjectName</Name>
+                            <Name>ADActivationObject</Name>
+                            <Name>ProductSkuId</Name>
+                            <Name>ProductSkuName</Name>
+                            <Name>MinActivateCount</Name>
+                            <Name>KmsErrorCode</Name>
+                            <Name>KmsErrorMessage</Name>
+                        </ReferencedProperties>
+                    </PropertySet>
+                </Members>
+            </MemberSet>
+        </Members>
+    </Type>
+    <Type>
+        <Name>MyEvent.EventRecordType.KMSHostEvent</Name>
+        <Members>
+            <MemberSet>
+                <Name>PSStandardMembers</Name>
+                <Members>
+                    <PropertySet>
+                    <Name>DefaultDisplayPropertySet</Name>
+                        <ReferencedProperties>
+                            <Name>ComputerName</Name>
+                            <Name>TimeCreated</Name>
+                            <Name>Id</Name>
+                            <Name>Level</Name>
+                            <Name>MinActivateCount</Name>
+                            <Name>ClientFqdn</Name>
+                            <Name>ClientMachineID</Name>
+                            <Name>ClientTimestamp</Name>
+                            <Name>IsClientVM</Name>
+                            <Name>LicenseState</Name>
+                            <Name>LicenseStateExpirationMin</Name>
+                            <Name>LicenseStateExpiration</Name>
+                            <Name>ProductSkuId</Name>
+                            <Name>ProductSkuName</Name>
+                            <Name>KmsErrorCode</Name>
+                            <Name>KmsErrorMessage</Name>
+                        </ReferencedProperties>
+                    </PropertySet>
+                </Members>
+            </MemberSet>
+        </Members>
+    </Type>
+    <Type>
+        <Name>MyEvent.EventRecordType.KMSHostLicenseCheckEvent</Name>
+        <Members>
+            <MemberSet>
+                <Name>PSStandardMembers</Name>
+                <Members>
+                    <PropertySet>
+                    <Name>DefaultDisplayPropertySet</Name>
+                        <ReferencedProperties>
+                            <Name>ComputerName</Name>
+                            <Name>TimeCreated</Name>
+                            <Name>Id</Name>
+                            <Name>Level</Name>
+                            <Name>ActivationId</Name>
+                            <Name>ApplicationName</Name>
+                            <Name>LicensingStatusMessage</Name>
                         </ReferencedProperties>
                     </PropertySet>
                 </Members>
