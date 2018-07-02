@@ -14,7 +14,7 @@ This function queries a KMS host server for registration events.
 
 ```
 Get-KMSHostEvent [[-ComputerName] <String>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
- [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [<CommonParameters>]
+ [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -113,7 +113,7 @@ Accept wildcard characters: False
 ```
 
 ### -Oldest
-Returns the events in oldest-first order. 
+Returns the events in oldest-first order.
 By default, events are returned in newest-first order.
 
 ```yaml
@@ -143,9 +143,23 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Raw
+Use this switch to provide the raw event log record for the function.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
