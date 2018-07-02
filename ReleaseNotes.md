@@ -3,7 +3,7 @@
 ## 0.2.0
 
 * Get-AccountManagementEvent - removed function in order to work on it in more detail
-* ConvertFrom-EventLogRecord - switch to new pipeline execution method, switch to using hashtable before object build
+* ConvertFrom-EventLogRecord - switched to new pipeline execution method and switched to using hashtable before object build
 * Add TypeData and FormatData for functions
 * Add -Raw swich to present the raw event log records without converting them
 
