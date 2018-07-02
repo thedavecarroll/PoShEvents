@@ -14,7 +14,8 @@ This function will show you details for the successful print jobs that the syste
 
 ```
 Get-PrintDocumentEvent [[-ComputerName] <String>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
- [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [<CommonParameters>]
+ [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [-UserName <String>]
+ [-ClientMachineName <String>] [-PrinterName <String>] [-PrinterPort <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -79,7 +80,7 @@ Accept wildcard characters: False
 ```
 
 ### -EndTime
-{{Specifies the end of the time period for the event log query.}}
+Specifies the end of the time period for the event log query.
 
 ```yaml
 Type: DateTime
@@ -111,7 +112,7 @@ Accept wildcard characters: False
 ```
 
 ### -Oldest
-Returns the events in oldest-first order. 
+Returns the events in oldest-first order.
 By default, events are returned in newest-first order.
 
 ```yaml
@@ -141,9 +142,83 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ClientMachineName
+Filter by the client machine host name.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PrinterName
+Filter events for the specified printer.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PrinterPort
+Filter events for the specified printer port name, e.g. IP_172.16.5.27
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Raw
+Use this switch to provide the raw event log record for the function.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UserName
+Filter the results by the user which printed documents. Provide the SamAccountName only.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
