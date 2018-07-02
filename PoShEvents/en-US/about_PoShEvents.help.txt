@@ -19,4 +19,4 @@ SEE ALSO
     Get-RemoteLogonEvent
     Get-ServiceEvent
     Get-SystemRestartEvent
- 
+    ConvertFrom-EventLogRecord
