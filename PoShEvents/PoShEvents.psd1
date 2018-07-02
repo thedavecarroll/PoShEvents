@@ -69,7 +69,7 @@ FormatsToProcess = 'TypeData\PoShEvents.Format.ps1xml'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Get-AccountManagementEvent', 'Get-GPOProcessingEvent',
+FunctionsToExport = 'ConvertFrom-EventLogRecord','Get-GPOProcessingEvent',
                'Get-KMSClientEvent', 'Get-KMSHostEvent',
                'Get-KMSHostLicenseCheckEvent', 'Get-LogonFailureEvent',
                'Get-OSVersionFromEvent', 'Get-PrintDocumentEvent',
@@ -92,9 +92,11 @@ AliasesToExport = @()
 
 # List of all files packaged with this module
 FileList = 'en-US\about_PoShEvents.help.txt', 'PoShEvents.psd1',
-               'PoShEvents.psm1', 'Private\ConvertFrom-EventLogRecord.ps1',
+               'PoShEvents.psm1',
                'Private\Get-MyEvent.ps1', 'Private\KmsFunctions.ps1',
-               'Public\Get-AccountManagementEvent.ps1',
+               'Private\Get-LogonFailureReason.ps1', 'Private\LogonMethod.ps1',
+               'Private\Get-GPEventType.ps1', 'Private\ConvertFrom-UserSID.ps1',
+               'Public\ConvertFrom-EventLogRecord.ps1',
                'Public\Get-GPOProcessingEvent.ps1',
                'Public\Get-KMSClientEvent.ps1', 'Public\Get-KMSHostEvent.ps1',
                'Public\Get-KMSHostLicenseCheckEvent.ps1',

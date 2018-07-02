@@ -8,30 +8,6 @@ The functions contained in this module will assist in harvesting data from event
 Install-Module -Name PoShEvents
 ```
 
-## Account Management Events
-
-Using the `Get-AccountManagementEvent` function, you can search the security log for a specific event Id or for activity for particular audit groups. Each audit group corresponds a selection of event Ids.
-
-+ UserAccount
-+ SecurityEnabledGroup
-+ DistributionGroup
-+ ComputerAccount
-+ ApplicationGroup
-+ DSObject
-+ AccountLockout
-
-```powershell
-Get-AccountManagementEvent -ComputerName DC1 -StartTime (Get-Date).AddHours(-1) -Type UserAccount -MaxEvents 5
-```
-
-This command will query the server **DC1** for all user account activity within the last hour, limiting the results to the last 5.
-
-```powershell
-Get-AccountManagementEvent -ComputerName SVRXCH01 -Type UserAccount -Credential (Get-Credential) | Where-Object { $_.UserName -match 'carroll'}
-```
-
-This command will query the server **SVRXCH01** for all user account activity, filtering for a match on UserName (SamAccountName).
-
 ## Group Policy Processing Events
 
 If you need to determine if a particular policy has applied to a user or computer, you can use the `Get-GPOProcessingEvent` function.

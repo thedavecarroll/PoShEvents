@@ -8,7 +8,6 @@ LONG DESCRIPTION
     The functions in this module will assist in troubleshooting and data mining.
 
 SEE ALSO
-    Get-AccountManagementEvent
     Get-GPOProcessingEvent
     Get-KMSClientEvent
     Get-KMSHostEvent
