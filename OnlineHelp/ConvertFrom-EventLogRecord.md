@@ -1,7 +1,7 @@
 ---
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version:
+online version: https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/ConvertFrom-EventLogRecord.md
 schema: 2.0.0
 ---
 
