@@ -172,14 +172,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
-
-Get-AccountManagementEvent
-Get-GPOProcessingEvent
-Get-KMSClientEvent
-Get-KMSHostEvent
-Get-KMSHostLicenseCheckEvent
-Get-LogonFailureEvent
-Get-OSVersionFromEvent
-Get-PrintDocumentEvent
-Get-RemoteLogonEvent
-Get-ServiceEvent
