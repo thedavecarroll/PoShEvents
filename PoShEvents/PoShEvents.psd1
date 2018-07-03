@@ -12,7 +12,7 @@
 RootModule = 'PoShEvents.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.2'
+ModuleVersion = '0.2.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -94,7 +94,7 @@ AliasesToExport = @()
 FileList = 'en-US\about_PoShEvents.help.txt', 'PoShEvents.psd1',
                'PoShEvents.psm1',
                'Private\Get-MyEvent.ps1', 'Private\KmsFunctions.ps1',
-               'Private\Get-LogonFailureReason.ps1', 'Private\LogonMethod.ps1',
+               'Private\Get-LogonFailureReason.ps1', 'Private\Get-LogonMethod.ps1',
                'Private\Get-GPEventType.ps1', 'Private\ConvertFrom-UserSID.ps1',
                'Public\ConvertFrom-EventLogRecord.ps1',
                'Public\Get-GPOProcessingEvent.ps1',
@@ -136,20 +136,21 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = @'
+## 0.2.0
+
+* Get-AccountManagementEvent - removed function in order to work on it in more detail
+* ConvertFrom-EventLogRecord - switched to new pipeline execution method and switched to using hashtable before object build
+* Add TypeData and FormatData for functions
+* Add -Raw swich to present the raw event log records without converting them
+    * Useful for some functions that use complex XML filters
+* Updated help
+
 ## 0.1.2
 
 * Added online help
 * Corrected external help by adding online
 * Get-MyEvent - switched to parameterset for filter and simplified error handling
 * All public functions - removed try/catch for Get-MyEvent
-
-## 0.1.1
-
-* Added external help
-
-## 0.1.0
-
-* Initial release
 
 For full Release Notes, see https://github.com/thedavecarroll/PoShEvents/blob/master/ReleaseNotes.md
 '@
