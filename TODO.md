@@ -9,6 +9,7 @@ My general TODO list for this module.
 * Add new function to get the statistics of an event log or provider.
 * Add -AsJob to Get-MyEvent private function in hopes of speeding up results for large number of systems. An alternative would be to create a workflow to get the events.
 * When needed, switch to filter XML for parameter filtering.
+* Test signing.
 
 ## Bugs
 
