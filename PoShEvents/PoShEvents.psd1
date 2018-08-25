@@ -161,7 +161,7 @@ For full Release Notes, see https://github.com/thedavecarroll/PoShEvents/blob/ma
 } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
-HelpInfoURI = 'https://powershell.anovelidea.org/modulehelp/PoShEvents'
+HelpInfoURI = 'https://powershell.anovelidea.org/modulehelp/PoShEvents/'
 
 # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
 # DefaultCommandPrefix = ''
