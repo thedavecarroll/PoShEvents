@@ -1,5 +1,10 @@
 # Release Notes
 
+## 0.2.1
+
+* Moved online help to http://powershell.anovelidea.org/modulehelp/PoShEvents
+* Added updateable help to http://powershell.anovelidea.org/modulehelp/PoShEvents
+
 ## 0.2.0
 
 * Get-AccountManagementEvent - removed function in order to work on it in more detail

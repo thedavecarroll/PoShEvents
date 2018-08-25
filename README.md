@@ -1,5 +1,7 @@
 # PoShEvents
 
+[![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/PoShEvents.svg?style=for-the-badge)](https://www.powershellgallery.com/packages/PoShEvents/)
+
 The functions contained in this module will assist in harvesting data from event logs for various events.
 
 ## Installing the Module

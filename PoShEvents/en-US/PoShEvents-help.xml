@@ -147,7 +147,7 @@
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/ConvertFrom-EventLogRecord.md</maml:uri>
+        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/ConvertFrom-EventLogRecord.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -399,7 +399,7 @@
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-GPOProcessingEvent.md</maml:uri>
+        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-GPOProcessingEvent.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -470,7 +470,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>MaxEvents</maml:name>
           <maml:Description>
-            <maml:para>{{Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.}}</maml:para>
+            <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
           <dev:type>
@@ -544,7 +544,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>MaxEvents</maml:name>
         <maml:Description>
-          <maml:para>{{Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.}}</maml:para>
+          <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
         <dev:type>
@@ -648,7 +648,7 @@ KmsErrorMessage           :</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-KMSClientEvent.md</maml:uri>
+        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-KMSClientEvent.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -889,7 +889,7 @@ vmwkstn45.contoso.com 4/10/2018 10:34:00 PM       True Grace Period       Window
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-KMSHostEvent.md</maml:uri>
+        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-KMSHostEvent.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1117,7 +1117,7 @@ vmwkstn45.contoso.com 4/10/2018 10:34:00 PM       True Grace Period       Window
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-KMSHostLicenseCheckEvent.md</maml:uri>
+        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-KMSHostLicenseCheckEvent.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1354,7 +1354,7 @@ DC1.contoso.com 5/11/2018 8:37:41 PM jknoxville     192.168.1.67 Undetermined lo
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-LogonFailureEvent.md</maml:uri>
+        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-LogonFailureEvent.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1491,7 +1491,7 @@ WKSTN07.contoso.com  10.00.17134</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-OSVersionFromEvent.md</maml:uri>
+        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-OSVersionFromEvent.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1826,7 +1826,7 @@ DocumentPageCount : 2</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-PrintDocumentEvent.md</maml:uri>
+        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-PrintDocumentEvent.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2076,7 +2076,7 @@ LogonMethod  : Interactive (local system)</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-RemoteLogonEvent.md</maml:uri>
+        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-RemoteLogonEvent.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2322,7 +2322,7 @@ Message            : The start type of the Print Spooler service was changed fro
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-ServiceEvent.md</maml:uri>
+        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-ServiceEvent.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2563,7 +2563,7 @@ WKSTN07.contoso.com 5/3/2018 11:08:41 PM 6006 EventLog     Information Shutdown<
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/thedavecarroll/PoShEvents/blob/master/OnlineHelp/Get-SystemRestartEvent.md</maml:uri>
+        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-SystemRestartEvent.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>

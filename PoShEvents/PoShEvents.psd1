@@ -12,7 +12,7 @@
 RootModule = 'PoShEvents.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.2.0'
+ModuleVersion = '0.2.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -91,7 +91,7 @@ AliasesToExport = @()
 # ModuleList = @()
 
 # List of all files packaged with this module
-FileList = 'en-US\about_PoShEvents.help.txt', 'PoShEvents.psd1',
+FileList = 'en-US\PoShEvents-help.xml','en-US\about_PoShEvents.help.txt', 'PoShEvents.psd1',
                'PoShEvents.psm1',
                'Private\Get-MyEvent.ps1', 'Private\KmsFunctions.ps1',
                'Private\Get-LogonFailureReason.ps1', 'Private\Get-LogonMethod.ps1',
@@ -136,6 +136,11 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = @'
+## 0.2.1
+
+* Moved online help to http://powershell.anovelidea.org/modulehelp/PoShEvents
+* Added updateable help to http://powershell.anovelidea.org/modulehelp/PoShEvents
+
 ## 0.2.0
 
 * Get-AccountManagementEvent - removed function in order to work on it in more detail
@@ -144,13 +149,6 @@ PrivateData = @{
 * Add -Raw swich to present the raw event log records without converting them
     * Useful for some functions that use complex XML filters
 * Updated help
-
-## 0.1.2
-
-* Added online help
-* Corrected external help by adding online
-* Get-MyEvent - switched to parameterset for filter and simplified error handling
-* All public functions - removed try/catch for Get-MyEvent
 
 For full Release Notes, see https://github.com/thedavecarroll/PoShEvents/blob/master/ReleaseNotes.md
 '@
@@ -163,7 +161,7 @@ For full Release Notes, see https://github.com/thedavecarroll/PoShEvents/blob/ma
 } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
-HelpInfoURI = ''
+HelpInfoURI = 'https://powershell.anovelidea.org/modulehelp/PoShEvents'
 
 # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
 # DefaultCommandPrefix = ''
