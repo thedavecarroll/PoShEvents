@@ -1,5 +1,5 @@
 function Get-PrintDocumentEvent {
-    [CmdLetBinding()]
+    [CmdLetBinding(DefaultParameterSetName='TimeSpan')]
     param(
         [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]
         [Alias('IPAddress','__Server','CN')]
@@ -7,80 +7,74 @@ function Get-PrintDocumentEvent {
         [ValidateNotNull()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]$Credential = [System.Management.Automation.PSCredential]::Empty,
+        [Parameter(ParameterSetName='TimeRange')]
         [datetime]$StartTime,
+        [Parameter(ParameterSetName='TimeRange')]
         [datetime]$EndTime,
+        [Parameter(ParameterSetName='TimeSpan')]
+        [timespan]$Since,
         [int64]$MaxEvents,
         [switch]$Oldest,
         [switch]$Raw,
         [string]$UserName,
         [string]$ClientMachineName,
         [string]$PrinterName,
-        [string]$PrinterPort
+        [string]$PrinterPort,
+        [string]$DocumentName,
+        [string]$PagesPrinted
     )
 
     begin {
 
-        if ($StartTime -and $EndTime) {
-            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))' and @SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
-        } elseif ($StartTime) {
-            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))'])"
-        } elseif ($EndTime) {
-            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
-        } else {
-            $TimeCreatedFilter = $null
+        $Hashtable = @{
+            UserData = @{
+                DocumentPrinted = @{}
+            }
+        }
+        if ($DocumentName) {
+            $Hashtable['UserData']['DocumentPrinted'].Add('Param2',$DocumentName)
+        }
+        if ($UserName) {
+            $Hashtable['UserData']['DocumentPrinted'].Add('Param3',$UserName)
+        }
+        if ($ClientMachineName) {
+            $Hashtable['UserData']['DocumentPrinted'].Add('Param4',$ClientMachineName)
+        }
+        if ($PrinterName) {
+            $Hashtable['UserData']['DocumentPrinted'].Add('Param5',$PrinterName)
+        }
+        if ($PrinterPort) {
+            $Hashtable['UserData']['DocumentPrinted'].Add('Param6',$PrinterPort)
+        }
+        if ($PagesPrinted) {
+            $Hashtable['UserData']['DocumentPrinted'].Add('Param8',$PagesPrinted)
         }
 
-        $DocumentPrintedFilterCount = 0
-        if ($UserName) { $DocumentPrintedFilterCount++ }
-        if ($ClientMachineName) { $DocumentPrintedFilterCount++ }
-        if ($PrinterName) { $DocumentPrintedFilterCount++ }
-        if ($PrinterPort) { $DocumentPrintedFilterCount++ }
-
-        if ($DocumentPrintedFilterCount -gt 0) {
-            $DocumentPrintedFilter = " and *[UserData[DocumentPrinted["
-
-            if ($UserName) {
-                $DocumentPrintedFilter += " (Param3='" + $UserName + "') "
-            }
-            if ($ClientMachineName) {
-                if ($DocumentPrintedFilterCount -eq 1) {
-                    $DocumentPrintedFilter += " (Param4='" + $ClientMachineName + "') "
-                } else {
-                    $DocumentPrintedFilter += " and (Param4='" + $ClientMachineName + "') "
-                }
-            }
-            if ($PrinterName) {
-                if ($DocumentPrintedFilterCount -eq 1) {
-                    $DocumentPrintedFilter += " (Param5='" + $PrinterName + "') "
-                } else {
-                    $DocumentPrintedFilter += " and (Param5='" + $PrinterName + "') "
-                }
-            }
-            if ($PrinterPort) {
-                if ($DocumentPrintedFilterCount -eq 1) {
-                    $DocumentPrintedFilter += " (Param6='" + $PrinterPort + "') "
-                } else {
-                    $DocumentPrintedFilter += " and (Param6='" + $PrinterPort + "') "
-                }
-            }
-
-            $DocumentPrintedFilter += "]]] "
-
-        } else {
-            $DocumentPrintedFilter = $null
+        $FilterXmlParam = @{
+            LogName = 'Microsoft-Windows-PrintService/Operational'
+            EventId = 307
         }
 
-        $FilterXmlText = '<QueryList>'
-        $FilterXmlText += '<Query Id="0" Path="Microsoft-Windows-PrintService/Operational">'
-        $FilterXmlText += '<Select Path="Microsoft-Windows-PrintService/Operational">'
-        $FilterXmlText += '*[System[(EventID=307)]]'
-        $FilterXmlText += $TimeCreatedFilter
-        $FilterXmlText += $DocumentPrintedFilter
-        $FilterXmlText += '</Select>'
-        $FilterXmlText += '</Query>'
-        $FilterXmlText += '</QueryList>'
+        if ($Hashtable.Values.Values.Count -gt 0) {
+            $FilterXmlParam.Add('EventDataFilter',(New-EventDataFilter -Hashtable $Hashtable))
+        }
 
-        [xml]$FilterXml = $FilterXmlText
+        if ($PSCmdlet.ParameterSetName -eq 'TimeSpan') {
+            if ($Since) {
+                $FilterXmlParam.Add('Since',$Since)
+            }
+        } else {
+            if ($StartTime) {
+                $FilterXmlParam.Add('StartTime',$StartTime)
+            }
+            if ($EndTime) {
+                $FilterXmlParam.Add('EndTime',$EndTime)
+            }
+        }
+
+        $FilterXml = New-EventFilterXml @FilterXmlParam
+
+        '{0}{1}' -f [System.Environment]::NewLine,$FilterXml | Write-Verbose
 
         $ParameterSplat = @{}
         if ($Credential) {
