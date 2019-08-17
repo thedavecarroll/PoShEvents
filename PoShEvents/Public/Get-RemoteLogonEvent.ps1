@@ -1,14 +1,18 @@
 ﻿function Get-RemoteLogonEvent {
-    [CmdLetBinding()]
+    [CmdLetBinding(DefaultParameterSetName='TimeSpan')]
     param(
-        [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]
+        [Parameter(ParameterSetName='Default',ValueFromPipelineByPropertyName,ValueFromPipeline)]
         [Alias('IPAddress','__Server','CN')]
         [string[]]$ComputerName='localhost',
         [ValidateNotNull()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]$Credential = [System.Management.Automation.PSCredential]::Empty,
+        [Parameter(ParameterSetName='TimeRange')]
         [datetime]$StartTime,
+        [Parameter(ParameterSetName='TimeRange')]
         [datetime]$EndTime,
+        [Parameter(ParameterSetName='TimeSpan')]
+        [timespan]$Since,
         [int64]$MaxEvents,
         [switch]$Oldest,
         [switch]$Raw
@@ -16,29 +20,38 @@
 
     Begin {
 
-
-        if ($StartTime -and $EndTime) {
-            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))' and @SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
-        } elseif ($StartTime) {
-            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))'])"
-        } elseif ($EndTime) {
-            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
-        } else {
-            $TimeCreatedFilter = $null
+        $Hashtable = @{
+            EventData = @{
+                Data = @{
+                    Name = 'LogonType'
+                    Data = 3,8,10
+                }
+            }
         }
 
-        $FilterXmlText = '<QueryList>'
-        $FilterXmlText += '<Query Id="0" Path="Security">'
-        $FilterXmlText += '<Select Path="Security">'
-        $FilterXmlText += '*[System[Provider[@Name=''Microsoft-Windows-Security-Auditing''] and '
-        $FilterXmlText += '(EventID=4624 or EventID=4625 or EventID=4634 or EventID=4778 or EventID=4779)]]'
-        $FilterXmlText += ' and *[EventData[Data[@Name=''LogonType''] and (Data=''3'' or Data=''8'' or Data=''10'')]]'
-        $FilterXmlText += $TimeCreatedFilter
-        $FilterXmlText += '</Select>'
-        $FilterXmlText += '</Query>'
-        $FilterXmlText += '</QueryList>'
+        $FilterXmlParam = @{
+            LogName = 'Security'
+            Provider = 'Microsoft-Windows-Security-Auditing'
+            EventId = 4624,4625,4634,4778,4779
+        }
+        $FilterXmlParam.Add('EventDataFilter',(New-EventDataFilter -Hashtable $Hashtable))
 
-        [xml]$FilterXml = $FilterXmlText
+        if ($PSCmdlet.ParameterSetName='TimeSpan') {
+            if ($Since) {
+                $FilterXmlParam.Add('Since',$Since)
+            }
+        } else {
+            if ($StartTime) {
+                $FilterXmlParam.Add('StartTime',$StartTime)
+            }
+            if ($EndTime) {
+                $FilterXmlParam.Add('EndTime',$EndTime)
+            }
+        }
+
+        $FilterXml = New-EventFilterXml @FilterXmlParam
+
+        '{0}{1}' -f [System.Environment]::NewLine,$FilterXml | Write-Verbose
 
         $ParameterSplat = @{}
         if ($Credential) {
