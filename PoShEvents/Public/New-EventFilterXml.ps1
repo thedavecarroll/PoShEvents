@@ -31,15 +31,23 @@ function New-EventFilterXml {
 
     #region validate logname when using parameterset Security
     if ($PSCmdlet.ParameterSetName -eq 'Security' -and $LogName -ne 'Security') {
-        Write-Warning -Message 'Audit filtering must specify Security as LogName'
-        return
+        try {
+            Write-Error -Message 'Audit filtering must specify Security as LogName' -Category InvalidArgument -ErrorAction Stop
+        }
+        catch {
+            $PSCmdlet.ThrowTerminatingError($_)
+        }
     }
     #endregion validate logname when using parameterset Security
 
     #region validate that Start and EndTime is not used with Since
     if ($PSBoundParameters.Keys -contains 'Since' -and ($PSBoundParameters.Keys -contains 'StartTime' -or $PSBoundParameters.Keys -contains 'EndTime'))  {
-        Write-Warning -Message 'Provide a value for Since or provide StartTime and/or EndTime'
-        return
+        try {
+            Write-Error -Message 'Provide a value for Since or provide StartTime and/or EndTime, but not both' -Category InvalidArgument -ErrorAction Stop
+        }
+        catch {
+            $PSCmdlet.ThrowTerminatingError($_)
+        }
     }
     #endregion validate that Start and EndTime is not used with Since
 
