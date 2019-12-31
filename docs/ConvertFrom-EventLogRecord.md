@@ -12,7 +12,7 @@ This function converts EventLogRecords into human readable output.
 
 ## SYNTAX
 
-```
+```powershell
 ConvertFrom-EventLogRecord [-Events] <EventLogRecord[]> [[-EventRecordType] <String>]
  [[-GroupPolicy] <Object[]>] [-ShowProgress] [<CommonParameters>]
 ```
@@ -23,12 +23,12 @@ This function converts EventLogRecords into human readable output.
 ## EXAMPLES
 
 ### Example 1
-```
+```powershell
 PS C:\> Get-WinEvent -LogName System -MaxEvents 5 | ConvertFrom-EventLogRecord
 ```
 
 ### Example 2
-```
+```powershell
 PS C:\> Get-WinEvent FilterHashTable = @{ProviderName = "Service Control Manager"} -MaxEvents 5 | ConvertFrom-EventLogRecord -EventRecordType ServiceEvent
 ```
 
@@ -110,4 +110,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Online Version:](https://powershell.anovelidea.org/modulehelp/PoShEvents/ConvertFrom-EventLogRecord.html)
-
