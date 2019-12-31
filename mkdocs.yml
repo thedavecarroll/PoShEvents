@@ -1,15 +1,55 @@
+# Project Info
 site_name: PoShEvents
-repo_url: https://github.com/thedavecarroll/PoShEvents
+site_description: Online Help for PoShEvents PowerShell Module
 site_author: Dave Carroll
-site_description:
-google_analytics: ['UA-155184965-1', 'powershell.anovelidea.org']
-edit_uri: edit/master/docs/
-copyright: "PoShEvents is licensed under the <a href='https://github.com/thedavecarroll/PoShEvents/raw/master/LICENSE'>MIT license."
+site_url: https://poshevents.anovelidea.org
+
+# Repo Info
+repo_name: thedavecarroll/PoShEvents
+repo_url: https://github.com/thedavecarroll/PoShEvents
+
+# Copyright
+copyright: "Copyright &copy; 2018-2019 Dave Carroll<br/>PoShEvents is licensed under the <a href='https://github.com/thedavecarroll/PoShEvents/raw/master/LICENSE'>MIT license."
+
+# Analytics
+google_analytics:
+    - UA-155184965-1
+    - auto
+
+# Configuration
 theme:
     name: material
+edit_uri: edit/master/docs/
+
+# Customization
+extra:
+    social:
+        - type: github
+          link: https://github.com/thedavecarroll/
+        - type: twitter
+          link: https://twitter.com/thedavecarroll
+        - type: linkedin
+          link: https://www.linkedin.com/in/thedavecarroll/
+
+# Extensions
+markdown_extensions:
+    - admonition
+    - pymdownx.superfences
+    - pymdownx.emoji
+    - pymdownx.tasklist
+    - pymdownx.mark
+    - pymdownx.keys
+    - pymdownx.details
+    - pymdownx.critic
+    - codehilite:
+        guess_lang: true
+    - toc:
+        permalink: true
+
+# Navigation
 nav:
-- Home: README.md
-- Change Log: ../CHANGELOG.md
-- Functions:
-    - Get-GPOProcessingEvent: Get-GPOProcessingEvent.md
-    - ConvertFrom-EventLogRecord: ConvertFrom-EventLogRecord.md
+    - Home: README.md
+    - Change Log: CHANGELOG.md
+    - Functions:
+        - Get-GPOProcessingEvent: Get-GPOProcessingEvent.md
+        - ConvertFrom-EventLogRecord: ConvertFrom-EventLogRecord.md
