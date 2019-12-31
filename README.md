@@ -50,7 +50,7 @@ Use `Get-RemoteLogonEvent` to show all remote desktop connections.
 
 ## Service Events
 
-The `Get-ServiceEvent` function will query the specified system for all service control manager events for service operations, stop, and start events. You can then filter on a particular service name or service displayname.
+The `Get-ServiceEvent` function will query the specified system for all service control manager events for service operations, stop, and start events. You can then filter on a particular service name or service DisplayName.
 
 ```powershell
 PS C:\PowerShell\Temp> (Get-ServiceEvent).Where({$_.ServiceDisplayName -match "print"}) | Select-Object -Property TimeCreated,EventType,ServiceName,ServiceDisplayName,Message

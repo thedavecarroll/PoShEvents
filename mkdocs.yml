@@ -1,0 +1,14 @@
+site_name: PoShEvents
+repo_url: https://github.com/thedavecarroll/PoShEvents
+site_author: Dave Carroll
+edit_uri: edit/master/docs/
+theme: readthedocs
+copyright: "PoShEvents is licensed under the <a href='https://github.com/thedavecarroll/PoShEvents/raw/master/LICENSE'>MIT license."
+pages:
+    - Home: ../README.md
+    - Change Log: ../CHANGELOG.md
+    - Functions:
+        - Stand Alone:
+            - Get-GPOProcessingEvent.md: Get-GPOProcessingEvent.md
+        - Utility:
+            - ConvertFrom-EventLogRecord: ConvertFrom-EventLogRecord.md
