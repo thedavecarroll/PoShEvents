@@ -21,7 +21,7 @@ function Get-PrintDocumentEvent {
         [string]$PrinterName,
         [string]$PrinterPort,
         [string]$DocumentName,
-        [string]$PagesPrinted
+        [int]$PagesPrinted
     )
 
     begin {
@@ -47,7 +47,7 @@ function Get-PrintDocumentEvent {
             $Hashtable['UserData']['DocumentPrinted'].Add('Param6',$PrinterPort)
         }
         if ($PagesPrinted) {
-            $Hashtable['UserData']['DocumentPrinted'].Add('Param8',$PagesPrinted)
+            $Hashtable['UserData']['DocumentPrinted'].Add('Param8',$PagesPrinted -as [string])
         }
 
         $FilterXmlParam = @{
