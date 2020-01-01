@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Fixed
 
 * [Issue #17](https://github.com/thedavecarroll/PoShEvents/issues/17) - Use `StringBuilder` to concatenate text for `Get-RemoteLogonEvent`
+* [Issue #15](https://github.com/thedavecarroll/PoShEvents/issues/15) - Change `$Computers` array to use `[System.Collections.Generic.List]` in `ConvertFrom-EventLogRecord`
 
 ### Changed
 
