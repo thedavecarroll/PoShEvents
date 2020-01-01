@@ -8,6 +8,7 @@ LONG DESCRIPTION
     The functions in this module will assist in troubleshooting and data mining.
 
 SEE ALSO
+    ConvertFrom-EventLogRecord
     Get-GPOProcessingEvent
     Get-KMSClientEvent
     Get-KMSHostEvent
@@ -18,4 +19,7 @@ SEE ALSO
     Get-RemoteLogonEvent
     Get-ServiceEvent
     Get-SystemRestartEvent
-    ConvertFrom-EventLogRecord
+    New-EventDataFilter
+    New-EventFilterXml
+    New-EventSource
+    Write-NewEvent

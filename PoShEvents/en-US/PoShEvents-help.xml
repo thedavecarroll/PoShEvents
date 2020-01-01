@@ -63,6 +63,17 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ShowProgress</maml:name>
+          <maml:Description>
+            <maml:para>Using this parameter, the function will show the machine name and the current record number being processed.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -102,6 +113,18 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ShowProgress</maml:name>
+        <maml:Description>
+          <maml:para>Using this parameter, the function will show the machine name and the current record number being processed.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -138,7 +161,7 @@
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-WinEvent FilterHashTable = @{ProviderName = "Service Control Manager"} -MaxEvents 5 | ConvertFrom-EventLogRecord -EventRecordType ServiceEvent</dev:code>
+        <dev:code>PS C:\&gt; Get-WinEvent -FilterHashTable @{ProviderName = "Service Control Manager"} -MaxEvents 5 | ConvertFrom-EventLogRecord -EventRecordType ServiceEvent</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
         </dev:remarks>
@@ -146,8 +169,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/ConvertFrom-EventLogRecord.html</maml:uri>
+        <maml:linkText>Online Version</maml:linkText>
+        <maml:uri>https://poshevents.anovelidea.org/en/latest/ConvertFrom-EventLogRecord/</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -218,7 +241,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>MaxEvents</maml:name>
           <maml:Description>
-            <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+            <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
           <dev:type>
@@ -304,7 +327,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>MaxEvents</maml:name>
         <maml:Description>
-          <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+          <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
         <dev:type>
@@ -398,8 +421,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-GPOProcessingEvent.html</maml:uri>
+        <maml:linkText>Online Version</maml:linkText>
+        <maml:uri>https://poshevents.anovelidea.org/en/latest/Get-GPOProcessingEvent/</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -470,7 +493,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>MaxEvents</maml:name>
           <maml:Description>
-            <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+            <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
           <dev:type>
@@ -544,7 +567,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>MaxEvents</maml:name>
         <maml:Description>
-          <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+          <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
         <dev:type>
@@ -647,8 +670,8 @@ KmsErrorMessage           :</dev:code>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-KMSClientEvent.html</maml:uri>
+        <maml:linkText>Online Version</maml:linkText>
+        <maml:uri>https://poshevents.anovelidea.org/en/latest/Get-KMSClientEvent/</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -719,7 +742,7 @@ KmsErrorMessage           :</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>MaxEvents</maml:name>
           <maml:Description>
-            <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+            <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
           <dev:type>
@@ -793,7 +816,7 @@ KmsErrorMessage           :</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>MaxEvents</maml:name>
         <maml:Description>
-          <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+          <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
         <dev:type>
@@ -888,8 +911,8 @@ vmwkstn45.contoso.com 4/10/2018 10:34:00 PM       True Grace Period       Window
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-KMSHostEvent.html</maml:uri>
+        <maml:linkText>Online Version</maml:linkText>
+        <maml:uri>https://poshevents.anovelidea.org/en/latest/Get-KMSHostEvent/</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -960,7 +983,7 @@ vmwkstn45.contoso.com 4/10/2018 10:34:00 PM       True Grace Period       Window
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>MaxEvents</maml:name>
           <maml:Description>
-            <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+            <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
           <dev:type>
@@ -1034,7 +1057,7 @@ vmwkstn45.contoso.com 4/10/2018 10:34:00 PM       True Grace Period       Window
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>MaxEvents</maml:name>
         <maml:Description>
-          <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+          <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
         <dev:type>
@@ -1116,8 +1139,8 @@ vmwkstn45.contoso.com 4/10/2018 10:34:00 PM       True Grace Period       Window
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-KMSHostLicenseCheckEvent.html</maml:uri>
+        <maml:linkText>Online Version</maml:linkText>
+        <maml:uri>https://poshevents.anovelidea.org/en/latest/Get-KMSHostLicenseCheckEvent/</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1127,11 +1150,11 @@ vmwkstn45.contoso.com 4/10/2018 10:34:00 PM       True Grace Period       Window
       <command:verb>Get</command:verb>
       <command:noun>LogonFailureEvent</command:noun>
       <maml:description>
-        <maml:para>This function searchs for logon failure events, those events with Ids of 4625 and 4771.</maml:para>
+        <maml:para>This function searches for logon failure events, those events with Ids of 4625 and 4771.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This function searchs for logon failure events, those events with Ids of 4625 and 4771.</maml:para>
+      <maml:para>This function searches for logon failure events, those events with Ids of 4625 and 4771.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1188,7 +1211,7 @@ vmwkstn45.contoso.com 4/10/2018 10:34:00 PM       True Grace Period       Window
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>MaxEvents</maml:name>
           <maml:Description>
-            <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+            <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
           <dev:type>
@@ -1262,7 +1285,7 @@ vmwkstn45.contoso.com 4/10/2018 10:34:00 PM       True Grace Period       Window
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>MaxEvents</maml:name>
         <maml:Description>
-          <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+          <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
         <dev:type>
@@ -1353,8 +1376,8 @@ DC1.contoso.com 5/11/2018 8:37:41 PM jknoxville     192.168.1.67 Undetermined lo
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-LogonFailureEvent.html</maml:uri>
+        <maml:linkText>Online Version</maml:linkText>
+        <maml:uri>https://poshevents.anovelidea.org/en/latest/Get-LogonFailureEvent/</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1490,8 +1513,8 @@ WKSTN07.contoso.com  10.00.17134</dev:code>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-OSVersionFromEvent.html</maml:uri>
+        <maml:linkText>Online Version</maml:linkText>
+        <maml:uri>https://poshevents.anovelidea.org/en/latest/Get-OSVersionFromEvent/</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1562,7 +1585,7 @@ WKSTN07.contoso.com  10.00.17134</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>MaxEvents</maml:name>
           <maml:Description>
-            <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+            <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
           <dev:type>
@@ -1641,6 +1664,176 @@ WKSTN07.contoso.com  10.00.17134</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DocumentName</maml:name>
+          <maml:Description>
+            <maml:para>Filter the results by the name of the printed document.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>PagesPrinted</maml:name>
+          <maml:Description>
+            <maml:para>Filter the results by the number of pages printed.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Integer</command:parameterValue>
+          <dev:type>
+            <maml:name>Integer</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-PrintDocumentEvent</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="IPAddress, __Server, CN">
+          <maml:name>ComputerName</maml:name>
+          <maml:Description>
+            <maml:para>Gets events from the event logs on the specified computer. Type the NetBIOS name, an Internet Protocol (IP) address, or the fully qualified domain name of the computer. The default value is the local computer.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Credential</maml:name>
+          <maml:Description>
+            <maml:para>Specifies a user account that has permission to perform this action. The default value is the current user.</maml:para>
+            <maml:para>Type a user name, such as User01 or Domain01\User01. Or, enter a PSCredential object, such as one generated by the Get-Credential cmdlet. If you type a user name, you will be prompted for a password. If you type only the parameter name, you will be prompted for both a user name and a password.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+          <maml:name>MaxEvents</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
+          <dev:type>
+            <maml:name>Int64</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Oldest</maml:name>
+          <maml:Description>
+            <maml:para>Returns the events in oldest-first order. By default, events are returned in newest-first order.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ClientMachineName</maml:name>
+          <maml:Description>
+            <maml:para>Filter by the client machine host name.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>PrinterName</maml:name>
+          <maml:Description>
+            <maml:para>Filter events for the specified printer.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>PrinterPort</maml:name>
+          <maml:Description>
+            <maml:para>Filter events for the specified printer port name, e.g. IP_172.16.5.27</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Raw</maml:name>
+          <maml:Description>
+            <maml:para>Use this switch to provide the raw event log record for the function.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UserName</maml:name>
+          <maml:Description>
+            <maml:para>Filter the results by the user which printed documents. Provide the SamAccountName only.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DocumentName</maml:name>
+          <maml:Description>
+            <maml:para>Filter the results by the name of the printed document.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>PagesPrinted</maml:name>
+          <maml:Description>
+            <maml:para>Filter the results by the number of pages printed.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Integer</command:parameterValue>
+          <dev:type>
+            <maml:name>Integer</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Since</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the beginning of the time period for the event log query based on the given amount of time.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">TimeSpan</command:parameterValue>
+          <dev:type>
+            <maml:name>TimeSpan</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -1684,7 +1877,7 @@ WKSTN07.contoso.com  10.00.17134</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>MaxEvents</maml:name>
         <maml:Description>
-          <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+          <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
         <dev:type>
@@ -1777,6 +1970,42 @@ WKSTN07.contoso.com  10.00.17134</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DocumentName</maml:name>
+        <maml:Description>
+          <maml:para>Filter the results by the name of the printed document.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>PagesPrinted</maml:name>
+        <maml:Description>
+          <maml:para>Filter the results by the number of pages printed.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Integer</command:parameterValue>
+        <dev:type>
+          <maml:name>Integer</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Since</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the beginning of the time period for the event log query based on the given amount of time.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">TimeSpan</command:parameterValue>
+        <dev:type>
+          <maml:name>TimeSpan</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -1825,8 +2054,8 @@ DocumentPageCount : 2</dev:code>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-PrintDocumentEvent.html</maml:uri>
+        <maml:linkText>Online Version</maml:linkText>
+        <maml:uri>https://poshevents.anovelidea.org/en/latest/Get-PrintDocumentEvent/</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1870,34 +2099,10 @@ DocumentPageCount : 2</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
-          <maml:name>StartTime</maml:name>
-          <maml:Description>
-            <maml:para>Specifies the beginning of the time period for the event log query.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
-          <dev:type>
-            <maml:name>DateTime</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
-          <maml:name>EndTime</maml:name>
-          <maml:Description>
-            <maml:para>Specifies the end of the time period for the event log query.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
-          <dev:type>
-            <maml:name>DateTime</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>MaxEvents</maml:name>
           <maml:Description>
-            <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+            <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
           <dev:type>
@@ -1927,6 +2132,142 @@ DocumentPageCount : 2</dev:code>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-RemoteLogonEvent</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Credential</maml:name>
+          <maml:Description>
+            <maml:para>Specifies a user account that has permission to perform this action. The default value is the current user.</maml:para>
+            <maml:para>Type a user name, such as User01 or Domain01\User01. Or, enter a PSCredential object, such as one generated by the Get-Credential cmdlet. If you type a user name, you will be prompted for a password. If you type only the parameter name, you will be prompted for both a user name and a password.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>StartTime</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the beginning of the time period for the event log query.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+          <dev:type>
+            <maml:name>DateTime</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>EndTime</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the end of the time period for the event log query.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+          <dev:type>
+            <maml:name>DateTime</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+          <maml:name>MaxEvents</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
+          <dev:type>
+            <maml:name>Int64</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Oldest</maml:name>
+          <maml:Description>
+            <maml:para>Returns the events in oldest-first order. By default, events are returned in newest-first order.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Raw</maml:name>
+          <maml:Description>
+            <maml:para>Use this switch to provide the raw event log record for the function.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-RemoteLogonEvent</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Credential</maml:name>
+          <maml:Description>
+            <maml:para>Specifies a user account that has permission to perform this action. The default value is the current user.</maml:para>
+            <maml:para>Type a user name, such as User01 or Domain01\User01. Or, enter a PSCredential object, such as one generated by the Get-Credential cmdlet. If you type a user name, you will be prompted for a password. If you type only the parameter name, you will be prompted for both a user name and a password.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+          <maml:name>MaxEvents</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
+          <dev:type>
+            <maml:name>Int64</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Oldest</maml:name>
+          <maml:Description>
+            <maml:para>Returns the events in oldest-first order. By default, events are returned in newest-first order.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Raw</maml:name>
+          <maml:Description>
+            <maml:para>Use this switch to provide the raw event log record for the function.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Since</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the beginning of the time period for the event log query based on the given amount of time.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">TimeSpan</command:parameterValue>
+          <dev:type>
+            <maml:name>TimeSpan</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
     </command:syntax>
@@ -1971,7 +2312,7 @@ DocumentPageCount : 2</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>MaxEvents</maml:name>
         <maml:Description>
-          <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+          <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
         <dev:type>
@@ -2015,6 +2356,18 @@ DocumentPageCount : 2</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Since</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the beginning of the time period for the event log query based on the given amount of time.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">TimeSpan</command:parameterValue>
+        <dev:type>
+          <maml:name>TimeSpan</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -2075,8 +2428,8 @@ LogonMethod  : Interactive (local system)</dev:code>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-RemoteLogonEvent.html</maml:uri>
+        <maml:linkText>Online Version</maml:linkText>
+        <maml:uri>https://poshevents.anovelidea.org/en/latest/Get-RemoteLogonEvent/</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2147,7 +2500,7 @@ LogonMethod  : Interactive (local system)</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>MaxEvents</maml:name>
           <maml:Description>
-            <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+            <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
           <dev:type>
@@ -2221,7 +2574,7 @@ LogonMethod  : Interactive (local system)</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>MaxEvents</maml:name>
         <maml:Description>
-          <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+          <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
         <dev:type>
@@ -2322,7 +2675,7 @@ Message            : The start type of the Print Spooler service was changed fro
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-ServiceEvent.html</maml:uri>
+        <maml:uri>https://poshevents.anovelidea.org/en/latest/Get-ServiceEvent/</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2393,7 +2746,7 @@ Message            : The start type of the Print Spooler service was changed fro
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>MaxEvents</maml:name>
           <maml:Description>
-            <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+            <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
           <dev:type>
@@ -2467,7 +2820,7 @@ Message            : The start type of the Print Spooler service was changed fro
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>MaxEvents</maml:name>
         <maml:Description>
-          <maml:para>Specifies the maximum number of events this function returns. Enter an integer. The default is to return all the events in the logs.</maml:para>
+          <maml:para>Specifies the maximum number of events this function returns. The default is to return all the events in the logs.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
         <dev:type>
@@ -2562,8 +2915,834 @@ WKSTN07.contoso.com 5/3/2018 11:08:41 PM 6006 EventLog     Information Shutdown<
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-SystemRestartEvent.html</maml:uri>
+        <maml:linkText>Online Version</maml:linkText>
+        <maml:uri>https://poshevents.anovelidea.org/en/latest/Get-SystemRestartEvent/</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>New-EventDataFilter</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>EventDataFilter</command:noun>
+      <maml:description>
+        <maml:para>Creates the text string that can be used with the `New-EventFilterXml` function to filter by named EventData data.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Creates the text string that can be used with the `New-EventFilterXml` function to filter by named EventData data.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-EventDataFilter</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Hashtable</maml:name>
+          <maml:Description>
+            <maml:para>The hashtable should contain UserData and/or EventData each with their own hashtable.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
+          <dev:type>
+            <maml:name>Hashtable</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Hashtable</maml:name>
+        <maml:Description>
+          <maml:para>The hashtable should contain UserData and/or EventData each with their own hashtable.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
+        <dev:type>
+          <maml:name>Hashtable</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $EventData = @{ UserData = @{ DocumentPrinted = @{Param2 = "MyDocumentName" }}}
+PS C:\&gt; New-EventDataFilter -Hashtable $EventData
+*[UserData[DocumentPrinted[(Param2="MyDocumentName.docx")]]]</dev:code>
+        <dev:remarks>
+          <maml:para>Create a EventData filter for the printed document named MyDocumentName.docx.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <maml:uri>https://poshevents.anovelidea.org/en/latest/New-EventDataFilter/</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>New-EventFilterXml</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>EventFilterXml</command:noun>
+      <maml:description>
+        <maml:para>Creates XML that can be used to query event logs using the `Get-WinEvent` cmdlet.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Creates XML that can be used to query event logs using the `Get-WinEvent` cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-EventFilterXml</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Audit</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the audit level for the Security to add to the XML filter.</maml:para>
+          </maml:Description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Success</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Failure</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>EndTime</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the end of the time period to add to the XML filter.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+          <dev:type>
+            <maml:name>DateTime</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>EventDataFilter</maml:name>
+          <maml:Description>
+            <maml:para>Specifies a string data filter generated by the `New-EventDataFilter` function.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Id">
+          <maml:name>EventId</maml:name>
+          <maml:Description>
+            <maml:para>Specifies one or more event IDs to add to the XML filter.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>LogName</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the event log name to add to the XML filter.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Provider</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the event provider, sometimes called event source, to add to the XML filter.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="TimeSpan">
+          <maml:name>Since</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the beginning of the time period for the event log query based on the given amount of time.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">TimeSpan</command:parameterValue>
+          <dev:type>
+            <maml:name>TimeSpan</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>StartTime</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the beginning of the time period to add to the XML filter.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+          <dev:type>
+            <maml:name>DateTime</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Suppress</maml:name>
+          <maml:Description>
+            <maml:para>Specifies if the XML filter should be a suppressive filter. NOTE: This has not been fully tested and may be removed later.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>New-EventFilterXml</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>EndTime</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the end of the time period to add to the XML filter.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+          <dev:type>
+            <maml:name>DateTime</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>EventDataFilter</maml:name>
+          <maml:Description>
+            <maml:para>Specifies a string data filter generated by the `New-EventDataFilter` function.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Id">
+          <maml:name>EventId</maml:name>
+          <maml:Description>
+            <maml:para>Specifies one or more event IDs to add to the XML filter.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Level">
+          <maml:name>LevelDisplayName</maml:name>
+          <maml:Description>
+            <maml:para>Specifies one or more event log levels to add to the XML filter.</maml:para>
+          </maml:Description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">LogAlways</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Critical</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Error</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Warning</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Informational</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Verbose</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Issues</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>LogName</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the event log name to add to the XML filter.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Provider</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the event provider, sometimes called event source, to add to the XML filter.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="TimeSpan">
+          <maml:name>Since</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the beginning of the time period for the event log query based on the given amount of time.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">TimeSpan</command:parameterValue>
+          <dev:type>
+            <maml:name>TimeSpan</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>StartTime</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the beginning of the time period to add to the XML filter.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+          <dev:type>
+            <maml:name>DateTime</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Suppress</maml:name>
+          <maml:Description>
+            <maml:para>Specifies if the XML filter should be a suppressive filter. NOTE: This has not been fully tested and may be removed later.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Audit</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the audit level for the Security to add to the XML filter.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>EndTime</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the end of the time period to add to the XML filter.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+        <dev:type>
+          <maml:name>DateTime</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>EventDataFilter</maml:name>
+        <maml:Description>
+          <maml:para>Specifies a string data filter generated by the `New-EventDataFilter` function.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Id">
+        <maml:name>EventId</maml:name>
+        <maml:Description>
+          <maml:para>Specifies one or more event IDs to add to the XML filter.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Level">
+        <maml:name>LevelDisplayName</maml:name>
+        <maml:Description>
+          <maml:para>Specifies one or more event log levels to add to the XML filter.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>LogName</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the event log name to add to the XML filter.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Provider</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the event provider, sometimes called event source, to add to the XML filter.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="TimeSpan">
+        <maml:name>Since</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the beginning of the time period for the event log query based on the given amount of time.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">TimeSpan</command:parameterValue>
+        <dev:type>
+          <maml:name>TimeSpan</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>StartTime</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the beginning of the time period to add to the XML filter.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+        <dev:type>
+          <maml:name>DateTime</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Suppress</maml:name>
+        <maml:Description>
+          <maml:para>Specifies if the XML filter should be a suppressive filter. NOTE: This has not been fully tested and may be removed later.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; New-EventFilterXml -LogName Application -Provider MyEventSource -Since (New-TimeSpan -Days 3) -LevelDisplayName Critical,Error
+&lt;QueryList&gt;
+    &lt;Query Id="0" Path="Application"&gt;
+        &lt;Select Path="Application"&gt;*[System[Provider[@Name="MyEventSource"] and (Level=1 or Level=2) and TimeCreated[timediff(@SystemTime) &amp;lt;= 259200000]]]&lt;/Select&gt;
+    &lt;/Query&gt;
+&lt;/QueryList&gt;</dev:code>
+        <dev:remarks>
+          <maml:para>Create an XML filter to query the Application event log with MyEventSource provider for all Critical and Error events since the last 3 days.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <maml:uri>https://poshevents.anovelidea.org/en/latest/New-EventFilterXml/</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>New-EventSource</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>EventSource</command:noun>
+      <maml:description>
+        <maml:para>Create a new event source, also called event provider, for an event log.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Create a new event source, also called event provider, for an event log.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-EventSource</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>EventLog</maml:name>
+          <maml:Description>
+            <maml:para>The name of the event log.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Source</maml:name>
+          <maml:Description>
+            <maml:para>The name of the new source, or provider.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>EventLog</maml:name>
+        <maml:Description>
+          <maml:para>The name of the event log.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Source</maml:name>
+        <maml:Description>
+          <maml:para>The name of the new source, or provider.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; New-EventSource -EventLog "Windows PowerShell" -Source thedavecarroll</dev:code>
+        <dev:remarks>
+          <maml:para>Add a new source, thedavecarroll, to the Windows PowerShell event log.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <maml:uri>https://poshevents.anovelidea.org/en/latest/New-EventSource/</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Write-WinEvent</command:name>
+      <command:verb>Write</command:verb>
+      <command:noun>WinEvent</command:noun>
+      <maml:description>
+        <maml:para>Write an event to the given event log.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Write an event to the given event log.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Write-WinEvent</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>LogName</maml:name>
+          <maml:Description>
+            <maml:para>The name of the event log.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Provider</maml:name>
+          <maml:Description>
+            <maml:para>The provider, also called source, for the event.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>EventId</maml:name>
+          <maml:Description>
+            <maml:para>The Id for the event.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
+          <dev:type>
+            <maml:name>Int64</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>EventType</maml:name>
+          <maml:Description>
+            <maml:para>The display level for the event.</maml:para>
+          </maml:Description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Error</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Warning</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Information</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">SuccessAudit</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">FailureAudit</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">EventLogEntryType</command:parameterValue>
+          <dev:type>
+            <maml:name>EventLogEntryType</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+          <maml:name>EventData</maml:name>
+          <maml:Description>
+            <maml:para>An ordered hashtable, also called dictionary.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">OrderedDictionary</command:parameterValue>
+          <dev:type>
+            <maml:name>OrderedDictionary</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+          <maml:name>MessageFormat</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the format of the event Message property. The EventData will be converted to this format in its entirety.</maml:para>
+          </maml:Description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">JSON</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">CSV</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">XML</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+        <maml:name>EventData</maml:name>
+        <maml:Description>
+          <maml:para>An ordered hashtable, also called dictionary.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">OrderedDictionary</command:parameterValue>
+        <dev:type>
+          <maml:name>OrderedDictionary</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>EventId</maml:name>
+        <maml:Description>
+          <maml:para>The Id for the event.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
+        <dev:type>
+          <maml:name>Int64</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>EventType</maml:name>
+        <maml:Description>
+          <maml:para>The display level for the event.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">EventLogEntryType</command:parameterValue>
+        <dev:type>
+          <maml:name>EventLogEntryType</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>LogName</maml:name>
+        <maml:Description>
+          <maml:para>The name of the event log.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+        <maml:name>MessageFormat</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the format of the event Message property. The EventData will be converted to this format in its entirety.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Provider</maml:name>
+        <maml:Description>
+          <maml:para>The provider, also called source, for the event.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $EventData = [ordered]@{Program = 'MyProgram';ThisEvent = 'This is an event I want to track'; SomethingElse = 'I like the C64'}
+PS C:\&gt; Write-WinEvent -LogName "Windows PowerShell" -Provider thedavecarroll -EventId 100 -EventType Information -EventData $EventData</dev:code>
+        <dev:remarks>
+          <maml:para>Create a new informational event log entry in the "Windows PowerShell" event log with the provider of thedavecarroll.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version</maml:linkText>
+        <maml:uri>https://poshevents.anovelidea.org/en/latest/Write-WinEvent/</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
