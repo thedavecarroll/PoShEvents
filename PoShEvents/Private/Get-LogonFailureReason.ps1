@@ -43,7 +43,7 @@ function Get-LogonFailureReason {
                     '0xc000006a' { $LogonFailureReason.Append(' : Incorrect password')}
                     '0xc0000064' { $LogonFailureReason.Append(' : Account does not exist')}
                     '0xC0000413' { $LogonFailureReason.Append(' : Authentication firewall prohibits logon')}
-                    default { $LogonFailureReason.Append(' : ' + $EventRecord.SubStatus }
+                    default { $LogonFailureReason.Append(' : ' + $EventRecord.SubStatus ) }
                 }
             }
         } elseif ($EventRecord.Id -eq 4771)  {
