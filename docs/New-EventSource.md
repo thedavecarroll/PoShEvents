@@ -12,7 +12,7 @@ Create a new event source, also called event provider, for an event log.
 
 ## SYNTAX
 
-```
+```powershell
 New-EventSource [[-EventLog] <String>] [[-Source] <String>] [<CommonParameters>]
 ```
 
@@ -66,7 +66,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### None
-
 ## OUTPUTS
 
 ### System.Object
