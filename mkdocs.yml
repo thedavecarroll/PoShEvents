@@ -49,7 +49,6 @@ markdown_extensions:
 # Navigation
 nav:
     - Home: README.md
-    - About:
     - Change Log: CHANGELOG.md
     - Functions:
         - ConvertFrom-EventLogRecord: ConvertFrom-EventLogRecord.md
@@ -67,4 +66,3 @@ nav:
         - New-EventFilterXml: New-EventFilterXml.md
         - New-EventSource: New-EventSource.md
         - Write-WinEvent: Write-WinEvent.md
-
