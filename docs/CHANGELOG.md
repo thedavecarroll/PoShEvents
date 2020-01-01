@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## 0.3.0 - Unreleased
+## [0.3.0] - 2020-01-01
 
 ### Added
 
@@ -26,7 +26,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 * [Issue #13](https://github.com/thedavecarroll/PoShEvents/issues/13) - Refactor `Get-PrintDocumentEvent` to use new xml filter
 * [Issue #16](https://github.com/thedavecarroll/PoShEvents/issues/16) - Refactor `Get-RemoteLogonEvent` to use new xml filter
 * [Issue #22](https://github.com/thedavecarroll/PoShEvents/issues/22) - Move online help to [readthedocs](https://poshevents.anovelidea.org)
-* Updated updatable help
+* Moved updatable help to [https://powershell.anovelidea.org/modulehelp/](https://powershell.anovelidea.org/modulehelp/)
 * Changed `ReleaseNotes.md` to `CHANGELOG.md`
 
 ## [0.2.1] - 2018-08-27
