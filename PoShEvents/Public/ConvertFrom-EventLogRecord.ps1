@@ -10,23 +10,33 @@ function ConvertFrom-EventLogRecord {
             'KMSHostEvent','KMSHostLicenseCheckEvent')]
         [AllowNull()]
         [string]$EventRecordType,
-        [object[]]$GroupPolicy
+        [object[]]$GroupPolicy,
+        [switch]$ShowProgress
     )
 
     begin {
         $EventCount = 0
-        $Computers = @()
+        $Computers = [System.Collections.Generic.List[string]]::new()
     }
     process {
         foreach ($EventLogRecord in $Events) {
             $EventCount++
-            $Computers += $EventLogRecord.MachineName
-            Write-Progress -Id 1 -Activity "Formatting events..." -Status $EventLogRecord.MachineName -CurrentOperation "Processing record $EventCount"
+            $Computers.Add($EventLogRecord.MachineName)
+            if ($ShowProgress) {
+                Write-Progress -Id 1 -Activity "Formatting events..." -Status $EventLogRecord.MachineName -CurrentOperation "Processing record $EventCount"
+            }
 
             $EventRecordXml = [xml]$EventLogRecord.ToXml()
 
             $EventData = $EventRecordXml.Event.EventData
             $UserData = $EventRecordXml.Event.UserData
+
+            try {
+                $UserName = ConvertFrom-UserSID -UserSID $EventLogRecord.UserId
+            }
+            catch {
+                $UserName = $null
+            }
 
             $Event = [ordered]@{
                 ComputerName    = $EventLogRecord.MachineName
@@ -38,7 +48,7 @@ function ConvertFrom-EventLogRecord {
                 LogName         = $EventLogRecord.LogName
                 ProviderName    = $EventLogRecord.ProviderName
                 UserId          = $EventLogRecord.UserId
-                UserName        = ConvertFrom-UserSID -UserSID $EventLogRecord.UserId
+                UserName        = $UserName
                 Message         = $EventLogRecord.Message
                 EventData       = $EventData
                 UserData        = $UserData
