@@ -1,14 +1,14 @@
 ---
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/
+online version: https://poshevents.anovelidea.org/en/latest/Write-WinEvent/
 schema: 2.0.0
 ---
 
 # Write-WinEvent
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Write an event to the given event log.
 
 ## SYNTAX
 
@@ -19,21 +19,22 @@ Write-WinEvent [[-LogName] <String>] [[-Provider] <String>] [[-EventId] <Int64>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Write an event to the given event log.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> $EventData = [ordered]@{Program = 'MyProgram';ThisEvent = 'This is an event I want to track'; SomethingElse = 'I like the C64'}
+PS C:\> Write-WinEvent -LogName "Windows PowerShell" -Provider thedavecarroll -EventId 100 -EventType Information -EventData $EventData
 ```
 
-{{ Add example description here }}
+Create a new informational event log entry in the "Windows PowerShell" event log with the provider of thedavecarroll.
 
 ## PARAMETERS
 
 ### -EventData
-{{ Fill EventData Description }}
+An ordered hashtable, also called dictionary.
 
 ```yaml
 Type: OrderedDictionary
@@ -48,7 +49,7 @@ Accept wildcard characters: False
 ```
 
 ### -EventId
-{{ Fill EventId Description }}
+The Id for the event.
 
 ```yaml
 Type: Int64
@@ -63,7 +64,7 @@ Accept wildcard characters: False
 ```
 
 ### -EventType
-{{ Fill EventType Description }}
+The display level for the event.
 
 ```yaml
 Type: EventLogEntryType
@@ -79,7 +80,7 @@ Accept wildcard characters: False
 ```
 
 ### -LogName
-{{ Fill LogName Description }}
+The name of the event log.
 
 ```yaml
 Type: String
@@ -94,7 +95,7 @@ Accept wildcard characters: False
 ```
 
 ### -MessageFormat
-{{ Fill MessageFormat Description }}
+Specifies the format of the event Message property. The EventData will be converted to this format in its entirety.
 
 ```yaml
 Type: String
@@ -110,7 +111,7 @@ Accept wildcard characters: False
 ```
 
 ### -Provider
-{{ Fill Provider Description }}
+The provider, also called source, for the event.
 
 ```yaml
 Type: String
@@ -137,3 +138,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Online Version](https://poshevents.anovelidea.org/en/latest/Write-WinEvent/)

@@ -49,7 +49,22 @@ markdown_extensions:
 # Navigation
 nav:
     - Home: README.md
+    - About:
     - Change Log: CHANGELOG.md
     - Functions:
-        - Get-GPOProcessingEvent: Get-GPOProcessingEvent.md
         - ConvertFrom-EventLogRecord: ConvertFrom-EventLogRecord.md
+        - Get-GPOProcessingEvent: Get-GPOProcessingEvent.md
+        - Get-KMSClientEvent: Get-KMSClientEvent.md
+        - Get-KMSHostEvent: Get-KMSHostEvent.md
+        - Get-KMSHostLicenseCheckEvent: Get-KMSHostLicenseCheckEvent.md
+        - Get-LogonFailureEvent: Get-LogonFailureEvent.md
+        - Get-OSVersionFromEvent: Get-OSVersionFromEvent.md
+        - Get-PrintDocumentEvent: Get-PrintDocumentEvent.md
+        - Get-RemoteLogonEvent: Get-RemoteLogonEvent.md
+        - Get-ServiceEvent: Get-ServiceEvent.md
+        - Get-SystemRestartEvent: Get-SystemRestartEvent.md
+        - New-EventDataFilter: New-EventDataFilter.md
+        - New-EventFilterXml: New-EventFilterXml.md
+        - New-EventSource: New-EventSource.md
+        - Write-WinEvent: Write-WinEvent.md
+

@@ -1,7 +1,7 @@
 ---
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/
+online version: https://poshevents.anovelidea.org/en/latest/Get-PrintDocumentEvent/
 schema: 2.0.0
 ---
 
@@ -13,7 +13,7 @@ This function will show you details for the successful print jobs that the syste
 ## SYNTAX
 
 ### TimeSpan (Default)
-```
+```powershell
 Get-PrintDocumentEvent [[-ComputerName] <String>] [[-Credential] <PSCredential>] [-Since <TimeSpan>]
  [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [-UserName <String>] [-ClientMachineName <String>]
  [-PrinterName <String>] [-PrinterPort <String>] [-DocumentName <String>] [-PagesPrinted <String>]
@@ -21,7 +21,7 @@ Get-PrintDocumentEvent [[-ComputerName] <String>] [[-Credential] <PSCredential>]
 ```
 
 ### TimeRange
-```
+```powershell
 Get-PrintDocumentEvent [[-ComputerName] <String>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
  [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [-UserName <String>]
  [-ClientMachineName <String>] [-PrinterName <String>] [-PrinterPort <String>] [-DocumentName <String>]
@@ -34,7 +34,7 @@ This function will show you details for the successful print jobs that the syste
 ## EXAMPLES
 
 ### Example 1
-```
+```powershell
 PS C:\> C:\PowerShell\Get-PrintDocumentEvent -ComputerName printsvc -MaxEvents 1 -Oldest
 
 ComputerName      : PRINTSVR
@@ -106,7 +106,6 @@ Accept wildcard characters: False
 
 ### -MaxEvents
 Specifies the maximum number of events this function returns.
-Enter an integer.
 The default is to return all the events in the logs.
 
 ```yaml
@@ -230,7 +229,7 @@ Accept wildcard characters: False
 ```
 
 ### -DocumentName
-{{ Fill DocumentName Description }}
+Filter the results by the name of the printed document.
 
 ```yaml
 Type: String
@@ -245,10 +244,10 @@ Accept wildcard characters: False
 ```
 
 ### -PagesPrinted
-{{ Fill PagesPrinted Description }}
+Filter the results by the number of pages printed.
 
 ```yaml
-Type: String
+Type: Integer
 Parameter Sets: (All)
 Aliases:
 
@@ -260,7 +259,7 @@ Accept wildcard characters: False
 ```
 
 ### -Since
-{{ Fill Since Description }}
+Specifies the beginning of the time period for the event log query based on the given amount of time.
 
 ```yaml
 Type: TimeSpan
@@ -287,5 +286,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Online Version:](https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-PrintDocumentEvent.html)
-
+[Online Version](https://poshevents.anovelidea.org/en/latest/Get-PrintDocumentEvent/)

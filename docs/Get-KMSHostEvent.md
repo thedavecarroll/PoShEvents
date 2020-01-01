@@ -1,62 +1,54 @@
 ---
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/
+online version: https://poshevents.anovelidea.org/en/latest/Get-KMSHostEvent/
 schema: 2.0.0
 ---
 
-# Get-KMSClientEvent
+# Get-KMSHostEvent
 
 ## SYNOPSIS
-This function returns details from KMS client events.
+This function queries a KMS host server for registration events.
 
 ## SYNTAX
 
-```
-Get-KMSClientEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
+```powershell
+Get-KMSHostEvent [[-ComputerName] <String>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
  [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function returns details from KMS client events.
+This function queries a KMS host server for registration events.
 
 ## EXAMPLES
 
 ### Example 1
-```
-PS C:\> Get-KMSClientEvent
+```powershell
+PS C:\> Get-KMSHostEvent -ComputerName SVR01.contoso.com -MaxEvents 10 -Oldest | Format-Table -Property ClientFqdn,ClientTimestamp,IsClientVM,LicenseState,ProductSkuName,MinActivateCount
 
-ComputerName              : WKSTN47.contoso.com
-TimeCreated               : 5/7/2018 3:20:36 PM
-Id                        : 12308
-Level                     : Information
-KMSHost                   :
-KMSHostPort               :
-ClientMachineID           :
-ClientTimestamp           :
-ActivationStatus          : Active Directory Activation has succeeded.
-ADActivationObjectName    : Windows Server 2016 RTM ServerDatacenter;ServerStandard Volume:CSVLK
-ADActivationObject        : CN=br549-999-607319-0,CN=Activation Objects,CN=Microsoft SPP,CN=Services,CN=Configuration,DC=contoso,DC=com
-CurrentActivationCount    :
-NextActivationAttempt     :
-LicenseStateExpiration    :
-LicenseStateExpirationMin :
-ProductSkuId              : 73001100-0000-1111-2222-f1d7bf300300
-ProductSkuName            : Windows 10 Enterprise
-MinActivateCount          :
-KmsErrorCode              :
-KmsErrorMessage           :
+ClientFqdn            ClientTimestamp       IsClientVM LicenseState       ProductSkuName         MinActivateCount
+----------            ---------------       ---------- ------------       --------------         ----------------
+WKSTN27.contoso.com   4/10/2018 10:21:00 PM      False Grace Period       Office Standard 2016   5
+WKSTN06.contoso.com   4/10/2018 10:24:00 PM      False Grace Period       Office Standard 2016   5
+MYLAPTOP              4/10/2018 9:26:00 PM       False Notifications Mode Windows 10 Enterprise  25
+WKSTN63.contoso.com   4/10/2018 10:28:00 PM      False Grace Period       Office Standard 2013   5
+vmwkstn04.contoso.com 4/10/2018 10:31:00 PM       True Grace Period       Windows 7 Professional 25
+WKSTN68.contoso.com   4/10/2018 10:33:00 PM       True Grace Period       Windows 7 Professional 25
+vmwkstn14.contoso.com 4/10/2018 10:33:00 PM       True Grace Period       Windows 7 Professional 25
+WKSTN63               4/10/2018 9:34:00 PM       False Grace Period       Office Standard 2016   5
+WKSTN63               4/10/2018 9:34:00 PM       False Notifications Mode Windows 10 Enterprise  25
+vmwkstn45.contoso.com 4/10/2018 10:34:00 PM       True Grace Period       Windows 7 Professional 25
 ```
 
 ## PARAMETERS
 
 ### -ComputerName
-Gets events from the event logs on the specified computer(s).
+Gets events from the event logs on the specified computer.
 Type the NetBIOS name, an Internet Protocol (IP) address, or the fully qualified domain name of the computer.
 The default value is the local computer.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases: IPAddress, __Server, CN
 
@@ -105,7 +97,6 @@ Accept wildcard characters: False
 
 ### -MaxEvents
 Specifies the maximum number of events this function returns.
-Enter an integer.
 The default is to return all the events in the logs.
 
 ```yaml
@@ -171,7 +162,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### System.String[]
+### System.String
 ## OUTPUTS
 
 ### System.Object
@@ -179,5 +170,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Online Version:](https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-KMSClientEvent.html)
-
+[Online Version](https://poshevents.anovelidea.org/en/latest/Get-KMSHostEvent/)

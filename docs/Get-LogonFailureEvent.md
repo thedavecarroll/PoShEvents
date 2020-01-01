@@ -1,43 +1,39 @@
 ---
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/
+online version: https://poshevents.anovelidea.org/en/latest/Get-LogonFailureEvent/
 schema: 2.0.0
 ---
 
-# Get-SystemRestartEvent
+# Get-LogonFailureEvent
 
 ## SYNOPSIS
-This function returns the details for system startup and shutdown events.
+This function searches for logon failure events, those events with Ids of 4625 and 4771.
 
 ## SYNTAX
 
-```
-Get-SystemRestartEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
+```powershell
+Get-LogonFailureEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
  [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function returns the details for system startup and shutdown events including identifying the user and application that initiated the shutdown (if available).
+This function searches for logon failure events, those events with Ids of 4625 and 4771.
 
 ## EXAMPLES
 
 ### Example 1
-```
-PS C:\> Get-SystemRestartEvent -MaxEvents 10 | Format-Table
+```powershell
+PS C:\> Get-LogonFailureEvent -ComputerName dc07 -MaxEvents 10 -Credential (Get-Credential) | Format-Table -Property ComputerName,TimeCreated,TargetUserName,IPAddress,IpPort,LogonMethod,Reason
 
-ComputerName        TimeCreated            Id ProviderName Level       Status              UserName         Reason            Details
-------------        -----------            -- ------------ -----       ------              --------         ------            -------
-WKSTN07.contoso.com 5/9/2018 1:27:51 PM  6005 EventLog     Information Startup
-WKSTN07.contoso.com 5/9/2018 1:27:51 PM  6009 EventLog     Information System Info
-WKSTN07.contoso.com 5/9/2018 1:27:51 PM  6008 EventLog     Error       Unexpected Shutdown
-WKSTN07.contoso.com 5/7/2018 3:23:12 PM  6005 EventLog     Information Startup
-WKSTN07.contoso.com 5/7/2018 3:23:12 PM  6009 EventLog     Information System Info
-WKSTN07.contoso.com 5/7/2018 3:22:29 PM  6006 EventLog     Information Shutdown
-WKSTN07.contoso.com 5/7/2018 3:22:12 PM  1074 User32       Information Shutdown Initiated  CONTOSO\carrolld Other (Unplanned) RuntimeBroker.exe
-WKSTN07.contoso.com 5/3/2018 11:09:31 PM 6005 EventLog     Information Startup
-WKSTN07.contoso.com 5/3/2018 11:09:31 PM 6009 EventLog     Information System Info
-WKSTN07.contoso.com 5/3/2018 11:08:41 PM 6006 EventLog     Information Shutdown
+ComputerName    TimeCreated          TargetUserName IpAddress    LogonMethod               Reason
+------------    -----------          -------------- ---------    -----------               ------
+DC1.contoso.com 5/11/2018 8:39:29 PM rtorn          192.168.1.22 Undetermined logon method 0x18
+DC1.contoso.com 5/11/2018 8:39:27 PM tljones        192.168.1.18 Undetermined logon method 0x18
+DC1.contoso.com 5/11/2018 8:39:27 PM ftpug          192.168.1.66 Undetermined logon method 0x18
+DC1.contoso.com 5/11/2018 8:39:24 PM ftpug          192.168.1.66 Undetermined logon method 0x18
+DC1.contoso.com 5/11/2018 8:38:51 PM WKSTN99$       192.168.1.9  Network                   Account currently disabled.
+DC1.contoso.com 5/11/2018 8:37:41 PM jknoxville     192.168.1.67 Undetermined logon method 0x18
 ```
 
 ## PARAMETERS
@@ -97,7 +93,6 @@ Accept wildcard characters: False
 
 ### -MaxEvents
 Specifies the maximum number of events this function returns.
-Enter an integer.
 The default is to return all the events in the logs.
 
 ```yaml
@@ -171,5 +166,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Online Version:](https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-SystemRestartEvent.html)
-
+[Online Version](https://poshevents.anovelidea.org/en/latest/Get-LogonFailureEvent/)

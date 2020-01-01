@@ -1,7 +1,7 @@
 ---
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/
+online version: https://poshevents.anovelidea.org/en/latest/Get-GPOProcessingEvent/
 schema: 2.0.0
 ---
 
@@ -12,7 +12,7 @@ Queries the specific computer or group of computers for group policy processing 
 
 ## SYNTAX
 
-```
+```powershell
 Get-GPOProcessingEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
  [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [-GroupPolicy <Object[]>] [<CommonParameters>]
 ```
@@ -23,7 +23,7 @@ Queries the specific computer or group of computers for group policy processing 
 ## EXAMPLES
 
 ### Example 1
-```
+```powershell
 PS C:\> Get-GPOProcessingEvent -MaxEvents 10 | Out-GridView
 ```
 
@@ -87,7 +87,6 @@ Accept wildcard characters: False
 
 ### -MaxEvents
 Specifies the maximum number of events this function returns.
-Enter an integer.
 The default is to return all the events in the logs.
 
 ```yaml
@@ -176,5 +175,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Online Version:](https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-GPOProcessingEvent.html)
-
+[Online Version](https://poshevents.anovelidea.org/en/latest/Get-GPOProcessingEvent/)

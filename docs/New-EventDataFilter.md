@@ -1,37 +1,39 @@
 ---
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/
+online version: https://poshevents.anovelidea.org/en/latest/New-EventDataFilter/
 schema: 2.0.0
 ---
 
 # New-EventDataFilter
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Creates the text string that can be used with the `New-EventFilterXml` function to filter by named EventData data.
 
 ## SYNTAX
 
-```
+```powershell
 New-EventDataFilter [[-Hashtable] <Hashtable>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Creates the text string that can be used with the `New-EventFilterXml` function to filter by named EventData data.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> $EventData = @{ UserData = @{ DocumentPrinted = @{Param2 = "MyDocumentName" }}}
+PS C:\> New-EventDataFilter -Hashtable $EventData
+*[UserData[DocumentPrinted[(Param2="MyDocumentName.docx")]]]
 ```
 
-{{ Add example description here }}
+Create a EventData filter for the printed document named MyDocumentName.docx.
 
 ## PARAMETERS
 
 ### -Hashtable
-{{ Fill Hashtable Description }}
+The hashtable should contain UserData and/or EventData each with their own hashtable.
 
 ```yaml
 Type: Hashtable
@@ -58,3 +60,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Online Version](https://poshevents.anovelidea.org/en/latest/New-EventDataFilter/)

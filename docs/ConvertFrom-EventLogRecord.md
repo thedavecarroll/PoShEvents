@@ -1,7 +1,7 @@
 ---
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/
+online version: https://poshevents.anovelidea.org/en/latest/ConvertFrom-EventLogRecord/
 schema: 2.0.0
 ---
 
@@ -29,7 +29,7 @@ PS C:\> Get-WinEvent -LogName System -MaxEvents 5 | ConvertFrom-EventLogRecord
 
 ### Example 2
 ```powershell
-PS C:\> Get-WinEvent FilterHashTable = @{ProviderName = "Service Control Manager"} -MaxEvents 5 | ConvertFrom-EventLogRecord -EventRecordType ServiceEvent
+PS C:\> Get-WinEvent -FilterHashTable @{ProviderName = "Service Control Manager"} -MaxEvents 5 | ConvertFrom-EventLogRecord -EventRecordType ServiceEvent
 ```
 
 ## PARAMETERS
@@ -82,7 +82,7 @@ Accept wildcard characters: False
 ```
 
 ### -ShowProgress
-{{ Fill ShowProgress Description }}
+Using this parameter, the function will show the machine name and the current record number being processed.
 
 ```yaml
 Type: SwitchParameter
@@ -109,4 +109,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Online Version:](https://powershell.anovelidea.org/modulehelp/PoShEvents/ConvertFrom-EventLogRecord.html)
+[Online Version](https://poshevents.anovelidea.org/en/latest/ConvertFrom-EventLogRecord/)

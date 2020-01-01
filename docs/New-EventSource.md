@@ -1,14 +1,14 @@
 ---
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/
+online version: https://poshevents.anovelidea.org/en/latest/New-EventSource/
 schema: 2.0.0
 ---
 
 # New-EventSource
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Create a new event source, also called event provider, for an event log.
 
 ## SYNTAX
 
@@ -17,21 +17,21 @@ New-EventSource [[-EventLog] <String>] [[-Source] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Create a new event source, also called event provider, for an event log.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-EventSource -EventLog "Windows PowerShell" -Source thedavecarroll
 ```
 
-{{ Add example description here }}
+Add a new source, thedavecarroll, to the Windows PowerShell event log.
 
 ## PARAMETERS
 
 ### -EventLog
-{{ Fill EventLog Description }}
+The name of the event log.
 
 ```yaml
 Type: String
@@ -46,7 +46,7 @@ Accept wildcard characters: False
 ```
 
 ### -Source
-{{ Fill Source Description }}
+The name of the new source, or provider.
 
 ```yaml
 Type: String
@@ -73,3 +73,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Online Version](https://poshevents.anovelidea.org/en/latest/New-EventSource/)

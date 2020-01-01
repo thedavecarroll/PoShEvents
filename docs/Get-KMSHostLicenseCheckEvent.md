@@ -1,77 +1,44 @@
 ---
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/
+online version: https://poshevents.anovelidea.org/en/latest/Get-KMSHostLicenseCheckEvent/
 schema: 2.0.0
 ---
 
-# Get-RemoteLogonEvent
+# Get-KMSHostLicenseCheckEvent
 
 ## SYNOPSIS
-This function queries the security log for EventIds 4624,4625,4634,4778,4779.
+This function will search the provider Microsoft-Windows-Security-SPP for KMS Host license checks with Microsoft.
 
 ## SYNTAX
 
-### TimeSpan (Default)
-```
-Get-RemoteLogonEvent [[-Credential] <PSCredential>] [-Since <TimeSpan>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw]
- [<CommonParameters>]
-```
-
-### Default
-```
-Get-RemoteLogonEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-MaxEvents] <Int64>]
- [-Oldest] [-Raw] [<CommonParameters>]
-```
-
-### TimeRange
-```
-Get-RemoteLogonEvent [[-Credential] <PSCredential>] [[-StartTime] <DateTime>] [[-EndTime] <DateTime>]
- [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [<CommonParameters>]
+```powershell
+Get-KMSHostLicenseCheckEvent [[-ComputerName] <String>] [[-Credential] <PSCredential>]
+ [[-StartTime] <DateTime>] [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function queries the security log for EventIds 4624,4625,4634,4778,4779.
+This function will search the provider Microsoft-Windows-Security-SPP for KMS Host license checks with Microsoft.
 
 ## EXAMPLES
 
 ### Example 1
+```powershell
+PS C:\> Get-KMSHostLicenseCheckEvent -ComputerName KMSSVR -Credential (Get-Credential) -MaxEvents 5
 ```
-PS C:\> Get-RemoteLogonEvent -ComputerName WKSTN47 -MaxEvents 5
 
-ComputerName : WKSTN47.contoso.com
-TimeCreated  : 5/11/2018 1:16:51 PM
-Id           : 4625
-Level        : Information
-EventType    : Logon Failure
-UserName     : WKSTN47\GUEST
-IpAddress    :
-LogonID      :
-Reason       : Account currently disabled.
-LogonMethod  : Network
-
-ComputerName : WKSTN47.contoso.com
-TimeCreated  : 5/11/2018 11:15:51 AM
-Id           : 4625
-Level        : Information
-EventType    : Logon Failure
-UserName     : CONTOSO\CARROLLD
-IpAddress    : 127.0.0.1
-LogonID      :
-Reason       : Unknown user name or bad password.
-LogonMethod  : Interactive (local system)
-```
+This will return the following propeties: ComputerName TimeCreated Id (always 1003) Level ActivationId ApplicationName LicensingStatusMessage The full license status message which will need to be manually decoded.
 
 ## PARAMETERS
 
 ### -ComputerName
-Gets events from the event logs on the specified computer(s).
+Gets events from the event logs on the specified computer.
 Type the NetBIOS name, an Internet Protocol (IP) address, or the fully qualified domain name of the computer.
 The default value is the local computer.
 
 ```yaml
-Type: String[]
-Parameter Sets: Default
+Type: String
+Parameter Sets: (All)
 Aliases: IPAddress, __Server, CN
 
 Required: False
@@ -107,7 +74,7 @@ Specifies the end of the time period for the event log query.
 
 ```yaml
 Type: DateTime
-Parameter Sets: TimeRange
+Parameter Sets: (All)
 Aliases:
 
 Required: False
@@ -119,7 +86,6 @@ Accept wildcard characters: False
 
 ### -MaxEvents
 Specifies the maximum number of events this function returns.
-Enter an integer.
 The default is to return all the events in the logs.
 
 ```yaml
@@ -155,7 +121,7 @@ Specifies the beginning of the time period for the event log query.
 
 ```yaml
 Type: DateTime
-Parameter Sets: TimeRange
+Parameter Sets: (All)
 Aliases:
 
 Required: False
@@ -180,27 +146,12 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Since
-{{ Fill Since Description }}
-
-```yaml
-Type: TimeSpan
-Parameter Sets: TimeSpan
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### System.String[]
+### System.String
 ## OUTPUTS
 
 ### System.Object
@@ -208,5 +159,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Online Version:](https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-RemoteLogonEvent.html)
-
+[Online Version](https://poshevents.anovelidea.org/en/latest/Get-KMSHostLicenseCheckEvent/)

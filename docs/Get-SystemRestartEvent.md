@@ -1,50 +1,43 @@
 ---
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/
+online version: https://poshevents.anovelidea.org/en/latest/Get-SystemRestartEvent/
 schema: 2.0.0
 ---
 
-# Get-ServiceEvent
+# Get-SystemRestartEvent
 
 ## SYNOPSIS
-This function will query the specified system for all service control manager events for service operations, stop, and start events.
-You can then filter on a particular service name or service displayname.
+This function returns the details for system startup and shutdown events.
 
 ## SYNTAX
 
-```
-Get-ServiceEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
+```powershell
+Get-SystemRestartEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
  [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function will query the specified system for all service control manager events for service operations, stop, and start events.
-You can then filter on a particular service name or service displayname.
+This function returns the details for system startup and shutdown events including identifying the user and application that initiated the shutdown (if available).
 
 ## EXAMPLES
 
 ### Example 1
-```
-PS C:\> (Get-ServiceEvent).Where({$_.ServiceDisplayName -match "print"}) | Select-Object -Property TimeCreated,EventType,ServiceName,ServiceDisplayName,Message
+```powershell
+PS C:\> Get-SystemRestartEvent -MaxEvents 10 | Format-Table
 
-TimeCreated        : 9/12/2017 9:41:27 PM
-EventType          : ServiceOperations
-ServiceName        :
-ServiceDisplayName : Printer Extensions and Notifications
-Message            : The Printer Extensions and Notifications service is marked as an interactive service.  However, the system is configured to not allow interactive services.  This service may not function properly.
-
-TimeCreated        : 10/3/2017 10:42:18 PM
-EventType          : ServiceOperations
-ServiceName        : Spooler
-ServiceDisplayName : Print Spooler
-Message            : The start type of the Print Spooler service was changed from auto start to demand start.
-
-TimeCreated        : 10/3/2017 10:42:20 PM
-EventType          : ServiceOperations
-ServiceName        : Spooler
-ServiceDisplayName : Print Spooler
-Message            : The start type of the Print Spooler service was changed from demand start to auto start.
+ComputerName        TimeCreated            Id ProviderName Level       Status              UserName         Reason            Details
+------------        -----------            -- ------------ -----       ------              --------         ------            -------
+WKSTN07.contoso.com 5/9/2018 1:27:51 PM  6005 EventLog     Information Startup
+WKSTN07.contoso.com 5/9/2018 1:27:51 PM  6009 EventLog     Information System Info
+WKSTN07.contoso.com 5/9/2018 1:27:51 PM  6008 EventLog     Error       Unexpected Shutdown
+WKSTN07.contoso.com 5/7/2018 3:23:12 PM  6005 EventLog     Information Startup
+WKSTN07.contoso.com 5/7/2018 3:23:12 PM  6009 EventLog     Information System Info
+WKSTN07.contoso.com 5/7/2018 3:22:29 PM  6006 EventLog     Information Shutdown
+WKSTN07.contoso.com 5/7/2018 3:22:12 PM  1074 User32       Information Shutdown Initiated  CONTOSO\carrolld Other (Unplanned) RuntimeBroker.exe
+WKSTN07.contoso.com 5/3/2018 11:09:31 PM 6005 EventLog     Information Startup
+WKSTN07.contoso.com 5/3/2018 11:09:31 PM 6009 EventLog     Information System Info
+WKSTN07.contoso.com 5/3/2018 11:08:41 PM 6006 EventLog     Information Shutdown
 ```
 
 ## PARAMETERS
@@ -104,7 +97,6 @@ Accept wildcard characters: False
 
 ### -MaxEvents
 Specifies the maximum number of events this function returns.
-Enter an integer.
 The default is to return all the events in the logs.
 
 ```yaml
@@ -178,5 +170,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Online Version:](https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-ServiceEvent.html)
-
+[Online Version](https://poshevents.anovelidea.org/en/latest/Get-SystemRestartEvent/)

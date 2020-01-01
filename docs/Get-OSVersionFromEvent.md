@@ -1,7 +1,7 @@
 ---
 external help file: PoShEvents-help.xml
 Module Name: PoShEvents
-online version: https://powershell.anovelidea.org/
+online version: https://poshevents.anovelidea.org/en/latest/Get-OSVersionFromEvent/
 schema: 2.0.0
 ---
 
@@ -12,7 +12,7 @@ This function returns the OperatingSystem version.
 
 ## SYNTAX
 
-```
+```powershell
 Get-OSVersionFromEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [-Raw] [<CommonParameters>]
 ```
 
@@ -22,7 +22,7 @@ This function returns the OperatingSystem version based on the data in last Even
 ## EXAMPLES
 
 ### Example 1
-```
+```powershell
 PS C:\> Get-OSVersionFromEvent
 
 ComputerName         OperatingSystemVersion
@@ -98,5 +98,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Online Version:](https://powershell.anovelidea.org/modulehelp/PoShEvents/Get-OSVersionFromEvent.html)
-
+[Online Version](https://poshevents.anovelidea.org/en/latest/Get-OSVersionFromEvent/)
