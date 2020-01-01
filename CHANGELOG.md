@@ -10,8 +10,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Added
 
-* [Issue 21](https://github.com/thedavecarroll/PoShEvents/issues/21) - Add `New-EventSource`
-* [Issue 20](https://github.com/thedavecarroll/PoShEvents/issues/20) - Add `Write-WinEvent`
+* [Issue #21](https://github.com/thedavecarroll/PoShEvents/issues/21) - Add `New-EventSource`
+* [Issue #20](https://github.com/thedavecarroll/PoShEvents/issues/20) - Add `Write-WinEvent`
 * [Issue #7](https://github.com/thedavecarroll/PoShEvents/issues/7) - Add `New-EventFilterXml` and `New-EventDataFilter`
 * [Issue #3](https://github.com/thedavecarroll/PoShEvents/issues/3) - Add build script
 
@@ -24,10 +24,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 * [Issue #12](https://github.com/thedavecarroll/PoShEvents/issues/12) - Separate KMS private functions
 * [Issue #13](https://github.com/thedavecarroll/PoShEvents/issues/13) - Refactor `Get-PrintDocumentEvent` to use new xml filter
 * [Issue #16](https://github.com/thedavecarroll/PoShEvents/issues/16) - Refactor `Get-RemoteLogonEvent` to use new xml filter
-* Updated online help
+* [Issue #22](https://github.com/thedavecarroll/PoShEvents/issues/22) - Move online help to [readthedocs](https://poshevents.anovelidea.org)
 * Updated updatable help
 * Changed `ReleaseNotes.md` to `CHANGELOG.md`
-* Updated
 
 ## [0.2.1] - 2018-08-27
 
