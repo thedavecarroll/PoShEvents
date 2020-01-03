@@ -82,6 +82,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 * Initial release
 
+[0.3.0]: https://github.com/thedavecarroll/PoShEvents/tree/e4f966f27b20a909379a0dc6516559371633bd18
 [0.2.1]: https://github.com/thedavecarroll/PoShEvents/tree/b874e4cef884d732f4625383ff8cfd4fbf4704f7
 [0.2.0]: https://github.com/thedavecarroll/PoShEvents/tree/6d0225ee13fba668014732f556e90956f3840c93
 [0.1.2]: https://github.com/thedavecarroll/PoShEvents/tree/3b708cc40b498f2d54c30a7511c94baf6f3a5cdd
