@@ -1,4 +1,4 @@
-﻿function Get-RemoteLogonEvent {
+function Get-RemoteLogonEvent {
     [CmdLetBinding(DefaultParameterSetName='TimeSpan')]
     param(
         [Parameter(ParameterSetName='Default',ValueFromPipelineByPropertyName,ValueFromPipeline)]
@@ -36,7 +36,7 @@
         }
         $FilterXmlParam.Add('EventDataFilter',(New-EventDataFilter -Hashtable $Hashtable))
 
-        if ($PSCmdlet.ParameterSetName='TimeSpan') {
+        if ($PSCmdlet.ParameterSetName -eq 'TimeSpan') {
             if ($Since) {
                 $FilterXmlParam.Add('Since',$Since)
             }
