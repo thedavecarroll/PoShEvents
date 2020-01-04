@@ -7,7 +7,8 @@ function Get-OSVersionFromEvent {
         [ValidateNotNull()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]$Credential = [System.Management.Automation.PSCredential]::Empty,
-        [switch]$Raw
+        [switch]$Raw,
+        [switch]$All
     )
 
     Begin {
@@ -22,6 +23,9 @@ function Get-OSVersionFromEvent {
             $ParameterSplat['Credential'] = $Credential
         }
 
+        if (-Not $All) {
+            $ParameterSplat['MaxEvents'] = 1
+        }
     }
 
     Process {
