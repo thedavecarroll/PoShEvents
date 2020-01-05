@@ -26,14 +26,14 @@ function New-EventDataFilter {
                             $ArrayList.Add(('({0}="{1}")' -f $Filter,$ItemFromArray))
                         }
                     }
-                    $FilterList.Add('({0})' -f ($ArrayList -join ' and '))
+                    $FilterList.Add('({0})' -f ($ArrayList -join ' or '))
                 } else {
                     if ($Hashtable[$DataType][$FilterType][$Filter] -is [int]) {
                         $ArrayList.Add(('({0}={1})' -f $Filter,$Hashtable[$DataType][$FilterType][$Filter]))
                     } else {
                         $ArrayList.Add(('({0}="{1}")' -f $Filter,$Hashtable[$DataType][$FilterType][$Filter]))
                     }
-                    $FilterList.Add('{0}' -f ($ArrayList -join ' and '))
+                    $FilterList.Add('{0}' -f ($ArrayList -join ' or '))
                 }
             }
             [void]$EventDataFilter.Append($FilterList -join ' and ')
