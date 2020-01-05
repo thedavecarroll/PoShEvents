@@ -17,6 +17,12 @@ function ConvertFrom-EventLogRecord {
     begin {
         $EventCount = 0
         $Computers = [System.Collections.Generic.List[string]]::new()
+
+        if ($EventRecordType -match 'KMS') {
+            if ($null -eq $KmsProductSku) {
+                $KmsProductSku = Import-KmsProductSku
+            }
+        }
     }
     process {
         foreach ($EventLogRecord in $Events) {
