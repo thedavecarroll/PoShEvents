@@ -8,12 +8,14 @@ The following members are exported via the module's data file (.psd1)
     TypeData
     FormatData
 #>
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseDeclaredVarsMoreThanAssignments")]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments','')]
 [object[]]$KmsProductSku = $null
+
+enum LogLevelName { LogAlways; Critical; Error; Warning; Informational; Verbose; Issues }
 #endregion info
 
 #region discover module name
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseDeclaredVarsMoreThanAssignments")]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments','')]
 $ScriptPath = Split-Path $MyInvocation.MyCommand.Path
 $ModuleName = $ExecutionContext.SessionState.Module
 Write-Verbose -Message "Loading module $ModuleName"
