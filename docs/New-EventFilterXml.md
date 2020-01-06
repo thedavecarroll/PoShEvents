@@ -15,15 +15,14 @@ Creates XML that can be used to query event logs using the `Get-WinEvent` cmdlet
 ### Default (Default)
 ```powershell
 New-EventFilterXml -LogName <String> [-Provider <String>] [-EventId <String[]>] [-StartTime <DateTime>]
- [-EndTime <DateTime>] [-Since <TimeSpan>] [-EventDataFilter <String>] [-LevelDisplayName <String[]>]
- [-Suppress] [<CommonParameters>]
+ [-EndTime <DateTime>] [-Since <TimeSpan>] [-EventDataFilter <String>] [-LevelDisplayName <LogLevelName[]>]
+ [<CommonParameters>]
 ```
 
 ### Security
 ```powershell
 New-EventFilterXml -LogName <String> [-Provider <String>] [-EventId <String[]>] [-StartTime <DateTime>]
- [-EndTime <DateTime>] [-Since <TimeSpan>] [-EventDataFilter <String>] [-Suppress] [-Audit <String[]>]
- [<CommonParameters>]
+ [-EndTime <DateTime>] [-Since <TimeSpan>] [-EventDataFilter <String>] [-Audit <String[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -110,7 +109,7 @@ Accept wildcard characters: False
 Specifies one or more event log levels to add to the XML filter.
 
 ```yaml
-Type: String[]
+Type: LogLevelName[]
 Parameter Sets: Default
 Aliases: Level
 Accepted values: LogAlways, Critical, Error, Warning, Informational, Verbose, Issues
@@ -172,22 +171,6 @@ Specifies the beginning of the time period to add to the XML filter.
 
 ```yaml
 Type: DateTime
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Suppress
-Specifies if the XML filter should be a suppressive filter.
-NOTE: This has not been fully tested and may be removed later.
-
-```yaml
-Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

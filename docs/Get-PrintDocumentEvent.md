@@ -16,7 +16,7 @@ This function will show you details for the successful print jobs that the syste
 ```powershell
 Get-PrintDocumentEvent [[-ComputerName] <String>] [[-Credential] <PSCredential>] [-Since <TimeSpan>]
  [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [-UserName <String>] [-ClientMachineName <String>]
- [-PrinterName <String>] [-PrinterPort <String>] [-DocumentName <String>] [-PagesPrinted <String>]
+ [-PrinterName <String>] [-PrinterPort <String>] [-DocumentName <String>] [-PagesPrinted <Int32>]
  [<CommonParameters>]
 ```
 
@@ -25,7 +25,7 @@ Get-PrintDocumentEvent [[-ComputerName] <String>] [[-Credential] <PSCredential>]
 Get-PrintDocumentEvent [[-ComputerName] <String>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
  [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [-UserName <String>]
  [-ClientMachineName <String>] [-PrinterName <String>] [-PrinterPort <String>] [-DocumentName <String>]
- [-PagesPrinted <String>] [<CommonParameters>]
+ [-PagesPrinted <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -247,7 +247,7 @@ Accept wildcard characters: False
 Filter the results by the number of pages printed.
 
 ```yaml
-Type: Integer
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 

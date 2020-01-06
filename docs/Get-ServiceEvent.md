@@ -15,7 +15,7 @@ You can then filter on a particular service name or service displayname.
 
 ```powershell
 Get-ServiceEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
- [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [<CommonParameters>]
+ [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-EventType <String>] [-Raw] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -160,6 +160,22 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EventType
+Specifies the type of service event.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: ServiceOperations, ServiceStart, ServiceStop, ServiceControlManagerOperations, ServiceInstall
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

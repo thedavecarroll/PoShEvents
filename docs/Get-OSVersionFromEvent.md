@@ -13,7 +13,8 @@ This function returns the OperatingSystem version.
 ## SYNTAX
 
 ```powershell
-Get-OSVersionFromEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [-Raw] [<CommonParameters>]
+Get-OSVersionFromEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [-Raw] [-All]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -81,6 +82,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -All
+Return all available events.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
