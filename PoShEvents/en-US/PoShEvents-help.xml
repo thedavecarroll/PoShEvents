@@ -1432,6 +1432,17 @@ DC1.contoso.com 5/11/2018 8:37:41 PM jknoxville     192.168.1.67 Undetermined lo
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>All</maml:name>
+          <maml:Description>
+            <maml:para>Return all available events.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -1464,6 +1475,18 @@ DC1.contoso.com 5/11/2018 8:37:41 PM jknoxville     192.168.1.67 Undetermined lo
         <maml:name>Raw</maml:name>
         <maml:Description>
           <maml:para>Use this switch to provide the raw event log record for the function.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>All</maml:name>
+        <maml:Description>
+          <maml:para>Return all available events.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1681,9 +1704,9 @@ WKSTN07.contoso.com  10.00.17134</dev:code>
           <maml:Description>
             <maml:para>Filter the results by the number of pages printed.</maml:para>
           </maml:Description>
-          <command:parameterValue required="true" variableLength="false">Integer</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
-            <maml:name>Integer</maml:name>
+            <maml:name>Int32</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -1815,9 +1838,9 @@ WKSTN07.contoso.com  10.00.17134</dev:code>
           <maml:Description>
             <maml:para>Filter the results by the number of pages printed.</maml:para>
           </maml:Description>
-          <command:parameterValue required="true" variableLength="false">Integer</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
-            <maml:name>Integer</maml:name>
+            <maml:name>Int32</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -1987,9 +2010,9 @@ WKSTN07.contoso.com  10.00.17134</dev:code>
         <maml:Description>
           <maml:para>Filter the results by the number of pages printed.</maml:para>
         </maml:Description>
-        <command:parameterValue required="true" variableLength="false">Integer</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
-          <maml:name>Integer</maml:name>
+          <maml:name>Int32</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -2531,6 +2554,25 @@ LogonMethod  : Interactive (local system)</dev:code>
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>EventType</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the type of service event.</maml:para>
+          </maml:Description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">ServiceOperations</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ServiceStart</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ServiceStop</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ServiceControlManagerOperations</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ServiceInstall</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -2618,6 +2660,18 @@ LogonMethod  : Interactive (local system)</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>EventType</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the type of service event.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -3121,17 +3175,6 @@ PS C:\&gt; New-EventDataFilter -Hashtable $EventData
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Suppress</maml:name>
-          <maml:Description>
-            <maml:para>Specifies if the XML filter should be a suppressive filter. NOTE: This has not been fully tested and may be removed later.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>New-EventFilterXml</maml:name>
@@ -3185,9 +3228,9 @@ PS C:\&gt; New-EventDataFilter -Hashtable $EventData
             <command:parameterValue required="false" command:variableLength="false">Verbose</command:parameterValue>
             <command:parameterValue required="false" command:variableLength="false">Issues</command:parameterValue>
           </command:parameterValueGroup>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">LogLevelName[]</command:parameterValue>
           <dev:type>
-            <maml:name>String[]</maml:name>
+            <maml:name>LogLevelName[]</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -3239,17 +3282,6 @@ PS C:\&gt; New-EventDataFilter -Hashtable $EventData
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Suppress</maml:name>
-          <maml:Description>
-            <maml:para>Specifies if the XML filter should be a suppressive filter. NOTE: This has not been fully tested and may be removed later.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
     </command:syntax>
@@ -3307,9 +3339,9 @@ PS C:\&gt; New-EventDataFilter -Hashtable $EventData
         <maml:Description>
           <maml:para>Specifies one or more event log levels to add to the XML filter.</maml:para>
         </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">LogLevelName[]</command:parameterValue>
         <dev:type>
-          <maml:name>String[]</maml:name>
+          <maml:name>LogLevelName[]</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -3361,18 +3393,6 @@ PS C:\&gt; New-EventDataFilter -Hashtable $EventData
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>Suppress</maml:name>
-        <maml:Description>
-          <maml:para>Specifies if the XML filter should be a suppressive filter. NOTE: This has not been fully tested and may be removed later.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>

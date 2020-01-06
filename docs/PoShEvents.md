@@ -1,4 +1,12 @@
-﻿# PoShEvents
+﻿---
+Module Name: PoShEvents
+Module Guid: c9c97755-98f3-4fcc-84e6-43075cc31abb
+Download Help Link: https://bit.ly/PoShEventsHelp
+Help Version: 0.4.0
+Locale: en-US
+---
+
+# PoShEvents
 ## about_PoShEvents
 
 ```
