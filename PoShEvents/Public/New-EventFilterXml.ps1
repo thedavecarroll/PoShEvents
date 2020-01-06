@@ -18,11 +18,8 @@ function New-EventFilterXml {
         [string]$EventDataFilter,
 
         [Parameter(ParameterSetName='Default')]
-        [ValidateSet('LogAlways','Critical','Error','Warning','Informational','Verbose','Issues')]
         [Alias('Level')]
-        [string[]]$LevelDisplayName,
-
-        [switch]$Suppress,
+        [LogLevelName[]]$LevelDisplayName,
 
         [Parameter(ParameterSetName='Security')]
         [ValidateSet('Success','Failure')]
@@ -56,28 +53,10 @@ function New-EventFilterXml {
     #region set event log level filter
     $LogLevel = [System.Collections.Generic.List[object]]::new()
     foreach ($Level in $LevelDisplayName) {
-        switch ($Level) {
-            'LogAlways' {
-            $LogLevel.Add('Level=0')
-            }
-            'Critical' {
-            $LogLevel.Add('Level=1')
-            }
-            'Error' {
-            $LogLevel.Add('Level=2')
-            }
-            'Warning' {
-            $LogLevel.Add('Level=3')
-            }
-            'Informational' {
-            $LogLevel.Add('Level=4')
-            }
-            'Verbose' {
-            $LogLevel.Add('Level=5')
-            }
-            'Issues' {
+        if ($Level -eq 'Issues') {
             $LogLevel.Add('Level=1 or Level=2 or Level=3')
-            }
+        } else {
+            $LogLevel.Add('Level={0}' -f [LogLevelname]::$Level.Value__)
         }
     }
     if ($LogLevel.Count -gt 0) {
@@ -145,15 +124,18 @@ function New-EventFilterXml {
 
     #region add provider
     if ($EventFilterList.Count -gt 0) {
-        if ($Provider) {
-            $TextFilter = '*[System[Provider[@Name="{0}"] and {1}]]' -f $Provider,($EventFilterList -join ' and ')
-        } else {
-            $TextFilter = '*[System[{0}]]' -f ($EventFilterList -join ' and ')
-        }
+        $FilterListText = ' and {0}' -f ($EventFilterList -join ' and ')
     } else {
-        Write-Warning -Message 'No event selection criteria provided.'
-        return
+        $FilterListText = $null
     }
+
+    if ($Provider) {
+        $TextFilter = '*[System[Provider[@Name="{0}"]{1}]]' -f $Provider,$FilterListText
+    } else {
+        $TextFilter = '*[System[{0}]]' -f $FilterListText
+    }
+
+    $TextFilter | Write-Verbose
     #endregion add provider
 
     #region create xml
@@ -173,11 +155,8 @@ function New-EventFilterXml {
     $xmlWriter.WriteAttributeString('Id',0)
     $xmlWriter.WriteAttributeString('Path',$LogName)
 
-    if (!$Suppress) {
-        $xmlWriter.WriteStartElement('Select')
-    } else {
-        $xmlWriter.WriteStartElement('Suppress')
-    }
+    $xmlWriter.WriteStartElement('Select')
+
     $xmlWriter.WriteAttributeString('Path',$LogName)
 
     if ($EventDataFilter) {
