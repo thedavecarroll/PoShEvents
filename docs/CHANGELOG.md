@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.3.1] - 2020-01-05, Bugfix and Feature Release, Update Strongly Recommended
+## [0.4.0] - 2020-01-05, Bugfix and Feature Release, Update Strongly Recommended
 
 ### Added
 
@@ -27,7 +27,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 * [Issue 29](https://github.com/thedavecarroll/PoShEvents/issues/29) - `Get-OSVersionFromEvent` - add All switch to return all events
 * [Issue 31](https://github.com/thedavecarroll/PoShEvents/issues/31) - `ConvertFrom-EventLogRecord` - for KMS events, import CSV in begin{} block
 * [Issue 32](https://github.com/thedavecarroll/PoShEvents/issues/32) - `Get-KmsProductSku` - remove import CSV code
-* Replace log level switch with enum
+* [Issue 35](https://github.com/thedavecarroll/PoShEvents/issues/35) - `New-EventFilterXml` - replace LogLevelName with enum
 
 ## [0.3.0] - 2020-01-01
 
