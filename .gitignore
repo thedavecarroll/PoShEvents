@@ -1,0 +1,6 @@
+# BuildOutput folder
+BuildOutput/
+UpdateHelp/
+
+# git data
+.git
