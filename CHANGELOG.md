@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [0.4.0] - 2020-01-07
 
-### Bugfix and Feature Release, Update Strongly Recommended
+Bugfix and Feature Release, Update Strongly Recommended
 
 ### Added
 
