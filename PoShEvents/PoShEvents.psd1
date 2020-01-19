@@ -27,7 +27,7 @@ Author = 'Dave Carroll'
 CompanyName = 'Unknown'
 
 # Copyright statement for this module
-Copyright = '(c) 2018-2019 Dave Carroll. All rights reserved.'
+Copyright = '(c) 2018-2020 Dave Carroll. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'PowerShell module to query Windows Event Logs and write events with structured EventData or UserData'
