@@ -103,7 +103,8 @@ function New-EventFilterXml {
 
     #region set event time filter
     if ($PSBoundParameters.Keys -contains 'Since') {
-        $EventFilterList.Add('TimeCreated[timediff(@SystemTime) <= {0}]' -f $Since.TotalMilliseconds)
+        $SinceTime = 'TimeCreated[timediff(@SystemTime) <= {0}]' -f $Since.TotalMilliseconds.ToString()
+        $EventFilterList.Add($SinceTime)
     } else {
         $StartFilter = $EndFilter = $null
         if ($StartTime) {
@@ -113,29 +114,35 @@ function New-EventFilterXml {
             $EndFilter = "@SystemTime<='{0}Z'" -f $EndTime.ToUniversalTime().ToString('s')
         }
         if ($StartFilter -and $EndFilter) {
-            $EventFilterList.Add("TimeCreated[$StartFilter and $EndFilter]")
+            $StartEndTime = 'TimeCreated[{0} and {1}]' -f $StartFilter,$EndFilter
+            $EventFilterList.Add($StartEndTime)
         } elseif ($StartFilter -and $null -eq $EndFilter) {
-            $EventFilterList.Add("TimeCreated[$StartFilter]")
+            $StartTime = 'TimeCreated[{0}]' -f $StartFilter
+            $EventFilterList.Add($StartTime)
         } elseif ($null -eq $StartFilter -and $EndFilter) {
-            $EventFilterList.Add("TimeCreated[$EndFilter]")
+            $EndTime = 'TimeCreated[{0}]' -f $EndFilter
+            $EventFilterList.Add($EndTime)
         }
     }
     #endregion set event time filter
 
-    #region add provider
-    if ($EventFilterList.Count -gt 0) {
-        $FilterListText = ' and {0}' -f ($EventFilterList -join ' and ')
+    #region add provider and build filter
+    if ($EventFilterList.Count -gt 1) {
+        $FilterListText = $EventFilterList -join ' and '
+    } elseif ($EventFilterList.Count -eq 1) {
+        $FilterListText = $EventFilterList[0]
     } else {
         $FilterListText = $null
     }
-
-    if ($Provider) {
-        $TextFilter = '*[System[Provider[@Name="{0}"]{1}]]' -f $Provider,$FilterListText
+    if ($FilterListText) {
+        if ($Provider) {
+            $TextFilter = '*[System[Provider[@Name="{0}"] and {1}]]' -f $Provider,$FilterListText
+        } else {
+            $TextFilter = '*[System[{0}]]' -f $FilterListText
+        }
     } else {
-        $TextFilter = '*[System[{0}]]' -f $FilterListText
+        $TextFilter = '*'
     }
-
-    $TextFilter | Write-Verbose
     #endregion add provider
 
     #region create xml
@@ -173,6 +180,7 @@ function New-EventFilterXml {
     $xmlWriter.Close()
     #endregion create xml
 
+    '{0}{1}' -f [System.Environment]::NewLine,$stringBuilder.ToString() | Write-Verbose
     $stringBuilder.ToString()
 
 }
