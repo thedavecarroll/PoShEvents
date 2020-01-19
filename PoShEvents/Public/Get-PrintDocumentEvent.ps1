@@ -73,7 +73,6 @@ function Get-PrintDocumentEvent {
         }
 
         $FilterXml = New-EventFilterXml @FilterXmlParam
-
         '{0}{1}' -f [System.Environment]::NewLine,$FilterXml | Write-Verbose
 
         $ParameterSplat = @{}
