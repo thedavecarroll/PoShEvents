@@ -1,5 +1,5 @@
 ﻿function Get-GPOProcessingEvent {
-    [CmdletBinding()]
+    [CmdLetBinding(DefaultParameterSetName='TimeSpan')]
     param(
         [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]
         [Alias('IPAddress','__Server','CN')]
@@ -7,8 +7,12 @@
         [ValidateNotNull()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]$Credential = [System.Management.Automation.PSCredential]::Empty,
+        [Parameter(ParameterSetName='TimeRange')]
         [datetime]$StartTime,
+        [Parameter(ParameterSetName='TimeRange')]
         [datetime]$EndTime,
+        [Parameter(ParameterSetName='TimeSpan')]
+        [timespan]$Since,
         [int64]$MaxEvents,
         [switch]$Oldest,
         [switch]$Raw,
@@ -17,11 +21,25 @@
 
     begin {
 
-        $FilterHashTable = @{
-            LogName = "Microsoft-Windows-GroupPolicy/Operational"
+        $FilterXmlParam = @{
+            LogName = 'Microsoft-Windows-GroupPolicy/Operational'
+            Verbose = $false
         }
-        if ($StartTime) { $FilterHashTable.Add("StartTime",$StartTime) }
-        if ($EndTime) { $FilterHashTable.Add("EndTime",$EndTime) }
+        if ($PSCmdlet.ParameterSetName -eq 'TimeSpan') {
+            if ($Since) {
+                $FilterXmlParam.Add('Since',$Since)
+            }
+        } else {
+            if ($StartTime) {
+                $FilterXmlParam.Add('StartTime',$StartTime)
+            }
+            if ($EndTime) {
+                $FilterXmlParam.Add('EndTime',$EndTime)
+            }
+        }
+
+        $FilterXml = New-EventFilterXml @FilterXmlParam
+        '{0}{1}' -f [System.Environment]::NewLine,$FilterXml | Write-Verbose
 
         $ParameterSplat = @{}
         if ($Credential) {
@@ -38,12 +56,12 @@
 
     process {
         if ($Raw) {
-            Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashTable @ParameterSplat
+            Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat
         } else {
             if ($GroupPolicy) {
-                Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashTable @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'GPOProcessingEvent' -GroupPolicy $GroupPolicy
+                Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'GPOProcessingEvent' -GroupPolicy $GroupPolicy
             } else {
-                Get-MyEvent -ComputerName $ComputerName -FilterHashtable $FilterHashTable @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'GPOProcessingEvent'
+                Get-MyEvent -ComputerName $ComputerName -FilterXml $FilterXml @ParameterSplat | ConvertFrom-EventLogRecord -EventRecordType 'GPOProcessingEvent'
             }
         }
     }
