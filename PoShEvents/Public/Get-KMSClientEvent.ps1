@@ -1,5 +1,5 @@
 function Get-KMSClientEvent {
-    [CmdletBinding()]
+    [CmdLetBinding(DefaultParameterSetName='TimeSpan')]
     param(
         [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]
         [Alias('IPAddress','__Server','CN')]
@@ -7,8 +7,12 @@ function Get-KMSClientEvent {
         [ValidateNotNull()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]$Credential = [System.Management.Automation.PSCredential]::Empty,
+        [Parameter(ParameterSetName='TimeRange')]
         [datetime]$StartTime,
+        [Parameter(ParameterSetName='TimeRange')]
         [datetime]$EndTime,
+        [Parameter(ParameterSetName='TimeSpan')]
+        [timespan]$Since,
         [int64]$MaxEvents,
         [switch]$Oldest,
         [switch]$Raw
@@ -16,27 +20,27 @@ function Get-KMSClientEvent {
 
     begin {
 
-        if ($StartTime -and $EndTime) {
-            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))' and @SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
-        } elseif ($StartTime) {
-            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&gt;='$($StartTime.ToUniversalTime().ToString("s"))'])"
-        } elseif ($EndTime) {
-            $TimeCreatedFilter = "and (System/TimeCreated[@SystemTime&lt;='$($EndTime.ToUniversalTime().ToString("s"))'])"
+        $FilterXmlParam = @{
+            LogName = 'Application'
+            Provider = 'Microsoft-Windows-Security-SPP'
+            EventId = 12288,12289,12308
+            Verbose = $false
+        }
+        if ($PSCmdlet.ParameterSetName -eq 'TimeSpan') {
+            if ($Since) {
+                $FilterXmlParam.Add('Since',$Since)
+            }
         } else {
-            $TimeCreatedFilter = ']'
+            if ($StartTime) {
+                $FilterXmlParam.Add('StartTime',$StartTime)
+            }
+            if ($EndTime) {
+                $FilterXmlParam.Add('EndTime',$EndTime)
+            }
         }
 
-        $FilterXmlText = '<QueryList>'
-        $FilterXmlText += '<Query Id="0" Path="Application">'
-        $FilterXmlText += '<Select Path="Application">'
-        $FilterXmlText += '*[System[Provider[@Name=''Microsoft-Windows-Security-SPP''] and '
-        $FilterXmlText += '(EventID=12288 or EventID=12289 or EventID=12308)]'
-        $FilterXmlText += $TimeCreatedFilter
-        $FilterXmlText += '</Select>'
-        $FilterXmlText += '</Query>'
-        $FilterXmlText += '</QueryList>'
-
-        [xml]$FilterXml = $FilterXmlText
+        $FilterXml = New-EventFilterXml @FilterXmlParam
+        '{0}{1}' -f [System.Environment]::NewLine,$FilterXml | Write-Verbose
 
         $ParameterSplat = @{}
         if ($Credential) {
