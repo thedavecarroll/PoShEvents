@@ -53,13 +53,13 @@ function Get-LogonFailureReason {
                 '0x3' { $LogonFailureReason.Append('Requested protocol version # not supported')}
                 '0x4' { $LogonFailureReason.Append('Client''s key encrypted in old master key')}
                 '0x5' { $LogonFailureReason.Append('Server''s key encrypted in old master key')}
-                '0x6' { $LogonFailureReason.Append('Client not found in Kerberos database')}    #Bad user name, or new computer/user account has not replicated to DC yet
-                '0x7' { $LogonFailureReason.Append('Server not found in Kerberos database')} #     New computer account has not replicated yet or computer is pre-w2k
+                '0x6' { $LogonFailureReason.Append('Client not found in Kerberos database')} # Bad user name, or new computer/user account has not replicated to DC yet
+                '0x7' { $LogonFailureReason.Append('Server not found in Kerberos database')} # New computer account has not replicated yet or computer is pre-w2k
                 '0x8' { $LogonFailureReason.Append('Multiple principal entries in database')}
                 '0x9' { $LogonFailureReason.Append('The client or server has a null key')} # administrator should reset the password on the account
                 '0xA' { $LogonFailureReason.Append('Ticket not eligible for postdating')}
                 '0xB' { $LogonFailureReason.Append('Requested start time is later than end time')}
-                '0xC' { $LogonFailureReason.Append('KDC policy rejects request')} #    Workstation restriction
+                '0xC' { $LogonFailureReason.Append('KDC policy rejects request')} # Workstation restriction
                 '0xD' { $LogonFailureReason.Append('KDC cannot accommodate requested option')}
                 '0xE' { $LogonFailureReason.Append('KDC has no support for encryption type')}
                 '0xF' { $LogonFailureReason.Append('KDC has no support for checksum type')}
@@ -70,17 +70,17 @@ function Get-LogonFailureReason {
                 '0x14' { $LogonFailureReason.Append('TGT has been revoked')}
                 '0x15' { $LogonFailureReason.Append('Client not yet valid - try again later')}
                 '0x16' { $LogonFailureReason.Append('Server not yet valid - try again later')}
-                '0x17' { $LogonFailureReason.Append('Password has expired')} # The userâ€™s password has expired.
+                '0x17' { $LogonFailureReason.Append('Password has expired')} # The user's password has expired.
                 '0x18' { $LogonFailureReason.Append('Pre-authentication information was invalid')} # Usually means bad password
                 '0x19' { $LogonFailureReason.Append('Additional pre-authentication required*')}
                 '0x1F' { $LogonFailureReason.Append('Integrity check on decrypted field failed')}
-                '0x20' { $LogonFailureReason.Append('Ticket expired')} #Frequently logged by computer accounts
+                '0x20' { $LogonFailureReason.Append('Ticket expired')} # Frequently logged by computer accounts
                 '0x21' { $LogonFailureReason.Append('Ticket not yet valid')}
                 '0x21' { $LogonFailureReason.Append('Ticket not yet valid')}
                 '0x22' { $LogonFailureReason.Append('Request is a replay')}
                 '0x23' { $LogonFailureReason.Append('The ticket isn''t for us')}
                 '0x24' { $LogonFailureReason.Append('Ticket and authenticator don''t match')}
-                '0x25' { $LogonFailureReason.Append('Clock skew too great')} #    Workstationâ€™s clock too far out of sync with the DCâ€™s
+                '0x25' { $LogonFailureReason.Append('Clock skew too great')} # Workstation's clock too far out of sync with the DCâ€™s
                 '0x26' { $LogonFailureReason.Append('Incorrect net address')} # IP address change?
                 '0x27' { $LogonFailureReason.Append('Protocol version mismatch')}
                 '0x28' { $LogonFailureReason.Append('Invalid msg type')}
@@ -88,7 +88,7 @@ function Get-LogonFailureReason {
                 '0x2A' { $LogonFailureReason.Append('Message out of order')}
                 '0x2C' { $LogonFailureReason.Append('Specified version of key is not available')}
                 '0x2D' { $LogonFailureReason.Append('Service key not available')}
-                '0x2E' { $LogonFailureReason.Append('Mutual authentication failed')} #     may be a memory allocation failure
+                '0x2E' { $LogonFailureReason.Append('Mutual authentication failed')} #   may be a memory allocation failure
                 '0x2F' { $LogonFailureReason.Append('Incorrect message direction')}
                 '0x30' { $LogonFailureReason.Append('Alternative authentication method required*')}
                 '0x31' { $LogonFailureReason.Append('Incorrect sequence number in message')}
