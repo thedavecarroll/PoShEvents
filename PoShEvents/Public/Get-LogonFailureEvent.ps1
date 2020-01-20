@@ -1,4 +1,4 @@
-﻿function Get-LogonFailureEvent {
+function Get-LogonFailureEvent {
     [CmdLetBinding()]
     param(
         [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]

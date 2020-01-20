@@ -1,4 +1,4 @@
-﻿function Get-SystemRestartEvent {
+function Get-SystemRestartEvent {
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]

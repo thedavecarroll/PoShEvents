@@ -1,4 +1,4 @@
-﻿function Get-RemoteLogonEvent {
+function Get-RemoteLogonEvent {
     [CmdLetBinding(DefaultParameterSetName='TimeSpan')]
     param(
         [Parameter(ParameterSetName='Default',ValueFromPipelineByPropertyName,ValueFromPipeline)]

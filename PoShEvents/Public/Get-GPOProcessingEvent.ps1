@@ -1,4 +1,4 @@
-﻿function Get-GPOProcessingEvent {
+function Get-GPOProcessingEvent {
     [CmdLetBinding(DefaultParameterSetName='TimeSpan')]
     param(
         [Parameter(ValueFromPipelineByPropertyName=$true,ValueFromPipeline=$true)]
