@@ -12,17 +12,18 @@ Creates XML that can be used to query event logs using the `Get-WinEvent` cmdlet
 
 ## SYNTAX
 
-### Default (Default)
+### TimeSpan (Default)
 ```powershell
-New-EventFilterXml -LogName <String> [-Provider <String>] [-EventId <String[]>] [-StartTime <DateTime>]
- [-EndTime <DateTime>] [-Since <TimeSpan>] [-EventDataFilter <String>] [-LevelDisplayName <LogLevelName[]>]
+New-EventFilterXml -LogName <String> [-Provider <String>] [-EventId <String[]>] [-Since <TimeSpan>]
+ [-EventDataFilter <String>] [-LevelDisplayName <LogLevelName[]>] [-Audit <String[]>] [-XPath]
  [<CommonParameters>]
 ```
 
-### Security
+### TimeRange
 ```powershell
 New-EventFilterXml -LogName <String> [-Provider <String>] [-EventId <String[]>] [-StartTime <DateTime>]
- [-EndTime <DateTime>] [-Since <TimeSpan>] [-EventDataFilter <String>] [-Audit <String[]>] [<CommonParameters>]
+ [-EndTime <DateTime>] [-EventDataFilter <String>] [-LevelDisplayName <LogLevelName[]>] [-Audit <String[]>]
+ [-XPath] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,7 +50,7 @@ Specifies the audit level for the Security to add to the XML filter.
 
 ```yaml
 Type: String[]
-Parameter Sets: Security
+Parameter Sets: (All)
 Aliases:
 Accepted values: Success, Failure
 
@@ -65,7 +66,7 @@ Specifies the end of the time period to add to the XML filter.
 
 ```yaml
 Type: DateTime
-Parameter Sets: (All)
+Parameter Sets: TimeRange
 Aliases:
 
 Required: False
@@ -110,7 +111,7 @@ Specifies one or more event log levels to add to the XML filter.
 
 ```yaml
 Type: LogLevelName[]
-Parameter Sets: Default
+Parameter Sets: (All)
 Aliases: Level
 Accepted values: LogAlways, Critical, Error, Warning, Informational, Verbose, Issues
 
@@ -156,7 +157,7 @@ Specifies the beginning of the time period for the event log query based on the 
 
 ```yaml
 Type: TimeSpan
-Parameter Sets: (All)
+Parameter Sets: TimeSpan
 Aliases: TimeSpan
 
 Required: False
@@ -171,6 +172,21 @@ Specifies the beginning of the time period to add to the XML filter.
 
 ```yaml
 Type: DateTime
+Parameter Sets: TimeRange
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -XPath
+Return only an XPath filter.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

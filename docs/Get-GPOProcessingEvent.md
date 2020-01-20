@@ -12,7 +12,14 @@ Queries the specific computer or group of computers for group policy processing 
 
 ## SYNTAX
 
-```powershell
+### TimeSpan (Default)
+```
+Get-GPOProcessingEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [-Since <TimeSpan>]
+ [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [-GroupPolicy <Object[]>] [<CommonParameters>]
+```
+
+### TimeRange
+```
 Get-GPOProcessingEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
  [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [-GroupPolicy <Object[]>] [<CommonParameters>]
 ```
@@ -22,13 +29,19 @@ Queries the specific computer or group of computers for group policy processing 
 
 ## EXAMPLES
 
-### Example 1
+### Example
 ```powershell
-PS C:\> Get-GPOProcessingEvent -MaxEvents 10 | Out-GridView
+PS C:\> Get-GPOProcessingEvent -MaxEvents 10
 ```
 
-This command will show the last 10 group policy processing events on the local system in gridview.
-You can then sort or enter additional criteria in the gridview.
+This command will show the last 10 group policy processing events on the local system.
+
+### Example
+```powershell
+PS C:\> Get-GPOProcessingEvent -Since (New-TimeSpan -Days 3)
+```
+
+This command will show the group policy processing events that occurred on the local system in the last three days.
 
 ## PARAMETERS
 
@@ -75,7 +88,7 @@ Specifies the end of the time period for the event log query.
 
 ```yaml
 Type: DateTime
-Parameter Sets: (All)
+Parameter Sets: TimeRange
 Aliases:
 
 Required: False
@@ -122,7 +135,7 @@ Specifies the beginning of the time period for the event log query.
 
 ```yaml
 Type: DateTime
-Parameter Sets: (All)
+Parameter Sets: TimeRange
 Aliases:
 
 Required: False
@@ -158,6 +171,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Since
+Specifies the beginning of the time period for the event log query based on the given amount of time.
+
+```yaml
+Type: TimeSpan
+Parameter Sets: TimeSpan
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

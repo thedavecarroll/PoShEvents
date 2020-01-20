@@ -12,6 +12,13 @@ This function will search the provider Microsoft-Windows-Security-SPP for KMS Ho
 
 ## SYNTAX
 
+### TimeSpan (Default)
+```powershell
+Get-KMSHostLicenseCheckEvent [[-ComputerName] <String>] [[-Credential] <PSCredential>] [-Since <TimeSpan>]
+ [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [<CommonParameters>]
+```
+
+### TimeRange
 ```powershell
 Get-KMSHostLicenseCheckEvent [[-ComputerName] <String>] [[-Credential] <PSCredential>]
  [[-StartTime] <DateTime>] [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [<CommonParameters>]
@@ -74,7 +81,7 @@ Specifies the end of the time period for the event log query.
 
 ```yaml
 Type: DateTime
-Parameter Sets: (All)
+Parameter Sets: TimeRange
 Aliases:
 
 Required: False
@@ -121,7 +128,7 @@ Specifies the beginning of the time period for the event log query.
 
 ```yaml
 Type: DateTime
-Parameter Sets: (All)
+Parameter Sets: TimeRange
 Aliases:
 
 Required: False
@@ -142,6 +149,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Since
+Specifies the beginning of the time period for the event log query based on the given amount of time.
+
+```yaml
+Type: TimeSpan
+Parameter Sets: TimeSpan
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

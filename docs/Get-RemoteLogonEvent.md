@@ -13,19 +13,19 @@ This function queries the security log for EventIds 4624,4625,4634,4778,4779.
 ## SYNTAX
 
 ### TimeSpan (Default)
-```powershell
+```
 Get-RemoteLogonEvent [[-Credential] <PSCredential>] [-Since <TimeSpan>] [[-MaxEvents] <Int64>] [-Oldest] [-Raw]
  [<CommonParameters>]
 ```
 
 ### Default
-```powershell
+```
 Get-RemoteLogonEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-MaxEvents] <Int64>]
  [-Oldest] [-Raw] [<CommonParameters>]
 ```
 
 ### TimeRange
-```powershell
+```
 Get-RemoteLogonEvent [[-Credential] <PSCredential>] [[-StartTime] <DateTime>] [[-EndTime] <DateTime>]
  [[-MaxEvents] <Int64>] [-Oldest] [-Raw] [<CommonParameters>]
 ```

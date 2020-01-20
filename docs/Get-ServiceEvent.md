@@ -13,6 +13,13 @@ You can then filter on a particular service name or service displayname.
 
 ## SYNTAX
 
+### TimeSpan (Default)
+```powershell
+Get-ServiceEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [-Since <TimeSpan>]
+ [[-MaxEvents] <Int64>] [-Oldest] [-EventType <String>] [-Raw] [<CommonParameters>]
+```
+
+### TimeRange
 ```powershell
 Get-ServiceEvent [[-ComputerName] <String[]>] [[-Credential] <PSCredential>] [[-StartTime] <DateTime>]
  [[-EndTime] <DateTime>] [[-MaxEvents] <Int64>] [-Oldest] [-EventType <String>] [-Raw] [<CommonParameters>]
@@ -92,7 +99,7 @@ Specifies the end of the time period for the event log query.
 
 ```yaml
 Type: DateTime
-Parameter Sets: (All)
+Parameter Sets: TimeRange
 Aliases:
 
 Required: False
@@ -139,7 +146,7 @@ Specifies the beginning of the time period for the event log query.
 
 ```yaml
 Type: DateTime
-Parameter Sets: (All)
+Parameter Sets: TimeRange
 Aliases:
 
 Required: False
@@ -172,6 +179,21 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 Accepted values: ServiceOperations, ServiceStart, ServiceStop, ServiceControlManagerOperations, ServiceInstall
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Since
+Specifies the beginning of the time period for the event log query based on the given amount of time.
+
+```yaml
+Type: TimeSpan
+Parameter Sets: TimeSpan
+Aliases:
 
 Required: False
 Position: Named
