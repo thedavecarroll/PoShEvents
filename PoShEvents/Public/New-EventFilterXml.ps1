@@ -1,5 +1,5 @@
 function New-EventFilterXml {
-    [CmdLetBinding(DefaultParameterSetName='Default')]
+    [CmdLetBinding(DefaultParameterSetName='TimeSpan')]
     param(
         [Parameter(Mandatory)]
         [string]$LogName,
@@ -9,25 +9,30 @@ function New-EventFilterXml {
         [Alias('Id')]
         [string[]]$EventId,
 
+        [Parameter(ParameterSetName='TimeRange')]
         [datetime]$StartTime,
+
+        [Parameter(ParameterSetName='TimeRange')]
         [datetime]$EndTime,
 
+        [Parameter(ParameterSetName='TimeSpan')]
         [Alias('TimeSpan')]
         [timespan]$Since,
 
         [string]$EventDataFilter,
 
-        [Parameter(ParameterSetName='Default')]
         [Alias('Level')]
         [LogLevelName[]]$LevelDisplayName,
 
-        [Parameter(ParameterSetName='Security')]
         [ValidateSet('Success','Failure')]
-        [string[]]$Audit
+        [string[]]$Audit,
+
+        [switch]$XPath
     )
 
     #region validate logname when using parameterset Security
-    if ($PSCmdlet.ParameterSetName -eq 'Security' -and $LogName -ne 'Security') {
+    if ($PSBoundParameters.Keys -contains 'Audit' -and $LogName -ne 'Security')  {
+
         try {
             Write-Error -Message 'Audit filtering must specify Security as LogName' -Category InvalidArgument -ErrorAction Stop
         }
@@ -36,17 +41,6 @@ function New-EventFilterXml {
         }
     }
     #endregion validate logname when using parameterset Security
-
-    #region validate that Start and EndTime is not used with Since
-    if ($PSBoundParameters.Keys -contains 'Since' -and ($PSBoundParameters.Keys -contains 'StartTime' -or $PSBoundParameters.Keys -contains 'EndTime'))  {
-        try {
-            Write-Error -Message 'Provide a value for Since or provide StartTime and/or EndTime, but not both' -Category InvalidArgument -ErrorAction Stop
-        }
-        catch {
-            $PSCmdlet.ThrowTerminatingError($_)
-        }
-    }
-    #endregion validate that Start and EndTime is not used with Since
 
     $EventFilterList = [System.Collections.Generic.List[object]]::new()
 
@@ -136,14 +130,30 @@ function New-EventFilterXml {
     }
     if ($FilterListText) {
         if ($Provider) {
-            $TextFilter = '*[System[Provider[@Name="{0}"] and {1}]]' -f $Provider,$FilterListText
+            $XPathFilter = '*[System[Provider[@Name="{0}"] and {1}]]' -f $Provider,$FilterListText
         } else {
-            $TextFilter = '*[System[{0}]]' -f $FilterListText
+            $XPathFilter = '*[System[{0}]]' -f $FilterListText
         }
     } else {
-        $TextFilter = '*'
+        $XPathFilter = '*'
     }
     #endregion add provider
+
+    #region combine data filter
+    if ($EventDataFilter) {
+        $CombinedFilter = $XPathFilter,$EventDataFilter -join ' and '
+    } else {
+        $CombinedFilter = $XPathFilter
+    }
+    #endregion
+
+    #region output XPath filter only
+    if ($XPath) {
+        '{0}{1}' -f [System.Environment]::NewLine,$CombinedFilter | Write-Verbose
+        $CombinedFilter
+        return
+    }
+    #endregion
 
     #region create xml
     $xmlWriterSettings = [System.Xml.XmlWriterSettings]::new()
@@ -161,18 +171,12 @@ function New-EventFilterXml {
     $xmlWriter.WriteStartElement('Query')
     $xmlWriter.WriteAttributeString('Id',0)
     $xmlWriter.WriteAttributeString('Path',$LogName)
-
     $xmlWriter.WriteStartElement('Select')
-
     $xmlWriter.WriteAttributeString('Path',$LogName)
 
-    if ($EventDataFilter) {
-        $xmlWriter.WriteString(($TextFilter,$EventDataFilter -join ' and '))
-    } else {
-        $xmlWriter.WriteString($TextFilter)
-    }
+    $xmlWriter.WriteString($CombinedFilter)
 
-    $xmlWriter.WriteEndElement() # end Select or Suppress
+    $xmlWriter.WriteEndElement() # end Select
     $xmlWriter.WriteEndElement() # end Query
     $xmlWriter.WriteEndElement() # end QueryList
     $xmlWriter.WriteEndDocument() # end document
