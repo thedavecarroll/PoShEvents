@@ -23,6 +23,27 @@ function ConvertFrom-EventLogRecord {
                 $KmsProductSku = Import-KmsProductSku
             }
         }
+
+        function ConvertDataNode {
+            param($DataNode)
+            if ($DataNode.Data.Count) {
+                For ($i=0; $i -lt $DataNode.Data.Count; $i++) {
+                    if ($DataNode.Data[$i].name) {
+                        if ($DataNode.Data[$i].'#text' -eq "-") {
+                            $Value = $null
+                        } else {
+                            $Value = $DataNode.Data[$i].'#text'
+                        }
+                        $Event.Add($DataNode.Data[$i].name,$value)
+                    }
+                }
+            } else {
+                if ($DataNode.Data.Name) {
+                    $Event.Add($DataNode.Data.name,$DataNode.Data.'#text')
+                }
+            }
+        }
+
     }
     process {
         foreach ($EventLogRecord in $Events) {
@@ -33,9 +54,6 @@ function ConvertFrom-EventLogRecord {
             }
 
             $EventRecordXml = [xml]$EventLogRecord.ToXml()
-
-            $EventData = $EventRecordXml.Event.EventData
-            $UserData = $EventRecordXml.Event.UserData
 
             try {
                 $UserName = ConvertFrom-UserSID -UserSID $EventLogRecord.UserId
@@ -56,57 +74,27 @@ function ConvertFrom-EventLogRecord {
                 UserId          = $EventLogRecord.UserId
                 UserName        = $UserName
                 Message         = $EventLogRecord.Message
-                EventData       = $EventData
-                UserData        = $UserData
+                EventData       = $EventRecordXml.Event.EventData
+                UserData        = $EventRecordXml.Event.UserData
             }
 
-            if ($EventData) {
-                if ($EventData.Data.Count) {
-                    For ($i=0; $i -lt $EventData.Data.Count; $i++) {
-                        if ($EventData.Data[$i].name) {
-                            if ($EventData.Data[$i].'#text' -eq "-") {
-                                $Value = $null
-                            } else {
-                                $Value = $EventData.Data[$i].'#text'
-                            }
-                            $Event.Add($EventData.Data[$i].name,$value)
-                        }
-                    }
-                } else {
-                    if ($EventData.Data.Name) {
-                        $Event.Add($EventData.Data.name,$EventData.Data.'#text')
-                    }
-                }
+            if ($Event.EventData) {
+                ConvertDataNode -DataNode $Event.EventData
             }
 
-            if ($UserData) {
-                if ($UserData.Data.Count) {
-                    For ($i=0; $i -lt $UserData.Data.Count; $i++) {
-                        if ($UserData.Data[$i].name) {
-                            if ($UserData.Data[$i].'#text' -eq "-") {
-                                $Value = $null
-                            } else {
-                                $Value = $UserData.Data[$i].'#text'
-                            }
-                            $Event.Add($UserData.Data[$i].name,$value)
-                        }
-                    }
-                } else {
-                    if ($UserData.Data.Name) {
-                        $Event.Add($UserData.Data.name,$UserData.Data.'#text')
-                    }
-                }
+            if ($Event.UserData) {
+                ConvertDataNode -DataNode $Event.UserData
             }
 
             switch ($EventRecordType) {
                 'PrintDocument' {
-                    $Event.Add('PrintJobId',$UserData.DocumentPrinted.Param1)
-                    $Event.Add('DocumentName',$UserData.DocumentPrinted.Param2)
-                    $Event.Add('ClientMachineName',$UserData.DocumentPrinted.Param4)
-                    $Event.Add('PrinterName',$UserData.DocumentPrinted.Param5)
-                    $Event.Add('PrinterPort',$UserData.DocumentPrinted.Param6)
-                    $Event.Add('DocumentSizeBytes',$UserData.DocumentPrinted.Param7)
-                    $Event.Add('DocumentPageCount',$UserData.DocumentPrinted.Param8)
+                    $Event.Add('PrintJobId',$Event.UserData.DocumentPrinted.Param1)
+                    $Event.Add('DocumentName',$Event.UserData.DocumentPrinted.Param2)
+                    $Event.Add('ClientMachineName',$Event.UserData.DocumentPrinted.Param4)
+                    $Event.Add('PrinterName',$Event.UserData.DocumentPrinted.Param5)
+                    $Event.Add('PrinterPort',$Event.UserData.DocumentPrinted.Param6)
+                    $Event.Add('DocumentSizeBytes',$Event.UserData.DocumentPrinted.Param7)
+                    $Event.Add('DocumentPageCount',$Event.UserData.DocumentPrinted.Param8)
                     New-Object -Property $Event -TypeName PSCustomObject | Add-Member -TypeName 'MyEvent.EventRecordType.PrintDocument' -PassThru
                 }
                 'SystemRestartEvent' {
@@ -148,7 +136,7 @@ function ConvertFrom-EventLogRecord {
                     New-Object -Property $Event -TypeName PSCustomObject | Add-Member -TypeName 'MyEvent.EventRecordType.LogonFailureEvent' -PassThru
                 }
                 'OSVersionFromEvent' {
-                    [Version]$Version = $EventData.Data[0] + $EventData.Data[1]
+                    [Version]$Version = $Event.EventData.Data[0] + $Event.EventData.Data[1]
                     $Event.Add('OperatingSystemVersion',$Version.ToString())
                     New-Object -Property $Event -TypeName PSCustomObject | Add-Member -TypeName 'MyEvent.EventRecordType.OSVersionFromEvent' -PassThru
                 }
@@ -251,7 +239,7 @@ function ConvertFrom-EventLogRecord {
                     $CurrentActivationCount = $NextActivationAttempt = $null
                     $ActivationStatus = $ADActivationObjectName = $ADActivationObject = $null
 
-                    $KmsEventData = ($EventData.Data).Split(',')
+                    $KmsEventData = ($Event.EventData.Data).Split(',')
                     switch ($Event.Id) {
                         12288 {
                             $KMSHost = $KmsEventData[2].Trim().Split(':')[0]
@@ -280,11 +268,11 @@ function ConvertFrom-EventLogRecord {
                             $KmsErrorMessage = (Get-KmsErrorCode -ErrorCode $KmsEventData[0].Trim())
                         }
                         12308 {
-                            $ProductSkuId = $EventData.Data[0]
-                            $ProductSkuName = (Get-KmsProductSku -ProductSku $EventData.Data[0])
+                            $ProductSkuId = $Event.EventData.Data[0]
+                            $ProductSkuName = (Get-KmsProductSku -ProductSku $Event.EventData.Data[0])
                             $ActivationStatus = 'Active Directory Activation has succeeded.'
-                            $ADActivationObjectName = $EventData.Data[1]
-                            $ADActivationObject = $EventData.Data[2]
+                            $ADActivationObjectName = $Event.EventData.Data[1]
+                            $ADActivationObject = $Event.EventData.Data[2]
                         }
                     }
 
@@ -308,26 +296,26 @@ function ConvertFrom-EventLogRecord {
                     New-Object -Property $Event -TypeName PSCustomObject | Add-Member -TypeName 'MyEvent.EventRecordType.KMSClientEvent' -PassThru
                 }
                 'KMSHostEvent' {
-                    if ($EventData.Data[6] -eq 0) { $IsClientVM = $false } else { $IsClientVM = $true }
-                    $Event.Add('MinActivateCount',$EventData.Data[2])
-                    $Event.Add('ClientFqdn',$EventData.Data[3])
-                    $Event.Add('ClientMachineID',$EventData.Data[4])
-                    $Event.Add('ClientTimestamp',$EventData.Data[5])
+                    if ($Event.EventData.Data[6] -eq 0) { $IsClientVM = $false } else { $IsClientVM = $true }
+                    $Event.Add('MinActivateCount',$Event.EventData.Data[2])
+                    $Event.Add('ClientFqdn',$Event.EventData.Data[3])
+                    $Event.Add('ClientMachineID',$Event.EventData.Data[4])
+                    $Event.Add('ClientTimestamp',$Event.EventData.Data[5])
                     $Event.Add('IsClientVM',$IsClientVM)
-                    $Event.Add('ProductSkuId', (Get-KmsLicenseState -LicenseState $EventData.Data[7]))
-                    $Event.Add('LicenseStateExpirationMin',$EventData.Data[8])
-                    $Event.Add('LicenseStateExpiration',(Get-Date $EventData.Data[5]).AddMinutes($EventData.Data[8]))
-                    $Event.Add('ProductSkuId',$EventData.Data[9])
-                    $Event.Add('ProductSkuName',(Get-KmsProductSku -ProductSku $EventData.Data[9]))
-                    $Event.Add('KmsErrorCode',$EventData.Data[1])
-                    $Event.Add('KmsErrorMessage',(Get-KmsErrorCode -ErrorCode $EventData.Data[1]))
+                    $Event.Add('ProductSkuId', (Get-KmsLicenseState -LicenseState $Event.EventData.Data[7]))
+                    $Event.Add('LicenseStateExpirationMin',$Event.EventData.Data[8])
+                    $Event.Add('LicenseStateExpiration',(Get-Date $Event.EventData.Data[5]).AddMinutes($Event.EventData.Data[8]))
+                    $Event.Add('ProductSkuId',$Event.EventData.Data[9])
+                    $Event.Add('ProductSkuName',(Get-KmsProductSku -ProductSku $Event.EventData.Data[9]))
+                    $Event.Add('KmsErrorCode',$Event.EventData.Data[1])
+                    $Event.Add('KmsErrorMessage',(Get-KmsErrorCode -ErrorCode $Event.EventData.Data[1]))
                     New-Object -Property $Event -TypeName PSCustomObject | Add-Member -TypeName 'MyEvent.EventRecordType.KMSHostEvent' -PassThru
                 }
                 'KMSHostLicenseCheckEvent' {
-                    $ActivationId = $EventData.Data[1].Split(':')[1].Split(',')[0].Trim()
+                    $ActivationId = $Event.EventData.Data[1].Split(':')[1].Split(',')[0].Trim()
                     $Event.Add('ActivationId',$ActivationId)
                     $Event.Add('ApplicationName',(Get-KmsProductSku -ProductSku $ActivationId))
-                    $Event.Add('LicensingStatusMessage',$EventData.Data[1].Trim())
+                    $Event.Add('LicensingStatusMessage',$Event.EventData.Data[1].Trim())
                     New-Object -Property $Event -TypeName PSCustomObject | Add-Member -TypeName 'MyEvent.EventRecordType.KMSHostLicenseCheckEvent' -PassThru
                 }
                 default {
