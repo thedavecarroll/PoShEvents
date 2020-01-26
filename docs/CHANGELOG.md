@@ -6,6 +6,30 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.4.1] - 2020-01-25
+
+Feature, Bugfix, and Maintenance; Update Strongly Recommended
+
+### Fixed
+
+* [Issue #38](https://github.com/thedavecarroll/PoShEvents/issues/38) - New-EventFilterXml - Returns invalid query
+
+### Changed
+
+* [Issue #18](https://github.com/thedavecarroll/PoShEvents/issues/18) - Refactor Get-KMSClientEvent to use New-EventFilterXml
+* [Issue #19](https://github.com/thedavecarroll/PoShEvents/issues/19) - Refactor Get-KMSHostLicenseCheckEvent to use New-EventFilterXml
+* [Issue #39](https://github.com/thedavecarroll/PoShEvents/issues/39) - Refactor Get-KMSHostEvent to use New-EventFilterXml
+* [Issue #40](https://github.com/thedavecarroll/PoShEvents/issues/40) - Refactor Get-ServiceEvent to use New-EventFilterXml
+* [Issue #41](https://github.com/thedavecarroll/PoShEvents/issues/41) - Refactor Get-GPOProcessingEvent to use New-EventFilterXml
+
+### Maintenance
+
+* [Issue #36](https://github.com/thedavecarroll/PoShEvents/issues/36) - Update Module Copyright
+* [Issue #42](https://github.com/thedavecarroll/PoShEvents/issues/42) - Update Help
+* [Issue #43](https://github.com/thedavecarroll/PoShEvents/issues/43) - ConvertFrom-EventLogRecord - refactor to reduce code duplication
+
+[0.4.1]: https://github.com/thedavecarroll/PoShEvents/tree/053f344329f424ff5a776b5f1dacb60bd9cf3d9d
+
 ## [0.4.0] - 2020-01-07
 
 Bugfix and Feature Release, Update Strongly Recommended
@@ -31,6 +55,8 @@ Bugfix and Feature Release, Update Strongly Recommended
 * [Issue #32](https://github.com/thedavecarroll/PoShEvents/issues/32) - `Get-KmsProductSku` - remove import CSV code
 * [Issue #35](https://github.com/thedavecarroll/PoShEvents/issues/35) - `New-EventFilterXml` - replace LogLevelName with enum
 
+[0.4.0]: https://github.com/thedavecarroll/PoShEvents/tree/a3b25c86aa968586ed8f6f5ed66aed1e27cf87e4
+
 ## [0.3.0] - 2020-01-01
 
 ### Added
@@ -54,12 +80,16 @@ Bugfix and Feature Release, Update Strongly Recommended
 * Moved updatable help to [https://powershell.anovelidea.org/modulehelp/](https://powershell.anovelidea.org/modulehelp/)
 * Changed `ReleaseNotes.md` to `CHANGELOG.md`
 
+[0.3.0]: https://github.com/thedavecarroll/PoShEvents/tree/e4f966f27b20a909379a0dc6516559371633bd18
+
 ## [0.2.1] - 2018-08-27
 
 ### Changed
 
 * [Issue #1](https://github.com/thedavecarroll/PoShEvents/issues/1) - Move online help to [blog](http://powershell.anovelidea.org/modulehelp/PoShEvents)
 * [Issue #5](https://github.com/thedavecarroll/PoShEvents/issues/5) - Move updatable help to blog
+
+[0.2.1]: https://github.com/thedavecarroll/PoShEvents/tree/b874e4cef884d732f4625383ff8cfd4fbf4704f7
 
 ## [0.2.0] - 2018-07-03
 
@@ -80,6 +110,8 @@ Bugfix and Feature Release, Update Strongly Recommended
 * Add -Raw switch to present the raw event log records without converting them
   * Useful for some functions that use complex XML filters
 
+[0.2.0]: https://github.com/thedavecarroll/PoShEvents/tree/6d0225ee13fba668014732f556e90956f3840c93
+
 ## [0.1.2] - 2018-05-23
 
 ### Added
@@ -97,20 +129,18 @@ Bugfix and Feature Release, Update Strongly Recommended
 * Get-MyEvent
   * Switched to parameter set for filter and simplified error handling
 
+[0.1.2]: https://github.com/thedavecarroll/PoShEvents/tree/3b708cc40b498f2d54c30a7511c94baf6f3a5cdd
+
 ## [0.1.1] - 2018-05-12
 
 ### Added
 
 * Added external help
 
+[0.1.1]: https://github.com/thedavecarroll/PoShEvents/tree/99ce4e7340d2311de175eed9a21460b729478f31
+
 ## [0.1.0] - 2018-05-04
 
 * Initial release
 
-[0.4.0]: https://github.com/thedavecarroll/PoShEvents/tree/a3b25c86aa968586ed8f6f5ed66aed1e27cf87e4
-[0.3.0]: https://github.com/thedavecarroll/PoShEvents/tree/e4f966f27b20a909379a0dc6516559371633bd18
-[0.2.1]: https://github.com/thedavecarroll/PoShEvents/tree/b874e4cef884d732f4625383ff8cfd4fbf4704f7
-[0.2.0]: https://github.com/thedavecarroll/PoShEvents/tree/6d0225ee13fba668014732f556e90956f3840c93
-[0.1.2]: https://github.com/thedavecarroll/PoShEvents/tree/3b708cc40b498f2d54c30a7511c94baf6f3a5cdd
-[0.1.1]: https://github.com/thedavecarroll/PoShEvents/tree/99ce4e7340d2311de175eed9a21460b729478f31
 [0.1.0]: https://github.com/thedavecarroll/PoShEvents/tree/0867348cac84ee7bbdb3e9f41abf74133dc8a8cc
